@@ -1,0 +1,19 @@
+#!/bin/sh
+
+echo "Checking your coding style"
+
+./gradlew ktlintFormat
+
+if [ $? -eq 0 ]; then
+    if [[ -z $(git status -s) ]]
+    then
+        echo "ktlint OK!"
+    else
+        git add -u
+        git commit -m "[KtLint-Bot]: Fixing your shit code"
+        git push
+    fi
+else
+    echo "please run ktlintCheck"
+    Exit
+fi
