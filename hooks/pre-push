@@ -11,6 +11,7 @@ if [ $? -eq 0 ]; then
     else
         git add -u
         git commit -m "[KtLint-Bot]: Fixing your shit code"
+
     fi
 else
     echo "please run ktlintCheck"
