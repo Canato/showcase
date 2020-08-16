@@ -3,5 +3,17 @@
 echo "Checking your coding style"
 
 ./gradlew ktlintFormat
-git add -u
-git commit -m "[KtLint-Bot]: Fixing your shit code"
+
+if [ $? -eq 0 ]; then
+    if [[ -z $(git status -s) ]]
+    then
+        git push
+    else
+        git add -u
+        git commit -m "[KtLint-Bot]: Fixing your shit code"
+        git push
+    fi
+else
+    echo "please run ktlintCheck"
+    Exit
+fi
