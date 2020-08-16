@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Checking your coding style"
+
+./gradlew ktlintFormat
+git add -u
+git commit -m "[KtLint-Bot]: Fixing your shit code"
