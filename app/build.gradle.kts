@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         minSdkVersion(Apps.minSdk)
-        targetSdkVersion (Apps.targetSdk)
+        targetSdkVersion(Apps.targetSdk)
         versionCode = Apps.versionCode
         versionName = Apps.versionName
 
@@ -20,17 +20,17 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles (getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
 }
 
 dependencies {
-    implementation (fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation (Libs.kotlin.stdLib)
+    implementation(Libs.kotlin.stdLib)
 
-    implementation (Libs.android.coreKtx)
-    implementation (Libs.android.appCompat)
-    implementation (Libs.android.constraintLayout)
+    implementation(Libs.android.coreKtx)
+    implementation(Libs.android.appCompat)
+    implementation(Libs.android.constraintLayout)
 }
