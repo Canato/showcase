@@ -7,7 +7,7 @@ echo "Checking your coding style"
 if [ $? -eq 0 ]; then
     if [[ -z $(git status -s) ]]
     then
-        git push
+        echo "ktlint OK!"
     else
         git add -u
         git commit -m "[KtLint-Bot]: Fixing your shit code"
