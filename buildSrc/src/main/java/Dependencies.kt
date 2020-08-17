@@ -10,7 +10,6 @@ object Apps {
     const val versionName = "0.1"
 }
 
-
 object Versions {
 
     // Gradle
@@ -37,6 +36,9 @@ object Versions {
     const val firebaseAnalytics = "17.3.0"
     const val gson = "2.8.6"
 
+    // Retrofit
+    const val retrofit = "2.6.4"
+
     // Tests
     const val junit = "4.12"
     const val mockk = "1.9.3"
@@ -45,11 +47,17 @@ object Versions {
 }
 
 object Libs {
+    val retrofit = RetrofitLibs
     val android = AndroidLibs
     val kotlin = KotlinLibs
     val google = GoogleLibs
     val thirdParty = ThirdPartyLibs
     val test = TestLibs
+}
+
+object RetrofitLibs {
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
 }
 
 object AndroidLibs {
@@ -74,7 +82,6 @@ object KotlinLibs {
 
 object GoogleLibs {
     val firebase = FirebaseLibs
-
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
     const val googleServices =
         "com.google.gms:google-services:${Versions.kotlinGradlePlugin}"
@@ -90,7 +97,6 @@ object FirebaseLibs {
 
 object ThirdPartyLibs {
     const val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
-
 }
 
 object TestLibs {
@@ -99,5 +105,4 @@ object TestLibs {
     const val junitAndroid = "androidx.test.ext:junit:${Versions.junitAndroid}"
     const val espressoCore =
         "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
-
 }
