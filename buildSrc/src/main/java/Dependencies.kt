@@ -18,7 +18,7 @@ object Versions {
 
     // Kotlin
     const val ktLint = "9.2.1"
-    const val kotlin = "1.3.70"
+    const val kotlin = "1.3.72"
     const val coroutine = "1.3.7"
     const val coroutineServices = "1.1.1"
     const val kotlinGradlePlugin = "4.3.3"
