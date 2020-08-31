@@ -28,4 +28,7 @@ dependencies {
 
     implementation(Libs.android.coreKtx)
     implementation(Libs.android.appCompat)
+
+    // retrofit
+    implementation(Libs.retrofit.retrofit)
 }
