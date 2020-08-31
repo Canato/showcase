@@ -30,9 +30,9 @@ dependencies {
 
     implementation(project(Libs.showcase.common))
 
-    implementation(":data_source")
-    implementation(":data_source:bad_char_data_source")
-    implementation(":data_source:rank_data_source")
+    implementation(project(Libs.showcase.dataSource.root))
+    implementation(project(Libs.showcase.dataSource.bad))
+    implementation(project(Libs.showcase.dataSource.rank))
 
     implementation(Libs.kotlin.stdLib)
 

@@ -58,6 +58,13 @@ object Libs {
 
 object Showcase {
     const val common = ":common"
+    val dataSource = ShowcaseDataSource
+}
+
+object ShowcaseDataSource {
+    const val root = ":data_source"
+    const val bad = ":data_source:bad_char_data_source"
+    const val rank = ":data_source:rank_data_source"
 }
 
 object RetrofitLibs {
