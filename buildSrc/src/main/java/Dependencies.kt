@@ -47,12 +47,17 @@ object Versions {
 }
 
 object Libs {
+    val showcase = Showcase
     val retrofit = RetrofitLibs
     val android = AndroidLibs
     val kotlin = KotlinLibs
     val google = GoogleLibs
     val thirdParty = ThirdPartyLibs
     val test = TestLibs
+}
+
+object Showcase {
+    const val common = ":common"
 }
 
 object RetrofitLibs {

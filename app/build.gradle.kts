@@ -28,7 +28,7 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(":common")
+    implementation(project(Libs.showcase.common))
 
     implementation(Libs.kotlin.stdLib)
 
