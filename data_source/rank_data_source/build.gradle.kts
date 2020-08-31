@@ -1,8 +1,7 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
-    kotlin("kapt")
 }
 
 android {
@@ -13,28 +12,33 @@ android {
         targetSdkVersion(Apps.targetSdk)
         versionCode = Apps.versionCode
         versionName = Apps.versionName
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
+    }
+
+    kotlinOptions {
+        freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
     }
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(":data_source")
-    implementation(":data_source:bad_char_data_source")
-    implementation(":data_source:rank_data_source")
-
     implementation(Libs.kotlin.stdLib)
 
     implementation(Libs.android.coreKtx)
     implementation(Libs.android.appCompat)
-    implementation(Libs.android.constraintLayout)
+
+    // retrofit
+    implementation(Libs.retrofit.retrofit)
+    implementation(Libs.retrofit.gson)
+
+    // test
+    testImplementation(Libs.test.junit)
+    testImplementation(Libs.test.mockK)
+    testImplementation(Libs.kotlin.coroutineCore)
 }
