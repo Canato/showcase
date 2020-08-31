@@ -33,9 +33,12 @@ dependencies {
     implementation(Libs.android.coreKtx)
     implementation(Libs.android.appCompat)
 
-    //retrofit
+    // retrofit
     implementation(Libs.retrofit.retrofit)
     implementation(Libs.retrofit.gson)
 
+    // test
     testImplementation(Libs.test.junit)
+    testImplementation(Libs.test.mockK)
+    testImplementation(Libs.kotlin.coroutineCore)
 }

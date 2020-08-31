@@ -16,13 +16,13 @@ data class BadCharDto(
     @SerializedName("nickname")
     val nickname: BadCharNicknameDto,
     @SerializedName("appearance")
-    val seasons: Set<BadCharAppearanceDto>
+    val seasons: Set<BadCharSeasonDto>
 )
 
-inline class BadCharIdDto(val value: Int)
+inline class BadCharIdDto(val value: Long)
 inline class BadCharNameDto(val value: String)
 inline class BadCharOccupationDto(val value: String)
 inline class BadCharImgDto(val value: String)
 inline class BadCharStatusDto(val value: String)
 inline class BadCharNicknameDto(val value: String)
-inline class BadCharAppearanceDto(val value: Int)
+inline class BadCharSeasonDto(val value: Int)
