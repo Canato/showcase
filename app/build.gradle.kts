@@ -28,9 +28,9 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(":data_source")
-    implementation(":data_source:bad_char_data_source")
-    implementation(":data_source:rank_data_source")
+//    implementation(":data_source")
+//    implementation(":data_source:bad_char_data_source")
+//    implementation(":data_source:rank_data_source")
 
     implementation(Libs.kotlin.stdLib)
 
