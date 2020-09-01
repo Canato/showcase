@@ -28,6 +28,12 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
+    implementation(project(Libs.showcase.common))
+
+//    implementation(":data_source")
+//    implementation(":data_source:bad_char_data_source")
+//    implementation(":data_source:rank_data_source")
+
 //    implementation(":data_source")
 //    implementation(":data_source:bad_char_data_source")
 //    implementation(":data_source:rank_data_source")
