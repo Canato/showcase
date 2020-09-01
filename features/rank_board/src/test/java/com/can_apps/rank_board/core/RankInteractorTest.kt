@@ -41,7 +41,7 @@ internal class RankInteractorTest {
     fun `GIVEN saturday and profiles, WHEN init, THEN return domain`() {
         // GIVEN
         val weekDay = 6
-        val resetTime = RankResetTimeDomain(2)
+        val resetTime = RankResetTimeDomain(3)
         val profileA = mockk<RankProfileDomain>()
         val profileB = mockk<RankProfileDomain>()
         val profiles = setOf(profileA, profileB)
@@ -61,7 +61,7 @@ internal class RankInteractorTest {
     fun `GIVEN sunday and profiles, WHEN init, THEN return domain`() {
         // GIVEN
         val weekDay = 7
-        val resetTime = RankResetTimeDomain(1)
+        val resetTime = RankResetTimeDomain(2)
         val profileA = mockk<RankProfileDomain>()
         val profileB = mockk<RankProfileDomain>()
         val profiles = setOf(profileA, profileB)
@@ -81,7 +81,7 @@ internal class RankInteractorTest {
     fun `GIVEN monday and profiles, WHEN init, THEN return domain`() {
         // GIVEN
         val weekDay = 1
-        val resetTime = RankResetTimeDomain(7)
+        val resetTime = RankResetTimeDomain(8)
         val profileA = mockk<RankProfileDomain>()
         val profileB = mockk<RankProfileDomain>()
         val profiles = setOf(profileA, profileB)

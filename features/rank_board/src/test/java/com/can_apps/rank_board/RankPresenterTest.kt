@@ -3,9 +3,9 @@ package com.can_apps.rank_board
 import com.can_apps.common.CommonCalendarWrapper
 import com.can_apps.common.CommonStringResource
 import com.can_apps.rank_board.bresenter.RankModel
+import com.can_apps.rank_board.bresenter.RankXpModel
 import com.can_apps.rank_board.core.RankContract
 import com.can_apps.rank_board.core.RankUsernameDomain
-import com.can_apps.rank_board.core.RankXpDomain
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -64,15 +64,15 @@ internal class RankIntegrationTest {
         // GIVEN
         val reset = "3 days"
         val username = RankUsernameDomain("Post Malone")
-        val weekXp = RankXpDomain(42L)
+        val weekXp = RankXpModel("42 XP")
         val myUsername = RankUsernameDomain("Hungria")
-        val myWeekXp = RankXpDomain(999L)
+        val myWeekXp = RankXpModel("999 XP")
         val model = listOf(
-            RankModel.Profile(username, weekXp),
-            RankModel.MyOwn(myUsername, myWeekXp)
+            RankModel.MyOwn(myUsername, myWeekXp),
+            RankModel.Profile(username, weekXp)
         )
 
-        every { calendarWrapper.getDayOfWeek() } returns 5
+        every { calendarWrapper.getDayOfWeek() } returns 6
         every { string.getString(R.string.days) } returns "days"
 
         // WHEN
@@ -105,15 +105,15 @@ internal class RankIntegrationTest {
         // GIVEN
         val reset = "Intergalactic"
         val username = RankUsernameDomain("Post Malone")
-        val weekXp = RankXpDomain(42L)
+        val weekXp = RankXpModel("42 XP")
         val myUsername = RankUsernameDomain("Hungria")
-        val myWeekXp = RankXpDomain(999L)
+        val myWeekXp = RankXpModel("999 XP")
         val model = listOf(
-            RankModel.Profile(username, weekXp),
-            RankModel.MyOwn(myUsername, myWeekXp)
+            RankModel.MyOwn(myUsername, myWeekXp),
+            RankModel.Profile(username, weekXp)
         )
 
-        every { calendarWrapper.getDayOfWeek() } returns 7
+        every { calendarWrapper.getDayOfWeek() } returns 1
         every { string.getString(R.string.tomorrow) } returns reset
 
         // WHEN
