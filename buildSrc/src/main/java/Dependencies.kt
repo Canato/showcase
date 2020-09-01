@@ -44,6 +44,7 @@ object Versions {
     const val mockk = "1.9.3"
     const val junitAndroid = "1.1.1"
     const val espressoAndroid = "3.2.0"
+    const val okHttpMockWebServer = "4.8.1"
 }
 
 object Libs {
@@ -115,6 +116,7 @@ object TestLibs {
     const val junit = "junit:junit:${Versions.junit}"
     const val mockK = "io.mockk:mockk:${Versions.mockk}"
     const val junitAndroid = "androidx.test.ext:junit:${Versions.junitAndroid}"
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okHttpMockWebServer}"
     const val espressoCore =
         "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
 }

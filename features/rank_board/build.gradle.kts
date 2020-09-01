@@ -37,7 +37,8 @@ dependencies {
     implementation(Libs.android.appCompat)
 
     // test
-//    testImplementation(Libs.test.junit)
-//    testImplementation(Libs.test.mockK)
-//    testImplementation(Libs.kotlin.coroutineCore)
+    testImplementation(Libs.test.junit)
+    testImplementation(Libs.test.mockK)
+    testImplementation(Libs.test.mockWebServer)
+    testImplementation(Libs.kotlin.coroutineCore)
 }

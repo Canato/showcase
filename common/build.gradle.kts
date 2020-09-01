@@ -31,4 +31,7 @@ dependencies {
 
     // retrofit
     implementation(Libs.retrofit.retrofit)
+
+    // coroutine
+    implementation(Libs.kotlin.coroutineCore)
 }
