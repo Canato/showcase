@@ -67,10 +67,6 @@ object ShowcaseDataSource {
     const val rank = ":data_source:rank_data_source"
 }
 
-object Showcase {
-    const val common = ":common"
-}
-
 object RetrofitLibs {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"

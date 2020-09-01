@@ -35,14 +35,6 @@ dependencies {
 
     implementation(project(Libs.showcase.common))
 
-//    implementation(":data_source")
-//    implementation(":data_source:bad_char_data_source")
-//    implementation(":data_source:rank_data_source")
-
-//    implementation(":data_source")
-//    implementation(":data_source:bad_char_data_source")
-//    implementation(":data_source:rank_data_source")
-
     implementation(Libs.kotlin.stdLib)
 
     implementation(Libs.android.coreKtx)
