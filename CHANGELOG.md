@@ -8,3 +8,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 - Rank Module
 - Bad Data Source
+- Rank Data Source
+- Common Module

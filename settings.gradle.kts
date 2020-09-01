@@ -7,6 +7,7 @@ include(
     ":features",
     ":features:rank_board"
 )
+include(":app", ":common")
 
 include(
     ":data_source",

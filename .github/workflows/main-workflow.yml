@@ -24,7 +24,7 @@ jobs:
 
     # KtLint
     - name: Run ktlint check for code conventions
-      run: ./gradlew ktlintCheck
+      run: ./gradlew ktlintFormat
 
     # Test
     - name: Run unit test in debug build
