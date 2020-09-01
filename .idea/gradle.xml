@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/data_source/bad_char_data_source" />
             <option value="$PROJECT_DIR$/data_source/rank_data_source" />
             <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/rank_board" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

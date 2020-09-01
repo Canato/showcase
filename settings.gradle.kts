@@ -3,7 +3,10 @@ rootProject.name = "Showcase"
 
 include(":app", ":common")
 
-include(":features")
+include(
+    ":features",
+    ":features:rank_board"
+)
 
 include(
     ":data_source",
