@@ -2,11 +2,11 @@ package com.can_apps.rank_board.core
 
 import com.can_apps.common.CommonCalendarWrapper
 import com.can_apps.common.CommonCoroutineDispatcherFactory
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlin.coroutines.CoroutineContext
 
 internal class RankInteractor(
     private val repository: RankContract.Repository,

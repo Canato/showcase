@@ -21,5 +21,4 @@ class CommonCalendarWrapperDefault : CommonCalendarWrapper {
      */
     override fun getDayOfWeek(): Int =
         Calendar.getInstance(Locale.GERMAN).get(Calendar.DAY_OF_WEEK)
-
 }

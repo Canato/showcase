@@ -1,7 +1,6 @@
 package com.can_apps.rank_board.bresenter
 
 import com.can_apps.rank_board.core.RankUsernameDomain
-import com.can_apps.rank_board.core.RankXpDomain
 
 internal sealed class RankModel {
     abstract val username: RankUsernameDomain

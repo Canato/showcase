@@ -24,13 +24,13 @@ internal class RankAdapter : RecyclerView.Adapter<RankItemViewHolder>() {
 
     override fun onBindViewHolder(holder: RankItemViewHolder, position: Int) {
         val item = items[position]
-        holder.position.text = (position+1).toString()
+        holder.position.text = (position + 1).toString()
         holder.username.text = item.username.value
         holder.xp.text = item.weeklyXP.value
     }
 
     override fun getItemViewType(position: Int): Int =
-        when(items[position]) {
+        when (items[position]) {
             is RankModel.Profile -> profile
             is RankModel.MyOwn -> myOwn
         }

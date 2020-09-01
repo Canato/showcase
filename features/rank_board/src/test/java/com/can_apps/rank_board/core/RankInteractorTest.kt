@@ -96,5 +96,4 @@ internal class RankInteractorTest {
         // THEN
         assertEquals(expected, result)
     }
-
 }
