@@ -32,7 +32,6 @@ dependencies {
 
     implementation(project(Libs.showcase.features.rank))
 
-//    implementation(project(Libs.showcase.dataSource.root)) todo canato check wtf
     implementation(project(Libs.showcase.dataSource.bad))
     implementation(project(Libs.showcase.dataSource.rank))
 
