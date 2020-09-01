@@ -33,6 +33,7 @@ internal class RankFragment :
 
         setupRecyclerView()
 
+        presenter.onViewCreated()
     }
 
     private fun setupRecyclerView() {
