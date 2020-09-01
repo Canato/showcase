@@ -58,6 +58,6 @@ internal class RankRepositoryTest {
         val result = runBlocking { repository.getProfiles() }
 
         // THEN
-        assertEquals(domain, result)
+        assertEquals(expected, result)
     }
 }

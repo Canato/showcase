@@ -1,11 +1,13 @@
 package com.can_apps.rank_board
 
+import com.can_apps.common.CommonCalendarWrapper
 import com.can_apps.common.CommonStringResource
 import com.can_apps.rank_board.bresenter.RankModel
 import com.can_apps.rank_board.core.RankContract
 import com.can_apps.rank_board.core.RankUsernameDomain
 import com.can_apps.rank_board.core.RankXpDomain
 import io.mockk.MockKAnnotations
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import okhttp3.mockwebserver.Dispatcher
@@ -26,7 +28,11 @@ internal class RankIntegrationTest {
     private lateinit var string: CommonStringResource
 
     @MockK
+    private lateinit var calendarWrapper: CommonCalendarWrapper
+
+    @MockK
     private lateinit var view: RankContract.View
+
     private lateinit var presenter: RankContract.Presenter
 
     @Before
@@ -34,7 +40,7 @@ internal class RankIntegrationTest {
         MockKAnnotations.init(this, relaxed = true)
         val mockServerUrl = mockWebServerRule.url("/").toString()
 
-        val serviceLocator = MockRankServiceLocator(mockServerUrl, string)
+        val serviceLocator = MockRankServiceLocator(mockServerUrl, string, calendarWrapper)
         presenter = serviceLocator.getPresenter()
 
         presenter.bindView(view)
@@ -65,6 +71,50 @@ internal class RankIntegrationTest {
             RankModel.Profile(username, weekXp),
             RankModel.MyOwn(myUsername, myWeekXp)
         )
+
+        every { calendarWrapper.getDayOfWeek() } returns 5
+        every { string.getString(R.string.days) } returns "days"
+
+        // WHEN
+        presenter.onViewCreated()
+
+        // THEN
+        verify {
+            view.showLoading()
+            view.hideLoading()
+            view.updateResetTime(reset)
+            view.updateRankList(model)
+        }
+    }
+
+    @Test
+    fun `GIVEN Sunday, WHEN init, THEN reset tomorrow`() {
+        // MockWebServer
+        val response = MockResponse()
+            .setResponseCode(200)
+            .setBodyFromResource("integration/leaderboard.json")
+        val dispatcher = object : Dispatcher() {
+            override fun dispatch(request: RecordedRequest): MockResponse =
+                when (request.path) {
+                    "/api/v1/stub/leaderboard" -> response
+                    else -> MockResponse().setResponseCode(404)
+                }
+        }
+        mockWebServerRule.dispatcher = dispatcher
+
+        // GIVEN
+        val reset = "Intergalactic"
+        val username = RankUsernameDomain("Post Malone")
+        val weekXp = RankXpDomain(42L)
+        val myUsername = RankUsernameDomain("Hungria")
+        val myWeekXp = RankXpDomain(999L)
+        val model = listOf(
+            RankModel.Profile(username, weekXp),
+            RankModel.MyOwn(myUsername, myWeekXp)
+        )
+
+        every { calendarWrapper.getDayOfWeek() } returns 7
+        every { string.getString(R.string.tomorrow) } returns reset
 
         // WHEN
         presenter.onViewCreated()

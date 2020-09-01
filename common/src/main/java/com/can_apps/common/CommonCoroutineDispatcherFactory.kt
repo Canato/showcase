@@ -7,25 +7,25 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 interface CommonCoroutineDispatcherFactory {
 
-    val io: CoroutineContext
+    val IO: CoroutineContext
 
-    val ui: CoroutineContext
+    val UI: CoroutineContext
 }
 
 class CommonCoroutineDispatcherFactoryDefault : CommonCoroutineDispatcherFactory {
-    override val io: CoroutineContext
+    override val IO: CoroutineContext
         get() = Dispatchers.IO
 
-    override val ui: CoroutineContext
+    override val UI: CoroutineContext
         get() = Dispatchers.Main
 }
 
 @ExperimentalCoroutinesApi
 class CommonCoroutineDispatcherFactoryUnconfined : CommonCoroutineDispatcherFactory {
 
-    override val io: CoroutineContext
+    override val IO: CoroutineContext
         get() = Unconfined
 
-    override val ui: CoroutineContext
+    override val UI: CoroutineContext
         get() = Unconfined
 }

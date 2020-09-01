@@ -21,7 +21,10 @@ android {
     }
 
     kotlinOptions {
-        freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
+        freeCompilerArgs = listOf(
+            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-XXLanguage:+InlineClasses"
+        )
     }
 }
 
@@ -36,9 +39,14 @@ dependencies {
     implementation(Libs.android.coreKtx)
     implementation(Libs.android.appCompat)
 
+    implementation(Libs.kotlin.coroutineCore)
+
+    // retrofit
+    implementation(Libs.retrofit.retrofit)
+    implementation(Libs.retrofit.gson)
+
     // test
     testImplementation(Libs.test.junit)
     testImplementation(Libs.test.mockK)
     testImplementation(Libs.test.mockWebServer)
-    testImplementation(Libs.kotlin.coroutineCore)
 }
