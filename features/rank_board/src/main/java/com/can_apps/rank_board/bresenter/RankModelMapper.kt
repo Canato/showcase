@@ -16,14 +16,14 @@ internal class RankModelMapperDefault(private val string: CommonStringResource) 
 
     override fun toResetTitle(resetTime: RankResetTimeDomain): String =
         when (resetTime.value) {
-            1 -> string.getString(R.string.tomorrow)
+            8 -> string.getString(R.string.tomorrow)
             in 2..7 -> "${resetTime.value} ${string.getString(R.string.days)}"
             else -> "Never XoXo"
         }
 
     override fun toModel(profiles: Set<RankProfileDomain>): List<RankModel> =
         profiles
-            .sortedBy { it.weeklyXP.value }
+            .sortedByDescending { it.weeklyXP.value }
             .map {
                 if (it.isCurrentUser.value) RankModel.MyOwn(
                     it.username,

@@ -2,11 +2,14 @@
 <resources>
     <color name="rank_title">#FF9800</color>
     <color name="rank_background">#FDF1CC</color>
-    <color name="rank_subtitle">#DDD8CF</color>
+    <color name="rank_subtitle">#EFEDE9</color>
     <color name="rank_cta">#583501</color>
     <color name="rank_name">#070404</color>
-    <color name="rank_xp">#F7C84B</color>
+    <color name="rank_xp">#EAC556</color>
     <color name="rank_item_background">#FFFFFF</color>
     <color name="rank_count">#abb5ca</color>
-    <color name="rank_item_background_my">#C9CDD6</color>
+    <color name="rank_item_background_my">#EBEEF4</color>
+    <color name="rank_reset_background">#E78E0C</color>
+    <color name="white">#FFFFFF</color>
+    <color name="rank_list_background">#F4F4F4</color>
 </resources>

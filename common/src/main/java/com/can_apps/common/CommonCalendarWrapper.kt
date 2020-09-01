@@ -1,6 +1,7 @@
 package com.can_apps.common
 
 import java.util.Calendar
+import java.util.Locale
 
 interface CommonCalendarWrapper {
 
@@ -10,17 +11,15 @@ interface CommonCalendarWrapper {
 class CommonCalendarWrapperDefault : CommonCalendarWrapper {
 
     /**
-     *  1 -> "Monday"
-     *  2 -> "Tuesday"
-     *  3 -> "Wednesday"
-     *  4 -> "Thursday"
-     *  5 -> "Friday"
-     *  6 -> "Saturday"
-     *  7 -> "Sunday"
+     *  1 -> "Sunday"
+     *  2 -> "Monday"
+     *  3 -> "Tuesday"
+     *  4 -> "Wednesday"
+     *  5 -> "Thursday"
+     *  6 -> "Friday"
+     *  7 -> "Saturday"
      */
-    override fun getDayOfWeek(): Int {
-        val calendar = Calendar.getInstance()
-        calendar.firstDayOfWeek = Calendar.MONDAY
-        return calendar.get(Calendar.DAY_OF_WEEK)
-    }
+    override fun getDayOfWeek(): Int =
+        Calendar.getInstance(Locale.GERMAN).get(Calendar.DAY_OF_WEEK)
+
 }
