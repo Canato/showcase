@@ -25,7 +25,13 @@ internal class RankModelMapperDefault(private val string: CommonStringResource) 
         profiles
             .sortedBy { it.weeklyXP.value }
             .map {
-                if (it.isCurrentUser.value) RankModel.MyOwn(it.username, it.weeklyXP)
-                else RankModel.Profile(it.username, it.weeklyXP)
+                if (it.isCurrentUser.value) RankModel.MyOwn(
+                    it.username,
+                    RankXpModel("${it.weeklyXP.value} XP")
+                )
+                else RankModel.Profile(
+                    it.username,
+                    RankXpModel("${it.weeklyXP.value} XP")
+                )
             }
 }

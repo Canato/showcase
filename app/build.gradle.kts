@@ -29,6 +29,9 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(project(Libs.showcase.common))
+
+    implementation(project(Libs.showcase.features.rank))
+
 //    implementation(project(Libs.showcase.dataSource.root)) todo canato check wtf
     implementation(project(Libs.showcase.dataSource.bad))
     implementation(project(Libs.showcase.dataSource.rank))

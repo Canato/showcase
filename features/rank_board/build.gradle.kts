@@ -40,6 +40,8 @@ dependencies {
     implementation(Libs.android.appCompat)
 
     implementation(Libs.kotlin.coroutineCore)
+    implementation(Libs.android.recyclerView)
+    implementation(Libs.android.constraintLayout)
 
     // retrofit
     implementation(Libs.retrofit.retrofit)

@@ -4,14 +4,18 @@ import com.can_apps.rank_board.core.RankUsernameDomain
 import com.can_apps.rank_board.core.RankXpDomain
 
 internal sealed class RankModel {
+    abstract val username: RankUsernameDomain
+    abstract val weeklyXP: RankXpModel
 
     data class MyOwn(
-        val username: RankUsernameDomain,
-        val weeklyXP: RankXpDomain
+        override val username: RankUsernameDomain,
+        override val weeklyXP: RankXpModel
     ) : RankModel()
 
     data class Profile(
-        val username: RankUsernameDomain,
-        val weeklyXP: RankXpDomain
+        override val username: RankUsernameDomain,
+        override val weeklyXP: RankXpModel
     ) : RankModel()
 }
+
+inline class RankXpModel(val value: String)

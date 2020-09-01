@@ -29,7 +29,7 @@ object Versions {
     // Layout
     const val recyclerview = "1.1.0"
     const val materialDesign = "1.1.0"
-    const val constraintLayout = "1.1.3"
+    const val constraintLayout = "2.0.0"
 
     // Google
     const val firebaseAuth = "19.3.0"
@@ -59,7 +59,12 @@ object Libs {
 
 object Showcase {
     const val common = ":common"
+    val features = ShowcaseFeatures
     val dataSource = ShowcaseDataSource
+}
+
+object ShowcaseFeatures {
+    const val rank = ":features:rank_board"
 }
 
 object ShowcaseDataSource {

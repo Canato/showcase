@@ -63,4 +63,6 @@ internal open class RankServiceLocator(private val context: Context) {
 
     private fun getDtoMapper(): RankDtoMapper =
         RankDtoMapperDefault()
+
+    fun getAdapter(): RankAdapter = RankAdapter()
 }
