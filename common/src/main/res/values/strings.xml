@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="days">days</string>
+    <string name="rank_title">Compete with your friends this week!</string>
+    <string name="rank_reset_in">Resets in:</string>
+</resources>

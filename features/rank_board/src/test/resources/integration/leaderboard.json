@@ -1,0 +1,14 @@
+{
+  "profiles":[
+    {
+      "username":"Post Malone",
+      "weeklyXP":42,
+      "isCurrentUser":false
+    },
+    {
+      "username":"Hungria",
+      "weeklyXP":999,
+      "isCurrentUser":true
+    }
+  ]
+}

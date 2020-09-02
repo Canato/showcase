@@ -29,7 +29,7 @@ object Versions {
     // Layout
     const val recyclerview = "1.1.0"
     const val materialDesign = "1.1.0"
-    const val constraintLayout = "1.1.3"
+    const val constraintLayout = "2.0.0"
 
     // Google
     const val firebaseAuth = "19.3.0"
@@ -44,6 +44,7 @@ object Versions {
     const val mockk = "1.9.3"
     const val junitAndroid = "1.1.1"
     const val espressoAndroid = "3.2.0"
+    const val okHttpMockWebServer = "4.8.1"
 }
 
 object Libs {
@@ -58,6 +59,17 @@ object Libs {
 
 object Showcase {
     const val common = ":common"
+    val features = ShowcaseFeatures
+    val dataSource = ShowcaseDataSource
+}
+
+object ShowcaseFeatures {
+    const val rank = ":features:rank_board"
+}
+
+object ShowcaseDataSource {
+    const val bad = ":data_source:bad_char_data_source"
+    const val rank = ":data_source:rank_data_source"
 }
 
 object RetrofitLibs {
@@ -108,6 +120,7 @@ object TestLibs {
     const val junit = "junit:junit:${Versions.junit}"
     const val mockK = "io.mockk:mockk:${Versions.mockk}"
     const val junitAndroid = "androidx.test.ext:junit:${Versions.junitAndroid}"
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okHttpMockWebServer}"
     const val espressoCore =
         "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
 }

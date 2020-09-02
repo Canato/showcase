@@ -9,7 +9,7 @@ internal interface RankApi {
 }
 
 // https://www.stairwaylearning.com/api/v1/stub/leaderboard
-internal interface Api {
+interface Api {
 
     @GET("/api/v1/stub/leaderboard")
     suspend fun getAll(): RankDto

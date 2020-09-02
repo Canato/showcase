@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="rank_title">#E47A00</color>
+    <color name="rank_background">#FFF1C7</color>
+    <color name="rank_subtitle">#FFFFFF</color>
+    <color name="rank_cta">#E47A00</color>
+    <color name="rank_name">#29343A</color>
+    <color name="rank_xp">#FFC71E</color>
+    <color name="rank_item_background">#FFFFFF</color>
+    <color name="rank_count">#A9B5CC</color>
+    <color name="rank_item_background_my">#F2F5FC</color>
+    <color name="rank_reset_background">#FFB561</color>
+    <color name="white">#FFFFFF</color>
+    <color name="rank_list_background">#E5E5E5</color>
+</resources>

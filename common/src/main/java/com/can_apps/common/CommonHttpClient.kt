@@ -1,6 +1,7 @@
 package com.can_apps.common
 
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 interface CommonHttpClient {
 
@@ -18,7 +19,17 @@ internal class Urls {
 
 class CommonHttpClientProvider : CommonHttpClient {
 
-    override fun buildRank(): Retrofit = Retrofit.Builder().baseUrl(Urls.RANK_URL).build()
+    override fun buildRank(): Retrofit =
+        Retrofit
+            .Builder()
+            .baseUrl(Urls.RANK_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
-    override fun buildBad(): Retrofit = Retrofit.Builder().baseUrl(Urls.BAD_URL).build()
+    override fun buildBad(): Retrofit =
+        Retrofit
+            .Builder()
+            .baseUrl(Urls.BAD_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 }

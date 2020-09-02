@@ -19,20 +19,37 @@ android {
             isMinifyEnabled = false
         }
     }
+
+    kotlinOptions {
+        freeCompilerArgs = listOf(
+            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-XXLanguage:+InlineClasses"
+        )
+    }
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
+    implementation(project(Libs.showcase.common))
+    implementation(project(Libs.showcase.dataSource.rank))
 
     implementation(Libs.kotlin.stdLib)
 
     implementation(Libs.android.coreKtx)
     implementation(Libs.android.appCompat)
 
+    implementation(Libs.kotlin.coroutineCore)
+    implementation(Libs.kotlin.coroutineAndroid)
+    implementation(Libs.android.recyclerView)
+    implementation(Libs.android.constraintLayout)
+
     // retrofit
     implementation(Libs.retrofit.retrofit)
     implementation(Libs.retrofit.gson)
 
-    // coroutine
-    implementation(Libs.kotlin.coroutineCore)
+    // test
+    testImplementation(Libs.test.junit)
+    testImplementation(Libs.test.mockK)
+    testImplementation(Libs.test.mockWebServer)
 }

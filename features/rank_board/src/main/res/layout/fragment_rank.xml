@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_corners_bg"
+        android:layout_margin="@dimen/keyline_4"
+        android:elevation="@dimen/keyline_2"
+        android:orientation="vertical"
+        tools:context=".app.RankFragment">
+
+        <LinearLayout
+            android:id="@+id/title_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corners_top_bg"
+            android:orientation="vertical"
+            android:elevation="@dimen/keyline_half"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/keyline_5"
+                android:paddingStart="@dimen/keyline_6"
+                android:paddingEnd="@dimen/keyline_6"
+                android:paddingBottom="@dimen/keyline_3"
+                android:text="@string/rank_title"
+                android:textColor="@color/rank_title"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/keyline_4"
+                android:background="@color/rank_reset_background"
+                android:orientation="horizontal"
+                android:elevation="@dimen/keyline"
+                android:paddingStart="@dimen/keyline_4"
+                android:paddingTop="@dimen/keyline_3"
+                android:paddingEnd="@dimen/keyline_4"
+                android:paddingBottom="@dimen/keyline_3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rank_reset_in"
+                    android:textColor="@color/rank_subtitle"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/resetTimeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/keyline_2"
+                    android:textColor="@color/rank_cta"
+                    android:textSize="18sp"
+                    tools:text="6 Days" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:elevation="@dimen/keyline_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            android:background="@drawable/round_corners_bottom_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_background"
+            tools:itemCount="7"
+            tools:listitem="@layout/item_profile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
