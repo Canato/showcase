@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/round_corners_bg"
-        android:layout_margin="@dimen/keyline_3"
+        android:layout_margin="@dimen/keyline_4"
         android:elevation="@dimen/keyline_2"
         android:orientation="vertical"
         tools:context=".app.RankFragment">
@@ -29,7 +29,10 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/keyline_4"
+                android:paddingTop="@dimen/keyline_5"
+                android:paddingStart="@dimen/keyline_6"
+                android:paddingEnd="@dimen/keyline_6"
+                android:paddingBottom="@dimen/keyline_3"
                 android:text="@string/rank_title"
                 android:textColor="@color/rank_title"
                 android:textSize="30sp" />
