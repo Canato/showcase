@@ -29,6 +29,8 @@ dependencies {
     implementation(Libs.android.coreKtx)
     implementation(Libs.android.appCompat)
 
+    implementation(Libs.google.materialDesign)
+
     // retrofit
     implementation(Libs.retrofit.retrofit)
     implementation(Libs.retrofit.gson)

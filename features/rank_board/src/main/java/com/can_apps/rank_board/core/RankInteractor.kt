@@ -23,6 +23,8 @@ internal class RankInteractor(
         val dayOfWeek = calendarWrapper.getDayOfWeek()
 
         val resetTime = RankResetTimeDomain(9 - dayOfWeek) // Resets on Mondays
-        return RankDomain(profiles.await(), resetTime)
+
+        return if (profiles.await().isEmpty()) RankDomain.Empty
+        else RankDomain.Valid(profiles.await(), resetTime)
     }
 }

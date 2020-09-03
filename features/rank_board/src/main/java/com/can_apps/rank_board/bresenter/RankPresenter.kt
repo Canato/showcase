@@ -2,6 +2,7 @@ package com.can_apps.rank_board.bresenter
 
 import com.can_apps.common.CommonCoroutineDispatcherFactory
 import com.can_apps.rank_board.core.RankContract
+import com.can_apps.rank_board.core.RankDomain
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -30,18 +31,30 @@ internal class RankPresenter(
 
     override fun onViewCreated() {
         view?.showLoading()
-        fecthData()
+        fetchData()
     }
 
-    private fun CoroutineScope.fecthData() = launch(dispatcher.IO) {
-        val domain = interactor.getInitialState()
+    private fun CoroutineScope.fetchData() = launch(dispatcher.IO) {
+        when (val domain = interactor.getInitialState()) {
+            is RankDomain.Valid -> {
+                val resetTitle = modelMapper.toResetTitle(domain.resetTime)
+                updateReset(resetTitle)
 
-        val resetTitle = modelMapper.toResetTitle(domain.resetTime)
-        updateReset(resetTitle)
-
-        val model = modelMapper.toModel(domain.profiles)
-        updateList(model)
+                val model = modelMapper.toModel(domain.profiles)
+                updateList(model)
+            }
+            RankDomain.Empty -> {
+                updateEmptyState()
+            }
+        }
     }
+
+    private fun CoroutineScope.updateEmptyState() =
+        launch(dispatcher.UI) {
+            view?.hideLoading()
+            view?.showError()
+            view?.updateResetTime("0")
+        }
 
     private fun CoroutineScope.updateList(model: List<RankModel>) =
         launch(dispatcher.UI) {

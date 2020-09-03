@@ -4,4 +4,6 @@
     <string name="days">days</string>
     <string name="rank_title">Compete with your friends this week!</string>
     <string name="rank_reset_in">Resets in:</string>
+    <string name="ok">OK</string>
+    <string name="error_default">Error Jack, try again later…</string>
 </resources>

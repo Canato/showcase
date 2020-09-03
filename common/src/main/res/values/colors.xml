@@ -12,4 +12,5 @@
     <color name="rank_reset_background">#FFB561</color>
     <color name="white">#FFFFFF</color>
     <color name="rank_list_background">#E5E5E5</color>
+    <color name="red">#F44336</color>
 </resources>

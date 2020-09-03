@@ -13,6 +13,8 @@ internal interface RankContract {
         fun showLoading()
 
         fun hideLoading()
+
+        fun showError()
     }
 
     interface Presenter {

@@ -38,6 +38,23 @@ internal class RankInteractorTest {
     }
 
     @Test
+    fun `GIVEN empty profiles, WHEN init, THEN return empty state`() {
+        // GIVEN
+        val weekDay = 6
+        val profiles = emptySet<RankProfileDomain>()
+
+        coEvery { repository.getProfiles() } returns profiles
+        coEvery { calendarWrapper.getDayOfWeek() } returns weekDay
+
+        val expected = RankDomain.Empty
+        // WHEN
+        val result = runBlocking { interactor.getInitialState() }
+
+        // THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
     fun `GIVEN saturday and profiles, WHEN init, THEN return domain`() {
         // GIVEN
         val weekDay = 6
@@ -49,7 +66,7 @@ internal class RankInteractorTest {
         coEvery { repository.getProfiles() } returns profiles
         coEvery { calendarWrapper.getDayOfWeek() } returns weekDay
 
-        val expected = RankDomain(profiles, resetTime)
+        val expected = RankDomain.Valid(profiles, resetTime)
         // WHEN
         val result = runBlocking { interactor.getInitialState() }
 
@@ -69,7 +86,7 @@ internal class RankInteractorTest {
         coEvery { repository.getProfiles() } returns profiles
         coEvery { calendarWrapper.getDayOfWeek() } returns weekDay
 
-        val expected = RankDomain(profiles, resetTime)
+        val expected = RankDomain.Valid(profiles, resetTime)
         // WHEN
         val result = runBlocking { interactor.getInitialState() }
 
@@ -89,7 +106,7 @@ internal class RankInteractorTest {
         coEvery { repository.getProfiles() } returns profiles
         coEvery { calendarWrapper.getDayOfWeek() } returns weekDay
 
-        val expected = RankDomain(profiles, resetTime)
+        val expected = RankDomain.Valid(profiles, resetTime)
         // WHEN
         val result = runBlocking { interactor.getInitialState() }
 
