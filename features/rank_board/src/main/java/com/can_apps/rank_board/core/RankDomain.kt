@@ -1,9 +1,14 @@
 package com.can_apps.rank_board.core
 
-internal data class RankDomain(
-    val profiles: Set<RankProfileDomain>,
-    val resetTime: RankResetTimeDomain
-)
+internal sealed class RankDomain {
+
+    data class Valid(
+        val profiles: Set<RankProfileDomain>,
+        val resetTime: RankResetTimeDomain
+    ) : RankDomain()
+
+    object Empty : RankDomain()
+}
 
 internal data class RankProfileDomain(
     val username: RankUsernameDomain,

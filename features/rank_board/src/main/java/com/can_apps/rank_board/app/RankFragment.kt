@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.can_apps.common.extensions.showDefaultError
 import com.can_apps.rank_board.R
 import com.can_apps.rank_board.bresenter.RankModel
 import com.can_apps.rank_board.core.RankContract
@@ -57,5 +58,9 @@ internal class RankFragment :
 
     override fun hideLoading() {
         progressView.visibility = View.GONE
+    }
+
+    override fun showError() {
+        showDefaultError()
     }
 }

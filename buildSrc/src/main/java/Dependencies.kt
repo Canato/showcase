@@ -28,7 +28,7 @@ object Versions {
 
     // Layout
     const val recyclerview = "1.1.0"
-    const val materialDesign = "1.1.0"
+    const val materialDesign = "1.2.0"
     const val constraintLayout = "2.0.0"
 
     // Google
