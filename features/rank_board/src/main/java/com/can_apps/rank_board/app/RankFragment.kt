@@ -12,7 +12,7 @@ import com.can_apps.rank_board.bresenter.RankModel
 import com.can_apps.rank_board.core.RankContract
 import kotlinx.android.synthetic.main.fragment_rank.*
 
-internal class RankFragment :
+class RankFragment :
     Fragment(R.layout.fragment_rank),
     RankContract.View {
 

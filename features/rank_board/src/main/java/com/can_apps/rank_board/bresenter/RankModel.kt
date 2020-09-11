@@ -1,20 +1,19 @@
 package com.can_apps.rank_board.bresenter
 
-import com.can_apps.rank_board.core.RankUsernameDomain
-
-internal sealed class RankModel {
-    abstract val username: RankUsernameDomain
+sealed class RankModel {
+    abstract val username: RankUsernameModel
     abstract val weeklyXP: RankXpModel
 
     data class MyOwn(
-        override val username: RankUsernameDomain,
+        override val username: RankUsernameModel,
         override val weeklyXP: RankXpModel
     ) : RankModel()
 
     data class Profile(
-        override val username: RankUsernameDomain,
+        override val username: RankUsernameModel,
         override val weeklyXP: RankXpModel
     ) : RankModel()
 }
 
 inline class RankXpModel(val value: String)
+inline class RankUsernameModel(val value: String)
