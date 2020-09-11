@@ -5,7 +5,8 @@ include(":app", ":common")
 
 include(
     ":features",
-    ":features:rank_board"
+    ":features:rank_board",
+    ":features:home_list"
 )
 
 include(
