@@ -22,6 +22,7 @@ android {
 
     kotlinOptions {
         freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
