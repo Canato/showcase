@@ -12,6 +12,9 @@ object Apps {
 
 object Versions {
 
+    // chuckerTeam
+    const val chucker = "3.2.0"
+
     // Gradle
     const val gradle = "4.0.0"
 
@@ -52,6 +55,7 @@ object Versions {
 
 object Libs {
 
+    val chuckerTeam = ChuckerTeam
     val navigation = Navigation
     val showcase = Showcase
     val retrofit = RetrofitLibs
@@ -79,6 +83,12 @@ object ShowcaseDataSource {
 
     const val bad = ":data_source:bad_char_data_source"
     const val rank = ":data_source:rank_data_source"
+}
+
+object ChuckerTeam {
+
+    const val chucker = "com.github.chuckerteam.chucker:library:${Versions.chucker}"
+    const val noOp = "com.github.chuckerteam.chucker:library-no-op:${Versions.chucker}"
 }
 
 object Navigation {
