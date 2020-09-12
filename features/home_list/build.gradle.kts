@@ -49,6 +49,9 @@ dependencies {
 
     implementation(Libs.navigation.fragment)
 
+    implementation(Libs.navigation.fragment)
+    implementation(Libs.navigation.ui)
+
     // test
     testImplementation(Libs.test.junit)
     testImplementation(Libs.test.mockK)
