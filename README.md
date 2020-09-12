@@ -1,5 +1,5 @@
 # showcase
-[![Actions Status](https://github.com/Canato/showcase/workflows/{MainCI}/badge.svg)](https://https://github.com/Canato/showcase/actions)
+[![Actions Status](https://img.shields.io/github/workflow/status/Canato/showcase/MainCI)](https://https://github.com/Canato/showcase/actions)
 
 This is [Canato](https://www.linkedin.com/in/vcanato/) personal project for portfolio.
 
