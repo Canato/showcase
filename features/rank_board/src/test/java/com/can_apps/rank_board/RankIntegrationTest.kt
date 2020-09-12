@@ -3,9 +3,9 @@ package com.can_apps.rank_board
 import com.can_apps.common.CommonCalendarWrapper
 import com.can_apps.common.CommonStringResource
 import com.can_apps.rank_board.bresenter.RankModel
+import com.can_apps.rank_board.bresenter.RankUsernameModel
 import com.can_apps.rank_board.bresenter.RankXpModel
 import com.can_apps.rank_board.core.RankContract
-import com.can_apps.rank_board.core.RankUsernameDomain
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -63,9 +63,9 @@ internal class RankIntegrationTest {
 
         // GIVEN
         val reset = "3 days"
-        val username = RankUsernameDomain("Post Malone")
+        val username = RankUsernameModel("Post Malone")
         val weekXp = RankXpModel("42 XP")
-        val myUsername = RankUsernameDomain("Hungria")
+        val myUsername = RankUsernameModel("Hungria")
         val myWeekXp = RankXpModel("999 XP")
         val model = listOf(
             RankModel.MyOwn(myUsername, myWeekXp),
@@ -104,9 +104,9 @@ internal class RankIntegrationTest {
 
         // GIVEN
         val reset = "Intergalactic"
-        val username = RankUsernameDomain("Post Malone")
+        val username = RankUsernameModel("Post Malone")
         val weekXp = RankXpModel("42 XP")
-        val myUsername = RankUsernameDomain("Hungria")
+        val myUsername = RankUsernameModel("Hungria")
         val myWeekXp = RankXpModel("999 XP")
         val model = listOf(
             RankModel.MyOwn(myUsername, myWeekXp),

@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-android")
 }
 
 android {
@@ -23,8 +24,8 @@ android {
 
     kotlinOptions {
         freeCompilerArgs = listOf(
-            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-XXLanguage:+InlineClasses"
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-XXLanguage:+InlineClasses"
         )
     }
 }
@@ -33,7 +34,8 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(project(Libs.showcase.common))
-    implementation(project(Libs.showcase.dataSource.rank))
+
+    implementation(project(Libs.showcase.features.rank))
 
     implementation(Libs.kotlin.stdLib)
 
@@ -45,9 +47,7 @@ dependencies {
     implementation(Libs.android.recyclerView)
     implementation(Libs.android.constraintLayout)
 
-    // retrofit
-    implementation(Libs.retrofit.retrofit)
-    implementation(Libs.retrofit.gson)
+    implementation(Libs.navigation.fragment)
 
     implementation(Libs.navigation.fragment)
     implementation(Libs.navigation.ui)

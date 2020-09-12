@@ -1,9 +1,9 @@
 object Apps {
 
     // Build Config
-    const val compileSdk = 29
-    const val minSdk = 21
-    const val targetSdk = 29
+    const val compileSdk = 30
+    const val minSdk = 24
+    const val targetSdk = 30
 
     // App Version
     const val versionCode = 1
@@ -25,6 +25,9 @@ object Versions {
     // Android
     const val appCompact = "1.1.0"
     const val core = "1.2.0"
+
+    // Navigation
+    const val navigation = "2.3.0"
 
     // Layout
     const val recyclerview = "1.1.0"
@@ -48,6 +51,8 @@ object Versions {
 }
 
 object Libs {
+
+    val navigation = Navigation
     val showcase = Showcase
     val retrofit = RetrofitLibs
     val android = AndroidLibs
@@ -58,26 +63,40 @@ object Libs {
 }
 
 object Showcase {
+
     const val common = ":common"
     val features = ShowcaseFeatures
     val dataSource = ShowcaseDataSource
 }
 
 object ShowcaseFeatures {
+
+    const val home = ":features:home_list"
     const val rank = ":features:rank_board"
 }
 
 object ShowcaseDataSource {
+
     const val bad = ":data_source:bad_char_data_source"
     const val rank = ":data_source:rank_data_source"
 }
 
+object Navigation {
+
+    const val safeArgs =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
+    const val fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val ui = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+}
+
 object RetrofitLibs {
+
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
 }
 
 object AndroidLibs {
+
     const val coreKtx = "androidx.core:core-ktx:${Versions.core}"
     const val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompact}"
@@ -87,6 +106,7 @@ object AndroidLibs {
 }
 
 object KotlinLibs {
+
     const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     const val coroutineCore =
@@ -98,6 +118,7 @@ object KotlinLibs {
 }
 
 object GoogleLibs {
+
     val firebase = FirebaseLibs
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
     const val googleServices =
@@ -107,16 +128,19 @@ object GoogleLibs {
 }
 
 object FirebaseLibs {
+
     const val auth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
     const val analytics =
         "com.google.firebase:firebase-analytics:${Versions.firebaseAnalytics}"
 }
 
 object ThirdPartyLibs {
+
     const val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
 }
 
 object TestLibs {
+
     const val junit = "junit:junit:${Versions.junit}"
     const val mockK = "io.mockk:mockk:${Versions.mockk}"
     const val junitAndroid = "androidx.test.ext:junit:${Versions.junitAndroid}"

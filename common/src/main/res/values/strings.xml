@@ -6,4 +6,5 @@
     <string name="rank_reset_in">Resets in:</string>
     <string name="ok">OK</string>
     <string name="error_default">Error Jack, try again later…</string>
+    <string name="home">home</string>
 </resources>
