@@ -23,6 +23,10 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -30,6 +34,7 @@ dependencies {
 
     implementation(project(Libs.showcase.common))
 
+    implementation(project(Libs.showcase.features.home))
     implementation(project(Libs.showcase.features.rank))
 
     implementation(project(Libs.showcase.dataSource.bad))
@@ -41,5 +46,9 @@ dependencies {
 
     implementation(Libs.android.coreKtx)
     implementation(Libs.android.appCompat)
-    implementation(Libs.android.constraintLayout)
+    implementation(Libs.google.materialDesign)
+
+    // Navigation
+    implementation(Libs.navigation.fragment)
+    implementation(Libs.navigation.ui)
 }

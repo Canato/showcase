@@ -2,6 +2,8 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-android")
 }
 
 android {
@@ -42,6 +44,8 @@ dependencies {
     implementation(Libs.kotlin.coroutineAndroid)
     implementation(Libs.android.recyclerView)
     implementation(Libs.android.constraintLayout)
+
+    implementation(Libs.navigation.fragment)
 
     // test
     testImplementation(Libs.test.junit)

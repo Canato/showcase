@@ -17,7 +17,7 @@ internal class RankDataSourceDefault(private val api: RankApi) : RankDataSource 
     override suspend fun getAll(): RankDto = try {
         api.getAll()
     } catch (e: Exception) {
-        // todo log Exception
+        // todo #21 log Exception
         RankDto(emptySet())
     }
 }
