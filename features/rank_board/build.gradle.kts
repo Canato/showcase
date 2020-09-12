@@ -26,6 +26,7 @@ android {
             "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-XXLanguage:+InlineClasses"
         )
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 

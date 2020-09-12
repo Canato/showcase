@@ -3,10 +3,10 @@ package com.can_apps.rank_board.bresenter
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.rank_board.core.RankContract
 import com.can_apps.rank_board.core.RankDomain
-import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 internal class RankPresenter(
     private val dispatcher: CommonCoroutineDispatcherFactory,

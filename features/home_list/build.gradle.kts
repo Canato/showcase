@@ -24,8 +24,8 @@ android {
 
     kotlinOptions {
         freeCompilerArgs = listOf(
-                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-XXLanguage:+InlineClasses"
+            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-XXLanguage:+InlineClasses"
         )
     }
 }
