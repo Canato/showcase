@@ -1,8 +1,8 @@
 package com.can_apps.rank_board.core
 
-import com.can_apps.common.CommonCalendarWrapper
-import com.can_apps.common.CommonCoroutineDispatcherFactory
-import com.can_apps.common.CommonCoroutineDispatcherFactoryUnconfined
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
+import com.can_apps.common.wrappers.CommonCalendarWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every

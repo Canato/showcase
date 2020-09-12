@@ -1,12 +1,12 @@
 package com.can_apps.rank_board.app
 
 import android.content.Context
-import com.can_apps.common.CommonCalendarWrapper
-import com.can_apps.common.CommonCalendarWrapperDefault
-import com.can_apps.common.CommonCoroutineDispatcherFactory
-import com.can_apps.common.CommonCoroutineDispatcherFactoryDefault
-import com.can_apps.common.CommonHttpClientProvider
-import com.can_apps.common.CommonStringResource
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryDefault
+import com.can_apps.common.network.CommonHttpClientProvider
+import com.can_apps.common.wrappers.CommonCalendarWrapper
+import com.can_apps.common.wrappers.CommonCalendarWrapperDefault
+import com.can_apps.common.wrappers.CommonStringResource
 import com.can_apps.rank_board.bresenter.RankModelMapper
 import com.can_apps.rank_board.bresenter.RankModelMapperDefault
 import com.can_apps.rank_board.bresenter.RankPresenter
@@ -24,7 +24,7 @@ import retrofit2.create
 internal open class RankServiceLocator(private val context: Context) {
 
     private val retrofit: Retrofit
-        get() = CommonHttpClientProvider().buildRank()
+        get() = CommonHttpClientProvider(context).buildRank()
 
     fun getPresenter(): RankContract.Presenter =
         RankPresenter(

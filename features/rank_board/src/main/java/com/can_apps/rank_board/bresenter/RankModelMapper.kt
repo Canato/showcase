@@ -1,6 +1,6 @@
 package com.can_apps.rank_board.bresenter
 
-import com.can_apps.common.CommonStringResource
+import com.can_apps.common.wrappers.CommonStringResource
 import com.can_apps.rank_board.R
 import com.can_apps.rank_board.core.RankProfileDomain
 import com.can_apps.rank_board.core.RankResetTimeDomain

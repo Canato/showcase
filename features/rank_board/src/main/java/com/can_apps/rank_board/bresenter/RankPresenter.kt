@@ -1,6 +1,6 @@
 package com.can_apps.rank_board.bresenter
 
-import com.can_apps.common.CommonCoroutineDispatcherFactory
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.rank_board.core.RankContract
 import com.can_apps.rank_board.core.RankDomain
 import kotlin.coroutines.CoroutineContext

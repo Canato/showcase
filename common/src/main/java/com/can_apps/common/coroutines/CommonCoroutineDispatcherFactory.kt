@@ -1,4 +1,4 @@
-package com.can_apps.common
+package com.can_apps.common.coroutines
 
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.Dispatchers
