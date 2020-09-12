@@ -1,11 +1,11 @@
 package com.can_apps.rank_board.app
 
 import android.content.Context
-import com.can_apps.common.wrappers.CommonCalendarWrapper
-import com.can_apps.common.wrappers.CommonCalendarWrapperDefault
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryDefault
 import com.can_apps.common.network.CommonHttpClientProvider
+import com.can_apps.common.wrappers.CommonCalendarWrapper
+import com.can_apps.common.wrappers.CommonCalendarWrapperDefault
 import com.can_apps.common.wrappers.CommonStringResource
 import com.can_apps.rank_board.bresenter.RankModelMapper
 import com.can_apps.rank_board.bresenter.RankModelMapperDefault
