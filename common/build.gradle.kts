@@ -31,12 +31,11 @@ dependencies {
 
     implementation(Libs.google.materialDesign)
 
-    // retrofit
     implementation(Libs.retrofit.retrofit)
     implementation(Libs.retrofit.gson)
 
-    // coroutine
     implementation(Libs.kotlin.coroutineCore)
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
+
+    implementation(Libs.navigation.fragment)
+    implementation(Libs.navigation.ui)
 }
