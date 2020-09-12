@@ -1,9 +1,9 @@
 package com.can_apps.rank_board
 
-import com.can_apps.common.CommonCalendarWrapper
-import com.can_apps.common.CommonCoroutineDispatcherFactory
-import com.can_apps.common.CommonCoroutineDispatcherFactoryUnconfined
-import com.can_apps.common.CommonStringResource
+import com.can_apps.common.wrappers.CommonCalendarWrapper
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
+import com.can_apps.common.wrappers.CommonStringResource
 import com.can_apps.rank_board.app.RankServiceLocator
 import com.can_apps.rank_data_source.RankDataSource
 import com.can_apps.rank_data_source.RankDto

@@ -1,4 +1,4 @@
-package com.can_apps.common
+package com.can_apps.common.wrappers
 
 import android.content.Context
 import androidx.annotation.PluralsRes

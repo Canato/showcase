@@ -38,4 +38,7 @@ dependencies {
 
     implementation(Libs.navigation.fragment)
     implementation(Libs.navigation.ui)
+
+    debugImplementation("com.github.chuckerteam.chucker:library:3.2.0")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.2.0")
 }
