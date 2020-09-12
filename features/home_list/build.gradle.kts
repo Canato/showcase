@@ -35,6 +35,8 @@ dependencies {
 
     implementation(project(Libs.showcase.common))
 
+    implementation(project(Libs.showcase.features.rank))
+
     implementation(Libs.kotlin.stdLib)
 
     implementation(Libs.android.coreKtx)

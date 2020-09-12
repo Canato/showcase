@@ -11,9 +11,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        homeText.setOnClickListener {
-//            findNavController().navigate(R.id.action_home_dest_to_rank_dest, null)
-//        }
+        homeText.setOnClickListener {
+            findNavController().navigate(R.id.action_home_dest_to_rank_dest, null)
+        }
     }
 
 }
