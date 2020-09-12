@@ -1,4 +1,6 @@
 # showcase
+[![Actions Status](https://github.com/Canato/showcase/workflows/{MainCI}/badge.svg)](https://https://github.com/Canato/showcase/actions)
+
 This is [Canato](https://www.linkedin.com/in/vcanato/) personal project for portfolio.
 
 If you want to check the project where I mentoring other developer you can see [Purity Test](https://github.com/Canato/Purity-Test) - WIP
@@ -12,11 +14,7 @@ Here you can find a compilation of some best practices of Android Development ac
 - [Single Activity - Jetpack Navigation](#single-activity) 
 - [Gradle.kts](#gradle.kts) 
 - [KtLint](#ktlint) 
-- [Git Hook](#git-hooks) 
-- [Tests Strategy](#test-strategy) 
-- [](#) 
-- [](#) 
-- [](#)
+- [Git Hook](#git-hooks)
 
 # Project Architecture
 
@@ -69,6 +67,3 @@ To use project hooks and not git hooks on the project please run `git config cor
 
 ### Project Hooks
 - **pre-push:** Run [ktlintFormat](#ktlint) command, if fails does not allow to push. If success commit if need and push.
-
-
-# Test Strategy
