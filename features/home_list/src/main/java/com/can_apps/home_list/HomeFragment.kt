@@ -15,5 +15,4 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             findNavController().navigate(R.id.action_home_dest_to_rank_dest, null)
         }
     }
-
 }

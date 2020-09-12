@@ -93,8 +93,8 @@ class MainActivity : AppCompatActivity() {
         // Have the NavigationUI look for an action or destination matching the menu
         // item id and navigate there if found.
         // Otherwise, bubble up to the parent.
-        return item.onNavDestinationSelected(findNavController(R.id.my_nav_host_fragment))
-            || super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(findNavController(R.id.my_nav_host_fragment)) ||
+            super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
