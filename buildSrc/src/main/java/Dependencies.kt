@@ -1,9 +1,9 @@
 object Apps {
 
     // Build Config
-    const val compileSdk = 29
-    const val minSdk = 21
-    const val targetSdk = 29
+    const val compileSdk = 30
+    const val minSdk = 24
+    const val targetSdk = 30
 
     // App Version
     const val versionCode = 1
