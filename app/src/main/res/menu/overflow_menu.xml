@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu/>
-    <!--<menu xmlns:android="http://schemas.android.com/apk/res/android">-->
-    <!--    <item-->
-    <!--        android:id="@+id/settings_dest"-->
-    <!--        android:icon="@drawable/ic_settings"-->
-    <!--        android:menuCategory="secondary"-->
-    <!--        android:title="@string/settings" />-->
-    <!--</menu>-->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/license_dest"
+        android:icon="@drawable/ic_license_24"
+        android:menuCategory="secondary"
+        android:title="@string/license" />
+</menu>

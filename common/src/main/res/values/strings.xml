@@ -7,4 +7,5 @@
     <string name="ok">OK</string>
     <string name="error_default">Error Jack, try again later…</string>
     <string name="home">home</string>
+    <string name="license">License</string>
 </resources>

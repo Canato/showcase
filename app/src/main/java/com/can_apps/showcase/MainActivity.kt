@@ -1,5 +1,6 @@
 package com.can_apps.showcase
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment? ?: return
 
-        // Set up Action Bar
         val navController = host.navController
 
         // Add this when using drawer \/
@@ -89,13 +90,19 @@ class MainActivity : AppCompatActivity() {
         return retValue
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Have the NavigationUI look for an action or destination matching the menu
-        // item id and navigate there if found.
-        // Otherwise, bubble up to the parent.
-        return item.onNavDestinationSelected(findNavController(R.id.my_nav_host_fragment)) ||
-            super.onOptionsItemSelected(item)
-    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            R.id.license_dest -> {
+                startActivity(Intent(this, OssLicensesMenuActivity::class.java))
+                true
+            }
+            // Have the NavigationUI look for an action or destination matching the menu
+            // item id and navigate there if found.
+            // Otherwise, bubble up to the parent.
+            else ->
+                item.onNavDestinationSelected(findNavController(R.id.my_nav_host_fragment)) ||
+                    super.onOptionsItemSelected(item)
+        }
 
     override fun onSupportNavigateUp(): Boolean {
         // Allows NavigationUI to support proper up navigation or the drawer layout
