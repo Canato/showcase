@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
-    id("com.google.android.gms.oss-licenses-plugin") // todo canato https://developers.google.com/android/guides/opensource
+    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 android {
