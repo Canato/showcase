@@ -26,9 +26,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.bind(this)
-        homeText.setOnClickListener {
-            findNavController().navigate(R.id.action_home_dest_to_rank_dest, null)
-        }
+//        homeText.setOnClickListener {
+//            findNavController().navigate(R.id.action_home_dest_to_rank_dest, null)
+//        }
         setupRecyclerView()
         presenter.onViewCreated()
     }
