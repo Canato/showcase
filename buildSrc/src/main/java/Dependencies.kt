@@ -93,9 +93,9 @@ object ChuckerTeam {
 
 object Navigation {
 
-    const val safeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:_"
-    const val fragment = "androidx.navigation:navigation-fragment-ktx:_"
     const val ui = "androidx.navigation:navigation-ui-ktx:_"
+    const val fragment = "androidx.navigation:navigation-fragment-ktx:_"
+    const val safeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:_"
 }
 
 object RetrofitLibs {
@@ -115,8 +115,8 @@ object AndroidLibs {
 
 object KotlinLibs {
 
-    const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:_"
     const val stdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:_"
+    const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:_"
     const val coroutineCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:_"
     const val coroutineAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:_"
     const val coroutinesPlayService = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:_"
@@ -128,6 +128,8 @@ object GoogleLibs {
     const val gson = "com.google.code.gson:gson:_"
     const val googleServices = "com.google.gms:google-services:_"
     const val materialDesign = "com.google.android.material:material:_"
+    const val ossLicenses= "com.google.android.gms:oss-licenses-plugin:_"
+    const val playServiceOssLicenses = "com.google.android.gms:play-services-oss-licenses:_"
 }
 
 object FirebaseLibs {

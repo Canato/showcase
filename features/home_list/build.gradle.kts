@@ -1,5 +1,6 @@
 plugins {
     id("com.android.library")
+    id("com.google.android.gms.oss-licenses-plugin") //todo canato https://developers.google.com/android/guides/opensource
     kotlin("android")
     kotlin("android.extensions")
     id("androidx.navigation.safeargs.kotlin")
@@ -51,6 +52,8 @@ dependencies {
 
     implementation(Libs.navigation.fragment)
     implementation(Libs.navigation.ui)
+
+    implementation(Libs.google.playServiceOssLicenses)
 
     // test
     testImplementation(Libs.test.junit)
