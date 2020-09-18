@@ -63,4 +63,9 @@ class RankFragment :
     override fun showError() {
         showDefaultError()
     }
+
+    override fun onDestroyView() {
+        presenter.unbindView()
+        super.onDestroyView()
+    }
 }
