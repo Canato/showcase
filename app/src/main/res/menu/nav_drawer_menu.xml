@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu/>
-    <!--<menu xmlns:android="http://schemas.android.com/apk/res/android">-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <!--    <group android:id="@+id/primary">-->
     <!--        <item-->
     <!--            android:id="@id/home_dest"-->
@@ -12,8 +11,8 @@
     <!--            android:title="@string/deeplink" />-->
     <!--    </group>-->
 
-    <!--    <item-->
-    <!--        android:id="@+id/settings_dest"-->
-    <!--        android:icon="@drawable/ic_settings"-->
-    <!--        android:title="@string/settings" />-->
-    <!--</menu>-->
+    <item
+        android:id="@+id/license_dest"
+        android:icon="@drawable/ic_license_24"
+        android:title="@string/license" />
+</menu>

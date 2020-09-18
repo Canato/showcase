@@ -15,6 +15,7 @@ Here you can find a compilation of some best practices of Android Development ac
 - [Gradle.kts](#gradle.kts) 
 - [KtLint](#ktlint) 
 - [Git Hook](#git-hooks)
+- [License](#license)
 
 ## :triangular_ruler: Project Architecture
 
@@ -67,3 +68,7 @@ To use project hooks and not git hooks on the project please run `git config cor
 
 ### Project Hooks
 - **pre-push:** Run [ktlintFormat](#ktlint) command, if fails does not allow to push. If success commit if need and push.
+
+## License
+
+Usage of google [Including Open Source Notices](https://developers.google.com/android/guides/opensource)
