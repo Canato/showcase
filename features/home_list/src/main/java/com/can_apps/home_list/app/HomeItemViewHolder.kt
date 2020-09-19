@@ -1,10 +1,7 @@
 package com.can_apps.home_list.app
 
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.can_apps.home_list.R
 import com.can_apps.home_list.bresenter.HomeFeatModel
 import com.can_apps.home_list.core.HomeContract
 import kotlinx.android.synthetic.main.fragment_home.view.*
