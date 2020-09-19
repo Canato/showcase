@@ -9,6 +9,7 @@
     tools:context="com.can_apps.home_list.app.HomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

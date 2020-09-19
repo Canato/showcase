@@ -21,4 +21,8 @@ internal class HomePresenter(
         val model = mapper.toModel(interactor.fetchFeatures())
         view?.updateList(model.features)
     }
+
+    override fun onItemClick(detLink: HomeDestLinkModel) {
+        view?.navigateToDet(detLink)
+    }
 }

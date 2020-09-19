@@ -10,8 +10,9 @@ import com.can_apps.home_list.core.HomeInteractor
 
 internal class HomeServiceLocator(private val context: Context) {
 
-    fun getPresenter(): HomeContract.Presenter =
-        HomePresenter(getInteractor(), getMapper())
+    private val presenter = HomePresenter(getInteractor(), getMapper())
+
+    fun getPresenter(): HomeContract.Presenter = presenter
 
     private fun getMapper(): HomeModelMapper =
         HomeModelMapperDefault(getStringResource())
@@ -21,4 +22,6 @@ internal class HomeServiceLocator(private val context: Context) {
 
     private fun getInteractor(): HomeContract.Interactor =
         HomeInteractor()
+
+    fun getAdapter(): HomeAdapter = HomeAdapter(presenter)
 }
