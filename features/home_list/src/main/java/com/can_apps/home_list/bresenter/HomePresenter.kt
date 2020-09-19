@@ -1,5 +1,6 @@
 package com.can_apps.home_list.bresenter
 
+import android.widget.LinearLayout
 import com.can_apps.home_list.core.HomeContract
 
 internal class HomePresenter(
@@ -22,7 +23,7 @@ internal class HomePresenter(
         view?.updateList(model.features)
     }
 
-    override fun onItemClick(detLink: HomeDestLinkModel) {
-        view?.navigateToDet(detLink)
+    override fun onItemClick(model: HomeFeatModel, layout: LinearLayout) {
+        view?.navigateToDet(model, layout)
     }
 }

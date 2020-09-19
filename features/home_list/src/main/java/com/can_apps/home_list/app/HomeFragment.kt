@@ -3,12 +3,13 @@ package com.can_apps.home_list.app
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.home_list.R
-import com.can_apps.home_list.bresenter.HomeDestLinkModel
 import com.can_apps.home_list.bresenter.HomeFeatModel
 import com.can_apps.home_list.core.HomeContract
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -46,8 +47,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
         homeAdapter.setupList(model)
     }
 
-    override fun navigateToDet(detLink: HomeDestLinkModel) {
-        findNavController().navigate(detLink.value, null)
+    override fun navigateToDet(model: HomeFeatModel, layout: LinearLayout) {
+        val extras = FragmentNavigatorExtras(
+            layout to model.title.value
+        )
+        val bundle = Bundle()
+        bundle.putString("transitionNameArg", model.title.value)
+
+        findNavController().navigate(model.detLink.value, bundle, null, extras)
     }
 
     override fun onDestroyView() {

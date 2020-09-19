@@ -10,6 +10,14 @@
         android:id="@+id/rank_dest"
         android:name="com.can_apps.rank_board.app.RankFragment"
         android:label="@string/rank_title"
-        tools:layout="@layout/fragment_rank" />
+        tools:layout="@layout/fragment_rank" >
+
+        <argument
+            android:name="transitionNameArg"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null"/>
+
+    </fragment>
 
 </navigation>

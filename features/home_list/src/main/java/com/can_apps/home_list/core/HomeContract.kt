@@ -1,6 +1,6 @@
 package com.can_apps.home_list.core
 
-import com.can_apps.home_list.bresenter.HomeDestLinkModel
+import android.widget.LinearLayout
 import com.can_apps.home_list.bresenter.HomeFeatModel
 
 internal interface HomeContract {
@@ -9,7 +9,7 @@ internal interface HomeContract {
 
         fun updateList(model: List<HomeFeatModel>)
 
-        fun navigateToDet(detLink: HomeDestLinkModel)
+        fun navigateToDet(model: HomeFeatModel, layout: LinearLayout)
     }
 
     interface Presenter {
@@ -20,7 +20,7 @@ internal interface HomeContract {
 
         fun onViewCreated()
 
-        fun onItemClick(detLink: HomeDestLinkModel)
+        fun onItemClick(model: HomeFeatModel, layout: LinearLayout)
     }
 
     interface Interactor {
