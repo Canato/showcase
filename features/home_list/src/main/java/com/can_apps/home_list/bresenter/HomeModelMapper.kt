@@ -15,9 +15,11 @@ internal class HomeModelMapperDefault(
 ) : HomeModelMapper {
 
     override fun toModel(domain: HomeDomain): HomeModel =
-        HomeModel(domain.features.map {
-            HomeFeatModel(getTitle(it.title), HomeDestLinkModel(it.destLink.value))
-        })
+        HomeModel(
+            domain.features.map {
+                HomeFeatModel(getTitle(it.title), HomeDestLinkModel(it.destLink.value))
+            }
+        )
 
     private fun getTitle(enum: HomeEnumDomain): HomeTitleModel =
         HomeTitleModel(

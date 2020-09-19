@@ -27,5 +27,4 @@ internal interface HomeContract {
 
         fun fetchFeatures(): HomeDomain
     }
-
 }
