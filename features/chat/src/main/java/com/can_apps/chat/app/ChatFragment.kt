@@ -44,7 +44,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
         setupTextInput()
         setupAnimations()
 
-
         presenter.onViewCreated()
     }
 

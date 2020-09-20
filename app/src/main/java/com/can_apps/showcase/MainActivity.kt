@@ -17,7 +17,6 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -39,13 +38,13 @@ class MainActivity : AppCompatActivity() {
         // Add this when using drawer \/
         val drawerLayout: DrawerLayout? = findViewById(R.id.drawer_layout)
         appBarConfiguration = AppBarConfiguration(
-            emptySet(), // setOf(R.id.home_dest, R.id.deeplink_dest),
+            setOf(R.id.home_dest), // R.id.deeplink_dest),
             drawerLayout
         )
 
         setupActionBar(navController, appBarConfiguration)
         setupNavigationMenu(navController)
-        setupBottomNavMenu(navController)
+//        setupBottomNavMenu(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val dest: String = try {
@@ -59,10 +58,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupBottomNavMenu(navController: NavController) {
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
-        bottomNav?.setupWithNavController(navController)
-    }
+//    private fun setupBottomNavMenu(navController: NavController) {
+//        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+//        bottomNav?.setupWithNavController(navController)
+//    }
 
     private fun setupNavigationMenu(navController: NavController) {
         // In split screen mode, you can drag this view out from the left

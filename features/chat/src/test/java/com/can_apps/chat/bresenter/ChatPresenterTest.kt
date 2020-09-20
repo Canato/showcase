@@ -22,7 +22,7 @@ internal class ChatPresenterTest {
     }
 
     @Test
-    fun `WHEN view create, THEN setup list` () {
+    fun `WHEN view create, THEN setup list`() {
         // WHEN
         presenter.onViewCreated()
 

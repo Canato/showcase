@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.chat.bresenter.ChatMessageModel
 import kotlinx.android.synthetic.main.item_my_message.view.itemMessageText
 
-internal class ChatMessageViewHolder (root: View) : RecyclerView.ViewHolder(root) {
+internal class ChatMessageViewHolder(root: View) : RecyclerView.ViewHolder(root) {
     private val messageText: TextView = root.itemMessageText
 
     fun bind(chatMessageModel: ChatMessageModel) {
