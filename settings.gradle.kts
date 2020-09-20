@@ -8,7 +8,8 @@ include(":app", ":common")
 include(
     ":features",
     ":features:rank_board",
-    ":features:home_list"
+    ":features:home_list",
+    ":features:chat"
 )
 
 include(
