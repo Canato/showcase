@@ -38,7 +38,7 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun addToList(message: ChatMessageModel) {
-        items.add(message)
-        notifyItemInserted(itemCount-1)
+        items.add(0, message)
+        notifyItemInserted(0)
     }
 }

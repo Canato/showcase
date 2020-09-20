@@ -9,4 +9,5 @@
     <string name="home">home</string>
     <string name="chat_title">Chat</string>
     <string name="license">License</string>
+    <string name="chat_tip">Time to Chat!!</string>
 </resources>

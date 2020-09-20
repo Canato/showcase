@@ -4,19 +4,21 @@ import com.can_apps.chat.core.ChatContract
 
 internal class ChatPresenter : ChatContract.Presenter {
 
+    private var view: ChatContract.View? = null
+
     override fun bind(view: ChatContract.View) {
-        TODO("Not yet implemented")
+        this.view = view
     }
 
     override fun unbind() {
-        TODO("Not yet implemented")
+        view = null
     }
 
     override fun onViewCreated() {
-        TODO("Not yet implemented")
+        view?.setupMessages(emptyList())
     }
 
     override fun onSendMessage(message: ChatMessageTextModel) {
-        TODO("Not yet implemented")
+        if (message.value.isNotBlank()) view?.addMessage(ChatMessageModel.My(message))
     }
 }

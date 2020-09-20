@@ -20,7 +20,7 @@ class RankFragment :
 
     private lateinit var presenter: RankContract.Presenter
     private lateinit var recyclerViewAdapter: RankAdapter
-    val args: RankFragmentArgs by navArgs()
+    private val args: RankFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
