@@ -16,7 +16,7 @@ internal class ChatPresenter : ChatContract.Presenter {
         TODO("Not yet implemented")
     }
 
-    override fun onSendMessage(message: ChatMessageModel.My) {
+    override fun onSendMessage(message: ChatMessageTextModel) {
         TODO("Not yet implemented")
     }
 }
