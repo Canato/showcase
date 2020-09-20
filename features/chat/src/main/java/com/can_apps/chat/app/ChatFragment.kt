@@ -4,8 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import com.can_apps.chat.R
 import com.can_apps.chat.app.adapter.ChatAdapter
 import com.can_apps.chat.bresenter.ChatMessageModel
@@ -17,6 +19,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
 
     private lateinit var presenter: ChatContract.Presenter
     private lateinit var recyclerViewAdapter: ChatAdapter
+    private val args: ChatFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -26,6 +29,12 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
         recyclerViewAdapter = serviceLocator.getAdapter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -33,6 +42,8 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
 
         setupRecyclerView()
         setupTextInput()
+        setupAnimations()
+
 
         presenter.onViewCreated()
     }
@@ -40,6 +51,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
     private fun setupTextInput() {
         chatSendButton.setOnClickListener {
             val message = chatInputText.text.toString()
+            chatInputText.text.clear()
             presenter.onSendMessage(ChatMessageTextModel(message))
         }
     }
@@ -47,10 +59,16 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
     private fun setupRecyclerView() {
         chatRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
-                stackFromEnd = true
+                stackFromEnd = false
                 reverseLayout = true
             }
             adapter = recyclerViewAdapter
+        }
+    }
+
+    private fun setupAnimations() {
+        chatLayout.apply {
+            transitionName = args.transitionNameArg
         }
     }
 

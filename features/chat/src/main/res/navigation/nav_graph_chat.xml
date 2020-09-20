@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/chat_dest"
+    android:id="@+id/nav_graph_chat"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/chat_dest"
+        android:name="com.can_apps.chat.app.ChatFragment"
+        android:label="@string/chat_title"
+        tools:layout="@layout/fragment_chat">
+
+        <argument
+            android:name="transitionNameArg"
+            android:defaultValue="null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+</navigation>

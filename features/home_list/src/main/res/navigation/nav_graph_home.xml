@@ -7,6 +7,7 @@
     tools:ignore="UnusedNavigation">
 
     <include app:graph="@navigation/nav_graph_rank" />
+    <include app:graph="@navigation/nav_graph_chat" />
 
     <fragment
         android:id="@+id/home_dest"
@@ -16,13 +17,17 @@
 
         <action
             android:id="@+id/action_home_dest_to_rank_dest"
-            app:destination="@id/nav_graph_rank"/>
-<!--        remove this animations to use use motion transition-->
-<!--            app:enterAnim="@anim/slide_in_right"-->
-<!--            app:exitAnim="@anim/slide_out_left"-->
-<!--            app:popEnterAnim="@anim/slide_in_left"-->
-<!--            app:popExitAnim="@anim/slide_out_right" -->
+            app:destination="@id/nav_graph_rank" />
+
+        <action
+            android:id="@+id/action_home_dest_to_char_dest"
+            app:destination="@id/nav_graph_chat" />
+
     </fragment>
-
-
 </navigation>
+
+    <!--        remove this animations from action to use use motion transition-->
+    <!--            app:enterAnim="@anim/slide_in_right"-->
+    <!--            app:exitAnim="@anim/slide_out_left"-->
+    <!--            app:popEnterAnim="@anim/slide_in_left"-->
+    <!--            app:popExitAnim="@anim/slide_out_right" -->

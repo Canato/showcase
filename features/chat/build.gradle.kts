@@ -27,6 +27,7 @@ android {
             "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-XXLanguage:+InlineClasses"
         )
+        jvmTarget = "1.8"
     }
 }
 
