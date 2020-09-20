@@ -4,8 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import com.can_apps.common.extensions.showDefaultError
 import com.can_apps.rank_board.R
 import com.can_apps.rank_board.bresenter.RankModel
@@ -18,6 +20,7 @@ class RankFragment :
 
     private lateinit var presenter: RankContract.Presenter
     private lateinit var recyclerViewAdapter: RankAdapter
+    val args: RankFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -27,12 +30,19 @@ class RankFragment :
         recyclerViewAdapter = serviceLocator.getAdapter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.bindView(this)
 
         setupRecyclerView()
+        setupAnimations()
 
         presenter.onViewCreated()
     }
@@ -41,6 +51,12 @@ class RankFragment :
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             recyclerView.adapter = recyclerViewAdapter
+        }
+    }
+
+    private fun setupAnimations() {
+        rankLayout.apply {
+            transitionName = args.transitionNameArg
         }
     }
 
@@ -62,5 +78,10 @@ class RankFragment :
 
     override fun showError() {
         showDefaultError()
+    }
+
+    override fun onDestroyView() {
+        presenter.unbindView()
+        super.onDestroyView()
     }
 }

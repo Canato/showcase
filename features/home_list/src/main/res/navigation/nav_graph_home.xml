@@ -10,17 +10,18 @@
 
     <fragment
         android:id="@+id/home_dest"
-        android:name="com.can_apps.home_list.HomeFragment"
+        android:name="com.can_apps.home_list.app.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_home_dest_to_rank_dest"
-            app:destination="@id/nav_graph_rank"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/nav_graph_rank"/>
+<!--        remove this animations to use use motion transition-->
+<!--            app:enterAnim="@anim/slide_in_right"-->
+<!--            app:exitAnim="@anim/slide_out_left"-->
+<!--            app:popEnterAnim="@anim/slide_in_left"-->
+<!--            app:popExitAnim="@anim/slide_out_right" -->
     </fragment>
 
 
