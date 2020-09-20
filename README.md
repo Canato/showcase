@@ -12,6 +12,7 @@ Here you can find a compilation of some best practices of Android Development ac
 - [Architecture](#project-architecture)
 - [CI](#continuous-integration)
 - [Single Activity - Jetpack Navigation](#single-activity) 
+- [Material Motion](#material-motion)
 - [Gradle.kts](#gradle.kts) 
 - [KtLint](#ktlint) 
 - [Git Hook](#git-hooks)
@@ -38,6 +39,11 @@ The CI is simple and effective.
 The App consist in a [single activity](https://www.youtube.com/watch?v=2k8x8V77CrU&ab_channel=AndroidDevelopers) under the `home_list` domain.
 We use the [Jetpack Navigation Component](https://developer.android.com/guide/navigation) using the navigation tool to flow between the fragments.
 By now we do not use `<include-dynamic>` for navigation with feature modules because it does not support deep links, so instead we add implement the module in the gradle.kts 
+
+## ▶️ Material Motion
+
+Use the [material motion](https://material.io/develop/android/theming/motion) to make nice animations between fragments. 
+Since we are using one single activity with Jetpack Navigation, this animation need a little of work on it, so it can be use from any other place
 
 ## :elephant: Gradle.kts
 
@@ -69,6 +75,6 @@ To use project hooks and not git hooks on the project please run `git config cor
 ### Project Hooks
 - **pre-push:** Run [ktlintFormat](#ktlint) command, if fails does not allow to push. If success commit if need and push.
 
-## License
+## 📝 License
 
 Usage of google [Including Open Source Notices](https://developers.google.com/android/guides/opensource)
