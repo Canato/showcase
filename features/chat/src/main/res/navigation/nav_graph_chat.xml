@@ -9,7 +9,6 @@
     <fragment
         android:id="@+id/chat_dest"
         android:name="com.can_apps.chat.app.ChatFragment"
-        android:label="@string/chat_title"
         tools:layout="@layout/fragment_chat">
 
         <argument

@@ -10,8 +10,9 @@
     <dimen name="keyline_2">8dp</dimen>
     <dimen name="keyline_3">12dp</dimen>
     <dimen name="keyline_4">16dp</dimen>
-    <dimen name="keyline_8">32dp</dimen>
     <dimen name="keyline_5">20dp</dimen>
+    <dimen name="keyline_8">32dp</dimen>
+    <dimen name="keyline_10">40dp</dimen>
     <dimen name="keyline_20">80dp</dimen>
 
 </resources>

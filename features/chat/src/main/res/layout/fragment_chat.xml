@@ -17,7 +17,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:elevation="@dimen/keyline"
         android:background="@color/chat_primary"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" >
+
+        <ImageView
+            android:id="@+id/tv_header_title"
+            android:layout_width="@dimen/keyline_10"
+            android:layout_height="@dimen/keyline_10"
+            android:layout_marginTop="@dimen/keyline_2"
+            android:layout_marginBottom="@dimen/keyline_2"
+            android:layout_marginEnd="@dimen/keyline_4"
+            android:layout_gravity="start"
+            android:src="@drawable/profile" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/canato"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
