@@ -60,8 +60,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
             // Have the NavigationUI look for an action or destination matching the menu
             // item id and navigate there if found.
             // Otherwise, bubble up to the parent.
-            else -> item.onNavDestinationSelected(findNavController()) ||
-                super.onOptionsItemSelected(item)
+            else ->
+                item.onNavDestinationSelected(findNavController()) ||
+                    super.onOptionsItemSelected(item)
         }
 
     private fun setupActionbar() {
