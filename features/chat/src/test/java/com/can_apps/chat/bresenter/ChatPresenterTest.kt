@@ -1,7 +1,11 @@
 package com.can_apps.chat.bresenter
 
 import com.can_apps.chat.core.ChatContract
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
 import io.mockk.MockKAnnotations
+import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import org.junit.Before
@@ -10,13 +14,28 @@ import org.junit.Test
 internal class ChatPresenterTest {
 
     @MockK
+    private lateinit var interactor: ChatContract.Interactor
+
+    @MockK
+    private lateinit var dispatcher: CommonCoroutineDispatcherFactory
+
+    @MockK
+    private lateinit var mapper: ChatModelMapper
+
+    @MockK
     private lateinit var view: ChatContract.View
 
-    private val presenter = ChatPresenter()
+    private lateinit var presenter: ChatPresenter
 
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
+
+        presenter = ChatPresenter(interactor, dispatcher, mapper)
+
+        val unconfinedFactory = CommonCoroutineDispatcherFactoryUnconfined()
+        every { dispatcher.IO } returns unconfinedFactory.IO
+        every { dispatcher.UI } returns unconfinedFactory.UI
 
         presenter.bind(view)
     }

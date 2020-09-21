@@ -9,7 +9,7 @@ internal interface ChatModelMapper {
     fun toOtherModel(domain: ChatMessageTextDomain): ChatMessageModel
 }
 
-internal class ChatModelMapperDefault: ChatModelMapper{
+internal class ChatModelMapperDefault : ChatModelMapper {
 
     override fun toDomain(message: ChatMessageTextModel): ChatMessageTextDomain =
         ChatMessageTextDomain(message.value)
