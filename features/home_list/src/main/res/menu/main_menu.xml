@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/shop_dest"
-        android:icon="@drawable/ic_home_24"
+        android:icon="@drawable/ic_home"
         android:title="@string/home"
         app:showAsAction="ifRoom" />
 </menu>

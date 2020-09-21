@@ -36,9 +36,6 @@ dependencies {
 
     implementation(project(Libs.showcase.common))
 
-    implementation(project(Libs.showcase.features.rank))
-    implementation(project(Libs.showcase.features.chat))
-
     implementation(Libs.kotlin.stdLib)
 
     implementation(Libs.android.coreKtx)
@@ -50,12 +47,11 @@ dependencies {
     implementation(Libs.android.constraintLayout)
 
     implementation(Libs.navigation.fragment)
-    implementation(Libs.navigation.ui)
 
-    implementation(Libs.google.playServiceOssLicenses)
+    implementation(Libs.navigation.fragment)
+    implementation(Libs.navigation.ui)
 
     // test
     testImplementation(Libs.test.junit)
     testImplementation(Libs.test.mockK)
-    testImplementation(Libs.test.mockWebServer)
 }

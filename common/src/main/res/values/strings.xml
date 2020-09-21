@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Showcase</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="days">days</string>
     <string name="rank_title">Compete with your friends this week!</string>
@@ -9,4 +10,6 @@
     <string name="home">home</string>
     <string name="chat_title">Chat</string>
     <string name="license">License</string>
+    <string name="chat_tip">Time to Chat!!</string>
+    <string name="canato">Canato</string>
 </resources>

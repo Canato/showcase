@@ -41,6 +41,7 @@ dependencies {
 
     implementation(project(Libs.showcase.features.home))
     implementation(project(Libs.showcase.features.rank))
+    implementation(project(Libs.showcase.features.chat))
 
     implementation(project(Libs.showcase.dataSource.bad))
     implementation(project(Libs.showcase.dataSource.rank))
@@ -53,7 +54,6 @@ dependencies {
     implementation(Libs.android.appCompat)
     implementation(Libs.google.materialDesign)
 
-    implementation(Libs.google.playServiceOssLicenses)
     // Navigation
     implementation(Libs.navigation.fragment)
     implementation(Libs.navigation.ui)

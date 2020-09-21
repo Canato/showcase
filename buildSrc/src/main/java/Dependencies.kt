@@ -77,6 +77,7 @@ object ShowcaseFeatures {
 
     const val home = ":features:home_list"
     const val rank = ":features:rank_board"
+    const val chat = ":features:chat"
 }
 
 object ShowcaseDataSource {
