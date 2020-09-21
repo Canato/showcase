@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -64,6 +65,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
         }
 
     private fun setupActionbar() {
+        setHasOptionsMenu(true)
+        activity?.let { (it as AppCompatActivity).setSupportActionBar(toolbar) }
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
 
