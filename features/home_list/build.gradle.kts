@@ -27,6 +27,7 @@ android {
             "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-XXLanguage:+InlineClasses"
         )
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
@@ -50,6 +51,8 @@ dependencies {
 
     implementation(Libs.navigation.fragment)
     implementation(Libs.navigation.ui)
+
+    implementation(Libs.google.playServiceOssLicenses)
 
     // test
     testImplementation(Libs.test.junit)

@@ -3,8 +3,12 @@ package com.can_apps.chat.app
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
@@ -40,11 +44,19 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
 
         presenter.bind(this)
 
+        setupActionbar()
         setupRecyclerView()
         setupTextInput()
         setupAnimations()
 
         presenter.onViewCreated()
+    }
+
+    private fun setupActionbar() {
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 
     private fun setupTextInput() {
@@ -62,6 +74,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
                 reverseLayout = true
             }
             adapter = recyclerViewAdapter
+            setHasFixedSize(true)
         }
     }
 
@@ -73,10 +86,12 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
 
     override fun setupMessages(messages: List<ChatMessageModel>) {
         recyclerViewAdapter.updateList(messages)
+        chatRecyclerView.smoothScrollToPosition(0)
     }
 
     override fun addMessage(message: ChatMessageModel) {
         recyclerViewAdapter.addToList(message)
+        chatRecyclerView.smoothScrollToPosition(0)
     }
 
     override fun onDestroyView() {

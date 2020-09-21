@@ -54,7 +54,6 @@ dependencies {
     implementation(Libs.android.appCompat)
     implementation(Libs.google.materialDesign)
 
-    implementation(Libs.google.playServiceOssLicenses)
     // Navigation
     implementation(Libs.navigation.fragment)
     implementation(Libs.navigation.ui)

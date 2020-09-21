@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/chatLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="@dimen/keyline"
+        android:background="@color/chat_primary"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/chatInputLayout"
+        android:clipToPadding="false"
         android:background="@color/white"
         android:nestedScrollingEnabled="false"
         android:overScrollMode="never"
-        android:paddingBottom="@dimen/keyline_2"
         tools:itemCount="4"
         tools:listitem="@layout/item_my_message" />
 
     <LinearLayout
+        android:id="@+id/chatInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:elevation="@dimen/keyline_2"
         android:background="@color/white"
         android:translationY="@dimen/keyline"
@@ -34,7 +53,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/keyline_2"
-            android:layout_marginBottom="@dimen/keyline_2"
+            android:layout_marginBottom="@dimen/keyline_3"
             android:paddingStart="@dimen/keyline_4"
             android:paddingEnd="@dimen/keyline_4"
             android:paddingTop="@dimen/keyline"
@@ -54,7 +73,7 @@
             android:padding="@dimen/keyline_2"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/keyline_2"
-            android:layout_marginBottom="@dimen/keyline_2"
+            android:layout_marginBottom="@dimen/keyline_3"
             android:layout_marginStart="@dimen/keyline_4"
             android:layout_marginEnd="@dimen/keyline_4"
             android:background="@drawable/chat_send_button_background"
@@ -62,4 +81,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
