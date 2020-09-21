@@ -31,7 +31,7 @@ internal class ChatPresenterTest {
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
 
-        presenter = ChatPresenter(interactor, dispatcher, mapper)
+        presenter = ChatPresenter(interactor, dispatcher, mapper, 1L)
 
         val unconfinedFactory = CommonCoroutineDispatcherFactoryUnconfined()
         every { dispatcher.IO } returns unconfinedFactory.IO

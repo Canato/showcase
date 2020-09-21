@@ -17,13 +17,8 @@ internal class ChatPresenter(
     private val interactor: ChatContract.Interactor,
     private val dispatcher: CommonCoroutineDispatcherFactory,
     private val mapper: ChatModelMapper,
-    private val debounceWait: Long = FIVE_SECOND_IN_MILLIS
+    private val debounceWait: Long
 ) : ChatContract.Presenter, CoroutineScope {
-
-    companion object {
-
-        private const val FIVE_SECOND_IN_MILLIS = 5000L
-    }
 
     private val job = Job()
 
