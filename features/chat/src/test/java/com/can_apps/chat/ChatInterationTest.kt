@@ -69,7 +69,7 @@ internal class ChatIntegrationTest {
             presenter.onSendMessage(message3)
             presenter.onSendMessage(message4)
             presenter.onSendMessage(message5)
-            testDispatcher.advanceTimeBy(debounceWait*2)
+            testDispatcher.advanceTimeBy(debounceWait * 2)
 
             // THEN
             verify(exactly = 1) {
@@ -94,13 +94,13 @@ internal class ChatIntegrationTest {
         testDispatcher.runBlockingTest {
             // WHEN
             presenter.onSendMessage(message1)
-            testDispatcher.advanceTimeBy(debounceWait/2)
+            testDispatcher.advanceTimeBy(debounceWait / 2)
             presenter.onSendMessage(message2)
-            testDispatcher.advanceTimeBy(debounceWait/2)
+            testDispatcher.advanceTimeBy(debounceWait / 2)
             presenter.onSendMessage(message3)
-            testDispatcher.advanceTimeBy(debounceWait/2)
+            testDispatcher.advanceTimeBy(debounceWait / 2)
             presenter.onSendMessage(message4)
-            testDispatcher.advanceTimeBy(debounceWait/2)
+            testDispatcher.advanceTimeBy(debounceWait / 2)
             presenter.onSendMessage(message5)
             testDispatcher.advanceTimeBy(debounceWait)
 
@@ -127,15 +127,15 @@ internal class ChatIntegrationTest {
         testDispatcher.runBlockingTest {
             // WHEN
             presenter.onSendMessage(message1)
-            testDispatcher.advanceTimeBy(debounceWait/2)
+            testDispatcher.advanceTimeBy(debounceWait / 2)
             presenter.onSendMessage(message2)
-            testDispatcher.advanceTimeBy(debounceWait*2)
+            testDispatcher.advanceTimeBy(debounceWait * 2)
             presenter.onSendMessage(message3)
-            testDispatcher.advanceTimeBy(debounceWait*2)
+            testDispatcher.advanceTimeBy(debounceWait * 2)
             presenter.onSendMessage(message4)
-            testDispatcher.advanceTimeBy(debounceWait/2)
+            testDispatcher.advanceTimeBy(debounceWait / 2)
             presenter.onSendMessage(message5)
-            testDispatcher.advanceTimeBy(debounceWait*2)
+            testDispatcher.advanceTimeBy(debounceWait * 2)
 
             // THEN
             verify(exactly = 1) {
