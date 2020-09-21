@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
-    kotlin("kapt")
     id("com.google.android.gms.oss-licenses-plugin")
 }
 
@@ -45,6 +44,7 @@ dependencies {
 
     implementation(project(Libs.showcase.dataSource.bad))
     implementation(project(Libs.showcase.dataSource.rank))
+    implementation(project(Libs.showcase.dataSource.msg))
 
     implementation(project(Libs.showcase.common))
 
