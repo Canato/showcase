@@ -146,6 +146,7 @@ object ThirdPartyLibs {
 
 object TestLibs {
 
+    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:_"
     const val junit = "junit:junit:_"
     const val mockK = "io.mockk:mockk:_"
     const val junitAndroid = "androidx.test.ext:junit:_"
