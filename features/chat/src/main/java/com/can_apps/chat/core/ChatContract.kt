@@ -2,6 +2,7 @@ package com.can_apps.chat.core
 
 import com.can_apps.chat.bresenter.ChatMessageModel
 import com.can_apps.chat.bresenter.ChatMessageTextModel
+import kotlinx.coroutines.flow.Flow
 
 internal interface ChatContract {
 
@@ -25,6 +26,15 @@ internal interface ChatContract {
 
     interface Interactor {
 
-        fun getSystemAnswer(message: ChatMessageTextDomain): ChatMessageTextDomain
+        fun getSystemAnswer(domain: ChatDomain): ChatDomain
+    }
+
+    interface Repository {
+
+        suspend fun addMessage(domain: ChatDomain)
+
+        suspend fun getMessages(): List<ChatDomain>
+
+        fun getLatest(): Flow<ChatDomain>
     }
 }

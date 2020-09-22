@@ -23,7 +23,10 @@ internal interface MessageDao {
     fun add(entity: MessageEntity): Long
 
     @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_TIMESTAMP DESC")
-    fun getAllMessages(): Flow<List<MessageEntity>>
+    fun getAllMessages(): List<MessageEntity>
+
+    @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_TIMESTAMP DESC LIMIT 1")
+    fun getLatestValue(): Flow<MessageEntity>
 }
 
 @Entity(

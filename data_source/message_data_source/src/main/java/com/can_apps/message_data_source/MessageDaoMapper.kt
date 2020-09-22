@@ -4,6 +4,7 @@ internal interface MessageDaoMapper {
 
     fun toEntity(dto: MessageDto): MessageEntity
     fun toDto(messages: List<MessageEntity>): List<MessageDto>
+    fun toDto(messages: MessageEntity): MessageDto?
 }
 
 internal class MessageDaoMapperDefault : MessageDaoMapper {
@@ -26,5 +27,15 @@ internal class MessageDaoMapperDefault : MessageDaoMapper {
                     holder
                 )
             }
+        }
+
+    override fun toDto(messages: MessageEntity): MessageDto? =
+        when (val holder = MessageHolderEnumDto.fromString(messages.holder)) {
+            null -> null
+            else -> MessageDto(
+                MessageTextDto(messages.text),
+                MessageTimestampDto(messages.timestamp),
+                holder
+            )
         }
 }

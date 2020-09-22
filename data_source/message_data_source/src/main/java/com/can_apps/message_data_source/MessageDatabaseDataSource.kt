@@ -2,13 +2,16 @@ package com.can_apps.message_data_source
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 
 interface MessageDatabaseDataSource {
 
     suspend fun add(dto: MessageDto): Boolean
 
-    fun getAll(): Flow<List<MessageDto>>
+    suspend fun getAll(): List<MessageDto>
+
+    fun getLatestValue(): Flow<MessageDto>
 }
 
 internal class MessageDatabaseDataSourceDefault(
@@ -19,8 +22,13 @@ internal class MessageDatabaseDataSourceDefault(
     override suspend fun add(dto: MessageDto): Boolean =
         dao.add(mapper.toEntity(dto)) != -1L
 
-    override fun getAll(): Flow<List<MessageDto>> =
-        dao.getAllMessages()
+    override suspend fun getAll(): List<MessageDto> =
+        mapper.toDto(dao.getAllMessages())
+
+    override fun getLatestValue(): Flow<MessageDto> =
+        dao.getLatestValue()
             .distinctUntilChanged()
+            .filterNotNull()
             .map { mapper.toDto(it) }
+            .filterNotNull()
 }

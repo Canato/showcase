@@ -36,6 +36,8 @@ dependencies {
 
     implementation(project(Libs.showcase.common))
 
+    implementation(project(Libs.showcase.dataSource.msg))
+
     implementation(Libs.kotlin.stdLib)
 
     implementation(Libs.android.coreKtx)

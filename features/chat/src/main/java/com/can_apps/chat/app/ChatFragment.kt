@@ -15,6 +15,7 @@ import com.can_apps.chat.R
 import com.can_apps.chat.app.adapter.ChatAdapter
 import com.can_apps.chat.bresenter.ChatMessageModel
 import com.can_apps.chat.bresenter.ChatMessageTextModel
+import com.can_apps.chat.bresenter.ChatMessageTimestampModel
 import com.can_apps.chat.core.ChatContract
 import kotlinx.android.synthetic.main.fragment_chat.*
 
@@ -27,7 +28,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        val serviceLocator = ChatServiceLocator()
+        val serviceLocator = ChatServiceLocator(context)
         presenter = serviceLocator.getPresenter()
         recyclerViewAdapter = serviceLocator.getAdapter()
     }
