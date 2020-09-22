@@ -2,7 +2,9 @@ package com.can_apps.chat
 
 import com.can_apps.chat.bresenter.ChatMessageModel
 import com.can_apps.chat.bresenter.ChatMessageTextModel
+import com.can_apps.chat.bresenter.ChatMessageTimestampModel
 import com.can_apps.chat.core.ChatContract
+import com.can_apps.chat.core.ChatMessageTimestampDomain
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
@@ -17,6 +19,8 @@ internal class ChatIntegrationTest {
 
         private const val debounceWait = 100L
 
+        private val timestampModel = ChatMessageTimestampModel(42L)
+
         private const val text1 = "One"
         private const val text2 = "Two"
         private const val text3 = "Three"
@@ -29,17 +33,17 @@ internal class ChatIntegrationTest {
         val message4 = ChatMessageTextModel(text4)
         val message5 = ChatMessageTextModel(text5)
 
-        val model1 = ChatMessageModel.My(message1)
-        val model2 = ChatMessageModel.My(message2)
-        val model3 = ChatMessageModel.My(message3)
-        val model4 = ChatMessageModel.My(message4)
-        val model5 = ChatMessageModel.My(message5)
+        val myMsg1 = ChatMessageModel.My(message1, timestampModel)
+        val myMsg2 = ChatMessageModel.My(message2, timestampModel)
+        val myMsg3 = ChatMessageModel.My(message3, timestampModel)
+        val myMsg4 = ChatMessageModel.My(message4, timestampModel)
+        val myMsg5 = ChatMessageModel.My(message5, timestampModel)
 
-        val modelQuestion1 = ChatMessageModel.Other(ChatMessageTextModel("$text1?"))
-        val modelQuestion2 = ChatMessageModel.Other(ChatMessageTextModel("$text2?"))
-        val modelQuestion3 = ChatMessageModel.Other(ChatMessageTextModel("$text3?"))
-        val modelQuestion4 = ChatMessageModel.Other(ChatMessageTextModel("$text4?"))
-        val modelQuestion5 = ChatMessageModel.Other(ChatMessageTextModel("$text5?"))
+        val otherMsg1 = ChatMessageModel.Other(ChatMessageTextModel("$text1?"), timestampModel)
+        val otherMsg2 = ChatMessageModel.Other(ChatMessageTextModel("$text2?"), timestampModel)
+        val otherMsg3 = ChatMessageModel.Other(ChatMessageTextModel("$text3?"), timestampModel)
+        val otherMsg4 = ChatMessageModel.Other(ChatMessageTextModel("$text4?"), timestampModel)
+        val otherMsg5 = ChatMessageModel.Other(ChatMessageTextModel("$text5?"), timestampModel)
     }
 
     @MockK
@@ -73,19 +77,19 @@ internal class ChatIntegrationTest {
 
             // THEN
             verify(exactly = 1) {
-                view.addMessage(model1)
-                view.addMessage(model2)
-                view.addMessage(model3)
-                view.addMessage(model4)
-                view.addMessage(model5)
-                view.addMessage(modelQuestion5)
+                view.addMessage(myMsg1)
+                view.addMessage(myMsg2)
+                view.addMessage(myMsg3)
+                view.addMessage(myMsg4)
+                view.addMessage(myMsg5)
+                view.addMessage(otherMsg5)
             }
 
             verify(exactly = 0) {
-                view.addMessage(modelQuestion1)
-                view.addMessage(modelQuestion2)
-                view.addMessage(modelQuestion3)
-                view.addMessage(modelQuestion4)
+                view.addMessage(otherMsg1)
+                view.addMessage(otherMsg2)
+                view.addMessage(otherMsg3)
+                view.addMessage(otherMsg4)
             }
         }
 
@@ -106,19 +110,19 @@ internal class ChatIntegrationTest {
 
             // THEN
             verify(exactly = 1) {
-                view.addMessage(model1)
-                view.addMessage(model2)
-                view.addMessage(model3)
-                view.addMessage(model4)
-                view.addMessage(model5)
-                view.addMessage(modelQuestion5)
+                view.addMessage(myMsg1)
+                view.addMessage(myMsg2)
+                view.addMessage(myMsg3)
+                view.addMessage(myMsg4)
+                view.addMessage(myMsg5)
+                view.addMessage(otherMsg5)
             }
 
             verify(exactly = 0) {
-                view.addMessage(modelQuestion1)
-                view.addMessage(modelQuestion2)
-                view.addMessage(modelQuestion3)
-                view.addMessage(modelQuestion4)
+                view.addMessage(otherMsg1)
+                view.addMessage(otherMsg2)
+                view.addMessage(otherMsg3)
+                view.addMessage(otherMsg4)
             }
         }
 
@@ -139,19 +143,19 @@ internal class ChatIntegrationTest {
 
             // THEN
             verify(exactly = 1) {
-                view.addMessage(model1)
-                view.addMessage(model2)
-                view.addMessage(model3)
-                view.addMessage(model4)
-                view.addMessage(model5)
-                view.addMessage(modelQuestion2)
-                view.addMessage(modelQuestion3)
-                view.addMessage(modelQuestion5)
+                view.addMessage(myMsg1)
+                view.addMessage(myMsg2)
+                view.addMessage(myMsg3)
+                view.addMessage(myMsg4)
+                view.addMessage(myMsg5)
+                view.addMessage(otherMsg2)
+                view.addMessage(otherMsg3)
+                view.addMessage(otherMsg5)
             }
 
             verify(exactly = 0) {
-                view.addMessage(modelQuestion1)
-                view.addMessage(modelQuestion4)
+                view.addMessage(otherMsg1)
+                view.addMessage(otherMsg4)
             }
         }
 }

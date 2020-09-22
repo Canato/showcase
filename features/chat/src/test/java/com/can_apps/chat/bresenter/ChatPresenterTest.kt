@@ -1,12 +1,19 @@
 package com.can_apps.chat.bresenter
 
 import com.can_apps.chat.core.ChatContract
+import com.can_apps.chat.core.ChatDomain
+import com.can_apps.chat.core.ChatMessageHolderEnumDto
+import com.can_apps.chat.core.ChatMessageTextDomain
+import com.can_apps.chat.core.ChatMessageTimestampDomain
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
@@ -47,29 +54,19 @@ internal class ChatPresenterTest {
     }
 
     @Test
-    fun `WHEN view create, THEN setup list`() {
+    fun `GIVEN messages, WHEN view create, THEN setup list`() {
+        // GIVEN
+        val messages = mockk<List<ChatDomain>>(relaxed = true)
+        val expected = mockk<List<ChatMessageModel>>(relaxed = true)
+        coEvery { repository.getMessages() } returns messages
+        every { mapper.toModel(messages) } returns expected
+
         // WHEN
         presenter.onViewCreated()
 
         // THEN
         verify {
-            view.setupMessages(emptyList())
-        }
-    }
-
-    @Test
-    fun `GIVEN message, WHEN send, THEN add to list`() {
-        // GIVEN
-        val message = "Poesia Acustica"
-        val messageModel = ChatMessageTextModel(message)
-        val expect = ChatMessageModel.My(messageModel)
-
-        // WHEN
-        presenter.onSendMessage(messageModel)
-
-        // THEN
-        verify {
-            view.addMessage(expect)
+            view.setupMessages(expected)
         }
     }
 
@@ -78,14 +75,18 @@ internal class ChatPresenterTest {
         // GIVEN
         val message = ""
         val messageModel = ChatMessageTextModel(message)
-        val expect = ChatMessageModel.My(messageModel)
+        val messageDomain = ChatMessageTextDomain(message)
+        val timestamp = ChatMessageTimestampDomain(42L)
+        val expect = ChatDomain(messageDomain, timestamp, ChatMessageHolderEnumDto.MY)
+
+        every { time.currentTimeStampMillis } returns timestamp.value
 
         // WHEN
         presenter.onSendMessage(messageModel)
 
         // THEN
-        verify(exactly = 0) {
-            view.addMessage(expect)
+        coVerify(exactly = 0) {
+            repository.addMessage(expect)
         }
     }
 }
