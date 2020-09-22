@@ -10,19 +10,13 @@ import com.can_apps.message_data_source.MessageHolderEnumDto
 import com.can_apps.message_data_source.MessageTextDto
 import com.can_apps.message_data_source.MessageTimestampDto
 import io.mockk.MockKAnnotations
-import io.mockk.Ordering
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
-import io.mockk.verify
 import io.mockk.verifySequence
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.withTimeout
 import org.junit.Before
 import org.junit.Test
 
@@ -259,5 +253,4 @@ internal class ChatIntegrationTest {
                 view.addMessage(otherMsg4)
             }
         }
-
 }

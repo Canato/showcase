@@ -14,7 +14,7 @@ class MessageDatabaseProvider private constructor(context: Context) {
             .build()
 
     companion object : CommonSingletonDatabase<MessageDatabaseProvider, Context>
-        (::MessageDatabaseProvider)
+    (::MessageDatabaseProvider)
 
     fun getMessageDatabaseDataSource(): MessageDatabaseDataSource =
         MessageDatabaseDataSourceDefault(database.messageDao(), MessageDaoMapperDefault())

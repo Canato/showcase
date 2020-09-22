@@ -15,7 +15,6 @@ import com.can_apps.chat.R
 import com.can_apps.chat.app.adapter.ChatAdapter
 import com.can_apps.chat.bresenter.ChatMessageModel
 import com.can_apps.chat.bresenter.ChatMessageTextModel
-import com.can_apps.chat.bresenter.ChatMessageTimestampModel
 import com.can_apps.chat.core.ChatContract
 import kotlinx.android.synthetic.main.fragment_chat.*
 
