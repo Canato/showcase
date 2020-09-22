@@ -37,11 +37,19 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
+    implementation(project(Libs.showcase.common))
+
     implementation(Libs.kotlin.stdLib)
 
     implementation(Libs.android.coreKtx)
     implementation(Libs.android.appCompat)
 
+    implementation(Libs.kotlin.coroutineCore)
+
     implementation(Libs.androidx.roomRuntime)
+    implementation(Libs.androidx.roomKtx)
     kapt(Libs.androidx.roomCompiler)
+
+    // Test
+    testImplementation(Libs.test.junit)
 }
