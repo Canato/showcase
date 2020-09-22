@@ -37,7 +37,7 @@ internal open class ChatServiceLocator(
             getTimestamp()
         )
 
-    private fun getTimestamp(): CommonTimestampWrapper =
+    open fun getTimestamp(): CommonTimestampWrapper =
         CommonTimestampWrapperDefault()
 
     private fun getRepository(): ChatContract.Repository =
@@ -46,7 +46,7 @@ internal open class ChatServiceLocator(
             getDtoMapper()
         )
 
-    private fun getMessageDataSource(): MessageDatabaseDataSource =
+    open fun getMessageDataSource(): MessageDatabaseDataSource =
         MessageDatabaseProvider.getInstance(context).getMessageDatabaseDataSource()
 
     private fun getDtoMapper(): ChatDtoMapper =
