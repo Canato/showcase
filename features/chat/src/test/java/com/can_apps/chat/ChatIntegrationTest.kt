@@ -10,11 +10,19 @@ import com.can_apps.message_data_source.MessageHolderEnumDto
 import com.can_apps.message_data_source.MessageTextDto
 import com.can_apps.message_data_source.MessageTimestampDto
 import io.mockk.MockKAnnotations
+import io.mockk.Ordering
+import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import io.mockk.verify
+import io.mockk.verifySequence
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.withTimeout
 import org.junit.Before
 import org.junit.Test
 
@@ -52,17 +60,57 @@ internal class ChatIntegrationTest {
         val otherMsg4 = ChatMessageModel.Other(ChatMessageTextModel("$text4?"), timestampModel)
         val otherMsg5 = ChatMessageModel.Other(ChatMessageTextModel("$text5?"), timestampModel)
 
-        val myMsgDto1 = MessageDto(MessageTextDto(text1), MessageTimestampDto(timestamp), MessageHolderEnumDto.MY)
-        val myMsgDto2 = MessageDto(MessageTextDto(text2), MessageTimestampDto(timestamp), MessageHolderEnumDto.MY)
-        val myMsgDto3 = MessageDto(MessageTextDto(text3), MessageTimestampDto(timestamp), MessageHolderEnumDto.MY)
-        val myMsgDto4 = MessageDto(MessageTextDto(text4), MessageTimestampDto(timestamp), MessageHolderEnumDto.MY)
-        val myMsgDto5 = MessageDto(MessageTextDto(text5), MessageTimestampDto(timestamp), MessageHolderEnumDto.MY)
+        val myMsgDto1 = MessageDto(
+            MessageTextDto(text1),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.MY
+        )
+        val myMsgDto2 = MessageDto(
+            MessageTextDto(text2),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.MY
+        )
+        val myMsgDto3 = MessageDto(
+            MessageTextDto(text3),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.MY
+        )
+        val myMsgDto4 = MessageDto(
+            MessageTextDto(text4),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.MY
+        )
+        val myMsgDto5 = MessageDto(
+            MessageTextDto(text5),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.MY
+        )
 
-        val otherMsgDto1 = MessageDto(MessageTextDto("$text1?"), MessageTimestampDto(timestamp), MessageHolderEnumDto.OTHER)
-        val otherMsgDto2 = MessageDto(MessageTextDto("$text2?"), MessageTimestampDto(timestamp), MessageHolderEnumDto.OTHER)
-        val otherMsgDto3 = MessageDto(MessageTextDto("$text3?"), MessageTimestampDto(timestamp), MessageHolderEnumDto.OTHER)
-        val otherMsgDto4 = MessageDto(MessageTextDto("$text4?"), MessageTimestampDto(timestamp), MessageHolderEnumDto.OTHER)
-        val otherMsgDto5 = MessageDto(MessageTextDto("$text5?"), MessageTimestampDto(timestamp), MessageHolderEnumDto.OTHER)
+        val otherMsgDto1 = MessageDto(
+            MessageTextDto("$text1?"),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.OTHER
+        )
+        val otherMsgDto2 = MessageDto(
+            MessageTextDto("$text2?"),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.OTHER
+        )
+        val otherMsgDto3 = MessageDto(
+            MessageTextDto("$text3?"),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.OTHER
+        )
+        val otherMsgDto4 = MessageDto(
+            MessageTextDto("$text4?"),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.OTHER
+        )
+        val otherMsgDto5 = MessageDto(
+            MessageTextDto("$text5?"),
+            MessageTimestampDto(timestamp),
+            MessageHolderEnumDto.OTHER
+        )
     }
 
     @MockK
@@ -181,4 +229,35 @@ internal class ChatIntegrationTest {
                 dataSource.add(otherMsgDto4)
             }
         }
+
+    @Test
+    fun `GIVEN messages, WHEN on create, THEN update list and listen to db`() =
+        testDispatcher.runBlockingTest {
+            // GIVEN
+            val messagesDto = listOf(myMsgDto1, myMsgDto3, otherMsgDto3, myMsgDto5, otherMsgDto1)
+            val messagesModel = listOf(myMsg1, myMsg3, otherMsg3, myMsg5, otherMsg1)
+            val databaseFlowChange = flow {
+                emit(myMsgDto2)
+                emit(myMsgDto4)
+                emit(otherMsgDto5)
+                emit(otherMsgDto2)
+                emit(otherMsgDto4)
+            }
+            coEvery { dataSource.getAll() } returns messagesDto
+            coEvery { dataSource.getLatestValue() } returns databaseFlowChange
+
+            // WHEN
+            presenter.onViewCreated()
+
+            // THEN
+            verifySequence {
+                view.setupMessages(messagesModel)
+                view.addMessage(myMsg2)
+                view.addMessage(myMsg4)
+                view.addMessage(otherMsg5)
+                view.addMessage(otherMsg2)
+                view.addMessage(otherMsg4)
+            }
+        }
+
 }
