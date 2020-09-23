@@ -1,20 +1,35 @@
 package com.can_apps.chat.core
 
+import com.can_apps.common.wrappers.CommonTimestampWrapper
+import io.mockk.MockKAnnotations
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 
 internal class ChatInteractorTest {
 
-    private val interactor = ChatInteractor()
+    @MockK
+    private lateinit var repository: ChatContract.Repository
+
+    @MockK
+    private lateinit var timestamp: CommonTimestampWrapper
+
+    @InjectMockKs
+    private lateinit var interactor: ChatInteractor
+
+    @Before
+    fun setup() = MockKAnnotations.init(this, relaxed = true)
 
     @Test
     fun `GIVEN message, WHEN get answer, THEN return question`() {
         // GIVEN
         val text = "Poesia"
         val expected = ChatMessageTextDomain("$text?")
-        val domain = mockk<ChatDomain>(relaxed = true)
+        val domain = mockk<ChatNewDomain>(relaxed = true)
 
         every { domain.text.value } returns text
 
@@ -30,7 +45,7 @@ internal class ChatInteractorTest {
         // GIVEN
         val text = ""
         val expected = ChatMessageTextDomain("?")
-        val domain = mockk<ChatDomain>(relaxed = true)
+        val domain = mockk<ChatNewDomain>(relaxed = true)
 
         every { domain.text.value } returns text
 
@@ -46,7 +61,7 @@ internal class ChatInteractorTest {
         // GIVEN
         val text = "When?"
         val expected = ChatMessageTextDomain("$text?")
-        val domain = mockk<ChatDomain>(relaxed = true)
+        val domain = mockk<ChatNewDomain>(relaxed = true)
 
         every { domain.text.value } returns text
 

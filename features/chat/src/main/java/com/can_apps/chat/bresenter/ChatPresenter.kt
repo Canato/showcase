@@ -1,9 +1,7 @@
 package com.can_apps.chat.bresenter
 
 import com.can_apps.chat.core.ChatContract
-import com.can_apps.chat.core.ChatMessageTimestampDomain
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
-import com.can_apps.common.wrappers.CommonTimestampWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
@@ -21,8 +19,6 @@ internal class ChatPresenter(
     private val dispatcher: CommonCoroutineDispatcherFactory,
     private val mapper: ChatModelMapper,
     private val debounceWait: Long,
-    private val repository: ChatContract.Repository,
-    private val timestamp: CommonTimestampWrapper
 ) : ChatContract.Presenter, CoroutineScope {
 
     private val job = Job()
@@ -30,7 +26,7 @@ internal class ChatPresenter(
     override val coroutineContext: CoroutineContext
         get() = dispatcher.UI + job
 
-    private val channel = BroadcastChannel<ChatMessageModel>(Channel.CONFLATED)
+    private val channel = BroadcastChannel<ChatMessageTextModel>(Channel.CONFLATED)
 
     private var view: ChatContract.View? = null
 
@@ -52,42 +48,38 @@ internal class ChatPresenter(
 
     override fun onSendMessage(message: ChatMessageTextModel) {
         if (message.value.isNotBlank()) {
-            val model = ChatMessageModel.My(
-                message,
-                ChatMessageTimestampModel(timestamp.currentTimeStampMillis)
-            )
-            channel.offer(model)
-            saveMessage(model)
+            channel.offer(message)
+            saveMessage(message)
         }
     }
 
-    private fun CoroutineScope.saveMessage(message: ChatMessageModel) =
+    private fun CoroutineScope.saveMessage(message: ChatMessageTextModel) =
         launch(dispatcher.IO) {
-            val domain = mapper.toDomain(message)
-            repository.addMessage(domain)
+            val domain = mapper.toMyDomain(message)
+            interactor.addMessage(domain)
         }
 
     private fun CoroutineScope.fetchMessages() = launch(dispatcher.IO) {
-        val messages = repository.getMessages()
+        val messages = interactor.getMessages()
         showMessages(mapper.toModel(messages))
     }
 
     @FlowPreview
     private fun CoroutineScope.getAnswer(
-        receiveChannel: BroadcastChannel<ChatMessageModel>
+        receiveChannel: BroadcastChannel<ChatMessageTextModel>
     ) = launch(dispatcher.IO) {
         receiveChannel
             .asFlow()
             .debounce(debounceWait)
             .collect { message ->
-                val domain = interactor.getSystemAnswer(mapper.toDomain(message))
-                    .copy(timestamp = ChatMessageTimestampDomain(timestamp.currentTimeStampMillis))
-                repository.addMessage(domain)
+                val domain = mapper.toOtherDomain(message)
+                val answerMsg = interactor.getSystemAnswer(domain)
+                interactor.addMessage(answerMsg)
             }
     }
 
     private fun CoroutineScope.setupMessagesListener() = launch {
-        repository
+        interactor
             .getLatest()
             .flowOn(dispatcher.IO)
             .collect {

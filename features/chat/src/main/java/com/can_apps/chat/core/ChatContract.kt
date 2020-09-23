@@ -26,12 +26,18 @@ internal interface ChatContract {
 
     interface Interactor {
 
-        fun getSystemAnswer(domain: ChatDomain): ChatDomain
+        fun getSystemAnswer(domain: ChatNewDomain): ChatNewDomain
+
+        suspend fun addMessage(domain: ChatNewDomain)
+
+        suspend fun getMessages(): List<ChatDomain>
+
+        fun getLatest(): Flow<ChatDomain>
     }
 
     interface Repository {
 
-        suspend fun addMessage(domain: ChatDomain)
+        suspend fun addMessage(domain: ChatNewDomain)
 
         suspend fun getMessages(): List<ChatDomain>
 

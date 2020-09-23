@@ -2,19 +2,19 @@ package com.can_apps.chat.bresenter
 
 sealed class ChatMessageModel {
 
+    abstract val id: ChatMessageIdModel
     abstract val text: ChatMessageTextModel
-    abstract val timestamp: ChatMessageTimestampModel
 
     data class My(
-        override val text: ChatMessageTextModel,
-        override val timestamp: ChatMessageTimestampModel
+        override val id: ChatMessageIdModel,
+        override val text: ChatMessageTextModel
     ) : ChatMessageModel()
 
     data class Other(
-        override val text: ChatMessageTextModel,
-        override val timestamp: ChatMessageTimestampModel
+        override val id: ChatMessageIdModel,
+        override val text: ChatMessageTextModel
     ) : ChatMessageModel()
 }
 
+inline class ChatMessageIdModel(val value: Long)
 inline class ChatMessageTextModel(val value: String)
-inline class ChatMessageTimestampModel(val value: Long)

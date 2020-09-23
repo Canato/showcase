@@ -11,8 +11,7 @@ import kotlin.coroutines.CoroutineContext
 internal class MockChatServiceLocator(
     private val testDispatcher: TestCoroutineDispatcher,
     private val debounceWaitValue: Long,
-    private val dataSource: MessageDatabaseDataSource,
-    private val timestamp: Long
+    private val dataSource: MessageDatabaseDataSource
 ) : ChatServiceLocator(mockk(relaxed = true)) {
 
     override fun getDispatcher(): CommonCoroutineDispatcherFactory =
@@ -22,15 +21,13 @@ internal class MockChatServiceLocator(
 
     override fun getMessageDataSource(): MessageDatabaseDataSource = dataSource
 
-    override fun getTimestamp(): CommonTimestampWrapper = TestCommonTimestampWrapper(timestamp)
+    override fun getTimestamp(): CommonTimestampWrapper = TestCommonTimestampWrapper()
 }
 
-class TestCommonTimestampWrapper(
-    private val timestamp: Long
-) : CommonTimestampWrapper {
+class TestCommonTimestampWrapper() : CommonTimestampWrapper {
 
     override val currentTimeStampMillis: Long
-        get() = timestamp
+        get() = 0L
 }
 
 class TestCoroutineDispatcherFactory(

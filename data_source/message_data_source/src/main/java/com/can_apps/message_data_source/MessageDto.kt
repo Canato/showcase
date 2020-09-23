@@ -2,12 +2,19 @@ package com.can_apps.message_data_source
 
 import java.util.Locale
 
+data class NewMessageDto(
+    val text: MessageTextDto,
+    val holder: MessageHolderEnumDto
+)
+
 data class MessageDto(
+    val id: MessageIdDto,
     val text: MessageTextDto,
     val timestamp: MessageTimestampDto,
     val holder: MessageHolderEnumDto
 )
 
+inline class MessageIdDto(val value: Long)
 inline class MessageTextDto(val value: String)
 inline class MessageTimestampDto(val value: Long)
 enum class MessageHolderEnumDto(val value: String) {

@@ -41,7 +41,7 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (items.isEmpty()) {
             items.add(0, message)
             notifyItemInserted(0)
-        } else if (message.timestamp != items[0].timestamp) {
+        } else if (message.id != items[0].id) {
             items.add(0, message)
             notifyItemInserted(0)
         }

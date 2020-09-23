@@ -1,14 +1,16 @@
 package com.can_apps.chat
 
+import com.can_apps.chat.bresenter.ChatMessageIdModel
 import com.can_apps.chat.bresenter.ChatMessageModel
 import com.can_apps.chat.bresenter.ChatMessageTextModel
-import com.can_apps.chat.bresenter.ChatMessageTimestampModel
 import com.can_apps.chat.core.ChatContract
 import com.can_apps.message_data_source.MessageDatabaseDataSource
 import com.can_apps.message_data_source.MessageDto
 import com.can_apps.message_data_source.MessageHolderEnumDto
+import com.can_apps.message_data_source.MessageIdDto
 import com.can_apps.message_data_source.MessageTextDto
 import com.can_apps.message_data_source.MessageTimestampDto
+import com.can_apps.message_data_source.NewMessageDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -20,16 +22,14 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 
-// todo canato
 internal class ChatIntegrationTest {
 
     companion object {
 
         private const val debounceWait = 100L
+        private const val timestamp = 42L
 
-        const val timestamp = 42L
-
-        private val timestampModel = ChatMessageTimestampModel(timestamp)
+        private val id = ChatMessageIdModel(42L)
 
         private const val text1 = "One"
         private const val text2 = "Two"
@@ -43,65 +43,87 @@ internal class ChatIntegrationTest {
         val message4 = ChatMessageTextModel(text4)
         val message5 = ChatMessageTextModel(text5)
 
-        val myMsg1 = ChatMessageModel.My(message1, timestampModel)
-        val myMsg2 = ChatMessageModel.My(message2, timestampModel)
-        val myMsg3 = ChatMessageModel.My(message3, timestampModel)
-        val myMsg4 = ChatMessageModel.My(message4, timestampModel)
-        val myMsg5 = ChatMessageModel.My(message5, timestampModel)
+        val myMsg1 = ChatMessageModel.My(id, message1)
+        val myMsg2 = ChatMessageModel.My(id, message2)
+        val myMsg3 = ChatMessageModel.My(id, message3)
+        val myMsg4 = ChatMessageModel.My(id, message4)
+        val myMsg5 = ChatMessageModel.My(id, message5)
 
-        val otherMsg1 = ChatMessageModel.Other(ChatMessageTextModel("$text1?"), timestampModel)
-        val otherMsg2 = ChatMessageModel.Other(ChatMessageTextModel("$text2?"), timestampModel)
-        val otherMsg3 = ChatMessageModel.Other(ChatMessageTextModel("$text3?"), timestampModel)
-        val otherMsg4 = ChatMessageModel.Other(ChatMessageTextModel("$text4?"), timestampModel)
-        val otherMsg5 = ChatMessageModel.Other(ChatMessageTextModel("$text5?"), timestampModel)
+        val otherMsg1 = ChatMessageModel.Other(id, ChatMessageTextModel("$text1?"))
+        val otherMsg2 = ChatMessageModel.Other(id, ChatMessageTextModel("$text2?"))
+        val otherMsg3 = ChatMessageModel.Other(id, ChatMessageTextModel("$text3?"))
+        val otherMsg4 = ChatMessageModel.Other(id, ChatMessageTextModel("$text4?"))
+        val otherMsg5 = ChatMessageModel.Other(id, ChatMessageTextModel("$text5?"))
+
+        val newMyMsgDto1 = NewMessageDto(MessageTextDto(text1), MessageHolderEnumDto.MY)
+        val newMyMsgDto2 = NewMessageDto(MessageTextDto(text2), MessageHolderEnumDto.MY)
+        val newMyMsgDto3 = NewMessageDto(MessageTextDto(text3), MessageHolderEnumDto.MY)
+        val newMyMsgDto4 = NewMessageDto(MessageTextDto(text4), MessageHolderEnumDto.MY)
+        val newMyMsgDto5 = NewMessageDto(MessageTextDto(text5), MessageHolderEnumDto.MY)
+
+        val newOtherMsgDto1 = NewMessageDto(MessageTextDto("$text1?"), MessageHolderEnumDto.OTHER)
+        val newOtherMsgDto2 = NewMessageDto(MessageTextDto("$text2?"), MessageHolderEnumDto.OTHER)
+        val newOtherMsgDto3 = NewMessageDto(MessageTextDto("$text3?"), MessageHolderEnumDto.OTHER)
+        val newOtherMsgDto4 = NewMessageDto(MessageTextDto("$text4?"), MessageHolderEnumDto.OTHER)
+        val newOtherMsgDto5 = NewMessageDto(MessageTextDto("$text5?"), MessageHolderEnumDto.OTHER)
 
         val myMsgDto1 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto(text1),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.MY
         )
         val myMsgDto2 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto(text2),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.MY
         )
         val myMsgDto3 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto(text3),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.MY
         )
         val myMsgDto4 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto(text4),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.MY
         )
         val myMsgDto5 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto(text5),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.MY
         )
 
         val otherMsgDto1 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto("$text1?"),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.OTHER
         )
         val otherMsgDto2 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto("$text2?"),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.OTHER
         )
         val otherMsgDto3 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto("$text3?"),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.OTHER
         )
         val otherMsgDto4 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto("$text4?"),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.OTHER
         )
         val otherMsgDto5 = MessageDto(
+            MessageIdDto(id.value),
             MessageTextDto("$text5?"),
             MessageTimestampDto(timestamp),
             MessageHolderEnumDto.OTHER
@@ -122,8 +144,7 @@ internal class ChatIntegrationTest {
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
 
-        val serviceLocator =
-            MockChatServiceLocator(testDispatcher, debounceWait, dataSource, timestamp)
+        val serviceLocator = MockChatServiceLocator(testDispatcher, debounceWait, dataSource)
 
         presenter = serviceLocator.getPresenter()
 
@@ -143,19 +164,19 @@ internal class ChatIntegrationTest {
 
             // THEN
             coVerify(exactly = 1) {
-                dataSource.add(myMsgDto1)
-                dataSource.add(myMsgDto1)
-                dataSource.add(myMsgDto1)
-                dataSource.add(myMsgDto4)
-                dataSource.add(myMsgDto5)
-                dataSource.add(otherMsgDto5)
+                dataSource.add(newMyMsgDto1)
+                dataSource.add(newMyMsgDto1)
+                dataSource.add(newMyMsgDto1)
+                dataSource.add(newMyMsgDto4)
+                dataSource.add(newMyMsgDto5)
+                dataSource.add(newOtherMsgDto5)
             }
 
             coVerify(exactly = 0) {
-                dataSource.add(otherMsgDto1)
-                dataSource.add(otherMsgDto2)
-                dataSource.add(otherMsgDto3)
-                dataSource.add(otherMsgDto4)
+                dataSource.add(newOtherMsgDto1)
+                dataSource.add(newOtherMsgDto2)
+                dataSource.add(newOtherMsgDto3)
+                dataSource.add(newOtherMsgDto4)
             }
         }
 
@@ -176,19 +197,19 @@ internal class ChatIntegrationTest {
 
             // THEN
             coVerify(exactly = 1) {
-                dataSource.add(myMsgDto1)
-                dataSource.add(myMsgDto2)
-                dataSource.add(myMsgDto3)
-                dataSource.add(myMsgDto4)
-                dataSource.add(myMsgDto5)
-                dataSource.add(otherMsgDto5)
+                dataSource.add(newMyMsgDto1)
+                dataSource.add(newMyMsgDto2)
+                dataSource.add(newMyMsgDto3)
+                dataSource.add(newMyMsgDto4)
+                dataSource.add(newMyMsgDto5)
+                dataSource.add(newOtherMsgDto5)
             }
 
             coVerify(exactly = 0) {
-                dataSource.add(otherMsgDto1)
-                dataSource.add(otherMsgDto2)
-                dataSource.add(otherMsgDto3)
-                dataSource.add(otherMsgDto4)
+                dataSource.add(newOtherMsgDto1)
+                dataSource.add(newOtherMsgDto2)
+                dataSource.add(newOtherMsgDto3)
+                dataSource.add(newOtherMsgDto4)
             }
         }
 
@@ -209,19 +230,19 @@ internal class ChatIntegrationTest {
 
             // THEN
             coVerify(exactly = 1) {
-                dataSource.add(myMsgDto1)
-                dataSource.add(myMsgDto2)
-                dataSource.add(myMsgDto3)
-                dataSource.add(myMsgDto4)
-                dataSource.add(myMsgDto5)
-                dataSource.add(otherMsgDto2)
-                dataSource.add(otherMsgDto3)
-                dataSource.add(otherMsgDto5)
+                dataSource.add(newMyMsgDto1)
+                dataSource.add(newMyMsgDto2)
+                dataSource.add(newMyMsgDto3)
+                dataSource.add(newMyMsgDto4)
+                dataSource.add(newMyMsgDto5)
+                dataSource.add(newOtherMsgDto2)
+                dataSource.add(newOtherMsgDto3)
+                dataSource.add(newOtherMsgDto5)
             }
 
             coVerify(exactly = 0) {
-                dataSource.add(otherMsgDto1)
-                dataSource.add(otherMsgDto4)
+                dataSource.add(newOtherMsgDto1)
+                dataSource.add(newOtherMsgDto4)
             }
         }
 

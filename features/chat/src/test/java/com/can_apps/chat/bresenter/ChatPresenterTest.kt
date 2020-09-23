@@ -5,6 +5,7 @@ import com.can_apps.chat.core.ChatDomain
 import com.can_apps.chat.core.ChatMessageHolderEnumDto
 import com.can_apps.chat.core.ChatMessageTextDomain
 import com.can_apps.chat.core.ChatMessageTimestampDomain
+import com.can_apps.chat.core.ChatNewDomain
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
 import com.can_apps.common.wrappers.CommonTimestampWrapper
@@ -30,12 +31,6 @@ internal class ChatPresenterTest {
     private lateinit var mapper: ChatModelMapper
 
     @MockK
-    private lateinit var repository: ChatContract.Repository
-
-    @MockK
-    private lateinit var time: CommonTimestampWrapper
-
-    @MockK
     private lateinit var view: ChatContract.View
 
     private lateinit var presenter: ChatPresenter
@@ -44,7 +39,7 @@ internal class ChatPresenterTest {
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
 
-        presenter = ChatPresenter(interactor, dispatcher, mapper, 1L, repository, time)
+        presenter = ChatPresenter(interactor, dispatcher, mapper, 1L)
 
         val unconfinedFactory = CommonCoroutineDispatcherFactoryUnconfined()
         every { dispatcher.IO } returns unconfinedFactory.IO
@@ -58,7 +53,7 @@ internal class ChatPresenterTest {
         // GIVEN
         val messages = mockk<List<ChatDomain>>(relaxed = true)
         val expected = mockk<List<ChatMessageModel>>(relaxed = true)
-        coEvery { repository.getMessages() } returns messages
+        coEvery { interactor.getMessages() } returns messages
         every { mapper.toModel(messages) } returns expected
 
         // WHEN
@@ -76,17 +71,14 @@ internal class ChatPresenterTest {
         val message = ""
         val messageModel = ChatMessageTextModel(message)
         val messageDomain = ChatMessageTextDomain(message)
-        val timestamp = ChatMessageTimestampDomain(42L)
-        val expect = ChatDomain(messageDomain, timestamp, ChatMessageHolderEnumDto.MY)
-
-        every { time.currentTimeStampMillis } returns timestamp.value
+        val expect = ChatNewDomain(messageDomain, ChatMessageHolderEnumDto.MY)
 
         // WHEN
         presenter.onSendMessage(messageModel)
 
         // THEN
         coVerify(exactly = 0) {
-            repository.addMessage(expect)
+            interactor.addMessage(expect)
         }
     }
 }

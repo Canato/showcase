@@ -32,9 +32,7 @@ internal open class ChatServiceLocator(
             getInteractor(),
             getDispatcher(),
             getModelMapper(),
-            getDebounceWait(),
-            getRepository(),
-            getTimestamp()
+            getDebounceWait()
         )
 
     open fun getTimestamp(): CommonTimestampWrapper =
@@ -54,7 +52,8 @@ internal open class ChatServiceLocator(
 
     open fun getDebounceWait(): Long = SECOND_IN_MILLIS
 
-    private fun getInteractor(): ChatContract.Interactor = ChatInteractor()
+    private fun getInteractor(): ChatContract.Interactor =
+        ChatInteractor(getRepository(), getTimestamp())
 
     open fun getDispatcher(): CommonCoroutineDispatcherFactory =
         CommonCoroutineDispatcherFactoryDefault()
