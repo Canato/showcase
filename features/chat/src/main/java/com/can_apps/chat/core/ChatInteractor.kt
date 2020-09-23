@@ -8,5 +8,4 @@ internal class ChatInteractor : ChatContract.Interactor {
             domain.timestamp,
             ChatMessageHolderEnumDto.OTHER
         )
-
 }

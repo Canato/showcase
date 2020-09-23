@@ -7,12 +7,11 @@ import com.can_apps.chat.bresenter.ChatModelMapperDefault
 import com.can_apps.chat.bresenter.ChatPresenter
 import com.can_apps.chat.core.ChatContract
 import com.can_apps.chat.core.ChatInteractor
-import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
-import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryDefault
-
 import com.can_apps.chat.data.ChatDtoMapper
 import com.can_apps.chat.data.ChatDtoMapperDefault
 import com.can_apps.chat.data.ChatRepository
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryDefault
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import com.can_apps.common.wrappers.CommonTimestampWrapperDefault
 import com.can_apps.message_data_source.MessageDatabaseDataSource
