@@ -2,8 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
-    id("androidx.navigation.safeargs.kotlin")
-    id("kotlin-android")
+    kotlin("kapt")
 }
 
 android {
@@ -14,6 +13,14 @@ android {
         targetSdkVersion(Apps.targetSdk)
         versionCode = Apps.versionCode
         versionName = Apps.versionName
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+                arg("room.incremental", "true")
+                arg("room.expandProjection", "true")
+            }
+        }
     }
 
     buildTypes {
@@ -23,11 +30,7 @@ android {
     }
 
     kotlinOptions {
-        freeCompilerArgs = listOf(
-            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-XXLanguage:+InlineClasses"
-        )
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
     }
 }
 
@@ -36,25 +39,17 @@ dependencies {
 
     implementation(project(Libs.showcase.common))
 
-    implementation(project(Libs.showcase.dataSource.msg))
-
     implementation(Libs.kotlin.stdLib)
 
     implementation(Libs.android.coreKtx)
     implementation(Libs.android.appCompat)
 
     implementation(Libs.kotlin.coroutineCore)
-    implementation(Libs.kotlin.coroutineAndroid)
-    implementation(Libs.android.recyclerView)
-    implementation(Libs.android.constraintLayout)
 
-    implementation(Libs.navigation.fragment)
+    implementation(Libs.androidx.roomRuntime)
+    implementation(Libs.androidx.roomKtx)
+    kapt(Libs.androidx.roomCompiler)
 
-    implementation(Libs.navigation.fragment)
-    implementation(Libs.navigation.ui)
-
-    // test
+    // Test
     testImplementation(Libs.test.junit)
-    testImplementation(Libs.test.mockK)
-    testImplementation(Libs.test.coroutines)
 }

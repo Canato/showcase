@@ -12,49 +12,13 @@ object Apps {
 
 object Versions {
 
-    //    // chuckerTeam
-//    const val chucker = "3.2.0"
-//
-//    // Gradle
-//    const val gradle = "4.0.0"
-//
-//    // Kotlin
-//    const val ktLint = "9.2.1"
-//    const val kotlin = "1.3.72"
-//    const val coroutine = "1.3.7"
-//    const val coroutineServices = "1.1.1"
-//    const val kotlinGradlePlugin = "4.3.3"
-//
-//    // Android
-//    const val appCompact = "1.1.0"
+    const val room = "2.2.5"
     const val core = "1.2.0"
-//
-//    // Navigation
-//    const val navigation = "2.3.0"
-//
-//    // Layout
-//    const val recyclerview = "1.1.0"
-//    const val materialDesign = "1.2.0"
-//    const val constraintLayout = "2.0.0"
-//
-//    // Google
-//    const val firebaseAuth = "19.3.0"
-//    const val firebaseAnalytics = "17.3.0"
-//    const val gson = "2.8.6"
-//
-//    // Retrofit
-//    const val retrofit = "2.6.4"
-//
-//    // Tests
-//    const val junit = "4.12"
-//    const val mockk = "1.9.3"
-//    const val junitAndroid = "1.1.1"
-//    const val espressoAndroid = "3.2.0"
-//    const val okHttpMockWebServer = "4.8.1"
 }
 
 object Libs {
 
+    val androidx = AndroidX
     val chuckerTeam = ChuckerTeam
     val navigation = Navigation
     val showcase = Showcase
@@ -84,6 +48,14 @@ object ShowcaseDataSource {
 
     const val bad = ":data_source:bad_char_data_source"
     const val rank = ":data_source:rank_data_source"
+    const val msg = ":data_source:message_data_source"
+}
+
+object AndroidX {
+
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
 }
 
 object ChuckerTeam {
@@ -129,7 +101,7 @@ object GoogleLibs {
     const val gson = "com.google.code.gson:gson:_"
     const val googleServices = "com.google.gms:google-services:_"
     const val materialDesign = "com.google.android.material:material:_"
-    const val ossLicenses= "com.google.android.gms:oss-licenses-plugin:_"
+    const val ossLicenses = "com.google.android.gms:oss-licenses-plugin:_"
     const val playServiceOssLicenses = "com.google.android.gms:play-services-oss-licenses:_"
 }
 

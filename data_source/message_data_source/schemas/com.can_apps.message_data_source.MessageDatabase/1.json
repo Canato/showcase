@@ -1,0 +1,61 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "e64a007eb568ee540d3f19c9d271ef5d",
+    "entities": [
+      {
+        "tableName": "message_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`message_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `message_text` TEXT NOT NULL, `message_timestamp` INTEGER NOT NULL, `message_holder` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "message_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "message_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "message_timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "holder",
+            "columnName": "message_holder",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "message_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "newsIdIndex",
+            "unique": false,
+            "columnNames": [
+              "message_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `newsIdIndex` ON `${TABLE_NAME}` (`message_id`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e64a007eb568ee540d3f19c9d271ef5d')"
+    ]
+  }
+}

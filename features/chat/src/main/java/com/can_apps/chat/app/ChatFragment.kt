@@ -27,7 +27,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        val serviceLocator = ChatServiceLocator()
+        val serviceLocator = ChatServiceLocator(context)
         presenter = serviceLocator.getPresenter()
         recyclerViewAdapter = serviceLocator.getAdapter()
     }

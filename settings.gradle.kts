@@ -15,7 +15,8 @@ include(
 include(
     ":data_source",
     ":data_source:bad_char_data_source",
-    ":data_source:rank_data_source"
+    ":data_source:rank_data_source",
+    ":data_source:message_data_source"
 )
 
 buildscript {
