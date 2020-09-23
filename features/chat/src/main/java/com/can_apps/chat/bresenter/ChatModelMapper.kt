@@ -1,12 +1,5 @@
 package com.can_apps.chat.bresenter
 
-import com.can_apps.chat.core.ChatMessageTextDomain
-
-internal interface ChatModelMapper {
-
-    fun toDomain(message: ChatMessageTextModel): ChatMessageTextDomain
-
-    fun toOtherModel(domain: ChatMessageTextDomain): ChatMessageModel
 import com.can_apps.chat.core.ChatDomain
 import com.can_apps.chat.core.ChatMessageHolderEnumDto
 import com.can_apps.chat.core.ChatMessageTextDomain
@@ -46,4 +39,3 @@ internal class ChatModelMapperDefault : ChatModelMapper {
         }
     }
 }
-// todo canato

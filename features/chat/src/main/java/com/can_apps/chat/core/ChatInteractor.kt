@@ -8,8 +8,5 @@ internal class ChatInteractor : ChatContract.Interactor {
             domain.timestamp,
             ChatMessageHolderEnumDto.OTHER
         )
-    override fun getSystemAnswer(message: ChatMessageTextDomain): ChatMessageTextDomain =
-        ChatMessageTextDomain("${message.value}?")
 
-    // todo canato
 }

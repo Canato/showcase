@@ -13,14 +13,6 @@ internal class ChatInteractorTest {
     fun `GIVEN message, WHEN get answer, THEN return question`() {
         // GIVEN
         val text = "Poesia"
-        val message = ChatMessageTextDomain(text)
-        val expected = ChatMessageTextDomain("$text?")
-
-        // WHEN
-        val result = interactor.getSystemAnswer(message)
-
-        // THEN
-        assertEquals(expected, result)
         val expected = ChatMessageTextDomain("$text?")
         val domain = mockk<ChatDomain>(relaxed = true)
 

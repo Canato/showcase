@@ -1,8 +1,6 @@
 package com.can_apps.chat.bresenter
 
 import com.can_apps.chat.core.ChatContract
-import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
-import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
 import com.can_apps.chat.core.ChatDomain
 import com.can_apps.chat.core.ChatMessageHolderEnumDto
 import com.can_apps.chat.core.ChatMessageTextDomain
@@ -11,7 +9,6 @@ import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import io.mockk.MockKAnnotations
-import io.mockk.every
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every

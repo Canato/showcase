@@ -24,11 +24,6 @@ internal interface ChatContract {
         fun onSendMessage(message: ChatMessageTextModel)
     }
 
-    interface Interactor { // todo canato
-
-        fun getSystemAnswer(message: ChatMessageTextDomain): ChatMessageTextDomain
-    }
-
     interface Interactor {
 
         fun getSystemAnswer(domain: ChatDomain): ChatDomain

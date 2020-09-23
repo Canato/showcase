@@ -1,24 +1,6 @@
 package com.can_apps.chat.bresenter
 
 import com.can_apps.chat.core.ChatContract
-import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
-
-internal class ChatPresenter(
-    private val interactor: ChatContract.Interactor,
-    private val dispatcher: CommonCoroutineDispatcherFactory,
-    private val mapper: ChatModelMapper,
-    private val debounceWait: Long
-) : ChatContract.Presenter, CoroutineScope {
 import com.can_apps.chat.core.ChatMessageTimestampDomain
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.wrappers.CommonTimestampWrapper
