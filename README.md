@@ -18,6 +18,8 @@ Here you can find a compilation of some best practices of Android Development ac
 - [Git Hook](#git-hooks)
 - [License](#license)
 
+- Others: [Room](https://developer.android.com/topic/libraries/architecture/room), [Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html)
+
 ## :triangular_ruler: Project Architecture
 
 The project is modularised per feature and use the MVP pattern.
