@@ -15,11 +15,15 @@ import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.verifySequence
 import kotlinx.coroutines.flow.flow
+import com.can_apps.chat.core.ChatContract
+import io.mockk.MockKAnnotations
+import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
-
+// todo canato
 internal class ChatIntegrationTest {
 
     companion object {
@@ -41,6 +45,18 @@ internal class ChatIntegrationTest {
         val message3 = ChatMessageTextModel(text3)
         val message4 = ChatMessageTextModel(text4)
         val message5 = ChatMessageTextModel(text5)
+
+        val model1 = ChatMessageModel.My(message1)
+        val model2 = ChatMessageModel.My(message2)
+        val model3 = ChatMessageModel.My(message3)
+        val model4 = ChatMessageModel.My(message4)
+        val model5 = ChatMessageModel.My(message5)
+
+        val modelQuestion1 = ChatMessageModel.Other(ChatMessageTextModel("$text1?"))
+        val modelQuestion2 = ChatMessageModel.Other(ChatMessageTextModel("$text2?"))
+        val modelQuestion3 = ChatMessageModel.Other(ChatMessageTextModel("$text3?"))
+        val modelQuestion4 = ChatMessageModel.Other(ChatMessageTextModel("$text4?"))
+        val modelQuestion5 = ChatMessageModel.Other(ChatMessageTextModel("$text5?"))
 
         val myMsg1 = ChatMessageModel.My(message1, timestampModel)
         val myMsg2 = ChatMessageModel.My(message2, timestampModel)
@@ -123,6 +139,7 @@ internal class ChatIntegrationTest {
 
         val serviceLocator =
             MockChatServiceLocator(testDispatcher, debounceWait, dataSource, timestamp)
+        val serviceLocator = MockChatServiceLocator(testDispatcher, debounceWait) // todo canato
 
         presenter = serviceLocator.getPresenter()
 
@@ -155,6 +172,21 @@ internal class ChatIntegrationTest {
                 dataSource.add(otherMsgDto2)
                 dataSource.add(otherMsgDto3)
                 dataSource.add(otherMsgDto4)
+            }
+            verify(exactly = 1) {
+                view.addMessage(model1)
+                view.addMessage(model2)
+                view.addMessage(model3)
+                view.addMessage(model4)
+                view.addMessage(model5)
+                view.addMessage(modelQuestion5)
+            }
+
+            verify(exactly = 0) {
+                view.addMessage(modelQuestion1)
+                view.addMessage(modelQuestion2)
+                view.addMessage(modelQuestion3)
+                view.addMessage(modelQuestion4)
             }
         }
 

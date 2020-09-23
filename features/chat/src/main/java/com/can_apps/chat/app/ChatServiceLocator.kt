@@ -7,6 +7,12 @@ import com.can_apps.chat.bresenter.ChatModelMapperDefault
 import com.can_apps.chat.bresenter.ChatPresenter
 import com.can_apps.chat.core.ChatContract
 import com.can_apps.chat.core.ChatInteractor
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryDefault
+
+// open for integration tests
+internal open class ChatServiceLocator {
+import com.can_apps.chat.core.ChatInteractor
 import com.can_apps.chat.data.ChatDtoMapper
 import com.can_apps.chat.data.ChatDtoMapperDefault
 import com.can_apps.chat.data.ChatRepository
