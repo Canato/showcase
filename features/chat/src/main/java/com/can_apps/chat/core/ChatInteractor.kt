@@ -43,6 +43,7 @@ internal class ChatInteractor(
             while (position >= 0) {
                 val timeDiff = messages[position].timestamp.value - latestTimestamp.value
                 if (timeDiff > time.getOneHourInSeconds) {
+                    latestTimestamp = messages[position].timestamp
                     val systemMsg = ChatDomain(
                         ChatMessageIdDomain(latestTimestamp.value),
                         ChatMessageTextDomain(time.toDate(latestTimestamp.value)),
@@ -50,7 +51,6 @@ internal class ChatInteractor(
                         ChatMessageHolderEnumDto.SYSTEM
                     )
                     emit(systemMsg)
-                    latestTimestamp = messages[position].timestamp
                 }
                 emit(messages[position])
                 position--
