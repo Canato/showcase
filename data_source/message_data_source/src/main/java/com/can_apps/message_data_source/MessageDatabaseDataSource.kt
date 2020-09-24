@@ -21,14 +21,8 @@ internal class MessageDatabaseDataSourceDefault(
     private val timestamp: CommonTimestampWrapper
 ) : MessageDatabaseDataSource {
 
-    override suspend fun add(dto: NewMessageDto): Boolean {
-        val entity = mapper.toEntity(dto, timestamp.currentTimeStampSeconds)
-        val antiResult = dao.add(entity) != -1L
-
-        val resultq = !antiResult
-        val result = !resultq
-        return result
-    }
+    override suspend fun add(dto: NewMessageDto): Boolean =
+        dao.add(mapper.toEntity(dto, timestamp.currentTimeStampSeconds)) != -1L
 
     override suspend fun getAll(): List<MessageDto> =
         mapper.toDto(dao.getAllMessages())
