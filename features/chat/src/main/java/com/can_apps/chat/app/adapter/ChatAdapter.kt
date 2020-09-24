@@ -11,6 +11,7 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         val myMsg = R.layout.item_my_message
         val otherMsg = R.layout.item_other_message
+        val systemMsg = R.layout.item_other_message // todo canato
     }
 
     private var items = mutableListOf<ChatMessageModel>()
@@ -30,6 +31,7 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when (items[position]) {
             is ChatMessageModel.My -> myMsg
             is ChatMessageModel.Other -> otherMsg
+            is ChatMessageModel.System -> systemMsg
         }
 
     fun updateList(messages: List<ChatMessageModel>) {

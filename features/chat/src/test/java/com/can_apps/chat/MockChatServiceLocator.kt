@@ -26,8 +26,13 @@ internal class MockChatServiceLocator(
 
 class TestCommonTimestampWrapper() : CommonTimestampWrapper {
 
-    override val currentTimeStampMillis: Long
+    override val currentTimeStampSeconds: Long
         get() = 0L
+
+    override val getOneHourInSeconds: Long
+        get() = 0L // todo canato - add system test to integration
+
+    override fun toDate(seconds: Long): String = ""
 }
 
 class TestCoroutineDispatcherFactory(

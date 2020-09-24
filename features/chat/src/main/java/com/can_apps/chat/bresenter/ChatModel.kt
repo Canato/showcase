@@ -14,6 +14,11 @@ sealed class ChatMessageModel {
         override val id: ChatMessageIdModel,
         override val text: ChatMessageTextModel
     ) : ChatMessageModel()
+
+    data class System(
+        override val id: ChatMessageIdModel,
+        override val text: ChatMessageTextModel
+    ) : ChatMessageModel()
 }
 
 inline class ChatMessageIdModel(val value: Long)

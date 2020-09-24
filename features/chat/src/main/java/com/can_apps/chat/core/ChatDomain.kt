@@ -19,7 +19,8 @@ internal inline class ChatMessageTextDomain(val value: String)
 internal inline class ChatMessageTimestampDomain(val value: Long)
 internal enum class ChatMessageHolderEnumDto(val value: String) {
     MY("my"),
-    OTHER("other");
+    OTHER("other"),
+    SYSTEM("system");
 
     companion object {
 

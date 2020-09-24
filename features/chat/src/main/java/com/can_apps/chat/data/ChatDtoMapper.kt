@@ -15,21 +15,25 @@ import com.can_apps.message_data_source.NewMessageDto
 
 internal interface ChatDtoMapper {
 
-    fun toDto(domain: ChatNewDomain): NewMessageDto
+    fun toDto(domain: ChatNewDomain): NewMessageDto?
 
     fun toDomain(dto: MessageDto): ChatDomain
 }
 
 internal class ChatDtoMapperDefault : ChatDtoMapper {
 
-    override fun toDto(domain: ChatNewDomain): NewMessageDto =
-        NewMessageDto(
-            MessageTextDto(domain.text.value),
-            when (domain.holder) {
-                ChatMessageHolderEnumDto.MY -> MessageHolderEnumDto.MY
-                ChatMessageHolderEnumDto.OTHER -> MessageHolderEnumDto.OTHER
-            }
-        )
+    override fun toDto(domain: ChatNewDomain): NewMessageDto? =
+        when (domain.holder) {
+            ChatMessageHolderEnumDto.MY -> NewMessageDto(
+                MessageTextDto(domain.text.value),
+                MessageHolderEnumDto.MY
+            )
+            ChatMessageHolderEnumDto.OTHER -> NewMessageDto(
+                MessageTextDto(domain.text.value),
+                MessageHolderEnumDto.OTHER
+            )
+            ChatMessageHolderEnumDto.SYSTEM -> null
+        }
 
     override fun toDomain(dto: MessageDto): ChatDomain =
         ChatDomain(

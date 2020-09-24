@@ -14,7 +14,7 @@ internal class ChatRepository(
 
     override suspend fun addMessage(domain: ChatNewDomain) {
         val dto = mapper.toDto(domain)
-        messageDataSource.add(dto)
+        dto?.let { messageDataSource.add(it) }
     }
 
     override suspend fun getMessages(): List<ChatDomain> =

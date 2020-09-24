@@ -2,11 +2,18 @@ package com.can_apps.chat.core
 
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.transform
 
 internal class ChatInteractor(
     private val repository: ChatContract.Repository,
-    private val timestamp: CommonTimestampWrapper
+    private val time: CommonTimestampWrapper
 ) : ChatContract.Interactor {
+
+    private var latestTimestamp = ChatMessageTimestampDomain(0L)
 
     override fun getSystemAnswer(domain: ChatNewDomain): ChatNewDomain =
         ChatNewDomain(
@@ -18,9 +25,40 @@ internal class ChatInteractor(
         repository.addMessage(domain)
     }
 
-    override suspend fun getMessages(): List<ChatDomain> =
-        repository.getMessages()
+    override suspend fun getMessages(): Flow<ChatDomain> = flow {
+        val messages = repository.getMessages()
+
+        addSystemMessages(messages)
+    }
 
     override fun getLatest(): Flow<ChatDomain> =
-        repository.getLatest()
+        repository.getLatest().transform {
+            flow {
+                addSystemMessages(listOf(it))
+            }
+        }
+
+    private suspend fun FlowCollector<ChatDomain>.addSystemMessages(
+        messages: List<ChatDomain>
+    ) {
+        if (messages.isNotEmpty()) {
+            var position = messages.lastIndex
+
+            while (position >= 0) {
+                val timeDiff = messages[position].timestamp.value - latestTimestamp.value
+                if (timeDiff > time.getOneHourInSeconds) {
+                    val systemMsg = ChatDomain(
+                        ChatMessageIdDomain(latestTimestamp.value),
+                        ChatMessageTextDomain(time.toDate(latestTimestamp.value)),
+                        latestTimestamp,
+                        ChatMessageHolderEnumDto.SYSTEM
+                    )
+                    emit(systemMsg)
+                    latestTimestamp = messages[position].timestamp
+                }
+                emit(messages[position])
+                position--
+            }
+        }
+    }
 }

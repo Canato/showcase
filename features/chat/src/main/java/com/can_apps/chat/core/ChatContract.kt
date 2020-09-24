@@ -30,7 +30,7 @@ internal interface ChatContract {
 
         suspend fun addMessage(domain: ChatNewDomain)
 
-        suspend fun getMessages(): List<ChatDomain>
+        suspend fun getMessages(): Flow<ChatDomain>
 
         fun getLatest(): Flow<ChatDomain>
     }
