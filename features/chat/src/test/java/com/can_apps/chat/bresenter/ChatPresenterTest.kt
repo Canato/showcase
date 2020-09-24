@@ -16,6 +16,9 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 
@@ -35,6 +38,8 @@ internal class ChatPresenterTest {
 
     private lateinit var presenter: ChatPresenter
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
@@ -49,19 +54,22 @@ internal class ChatPresenterTest {
     }
 
     @Test
-    fun `GIVEN messages, WHEN view create, THEN setup list`() {
+    fun `GIVEN messages, WHEN view create, THEN setup list`() =
+        testDispatcher.runBlockingTest  {
         // GIVEN
-        val messages = mockk<List<ChatDomain>>(relaxed = true)
-        val expected = mockk<List<ChatMessageModel>>(relaxed = true)
+            val domain = mockk<ChatDomain>(relaxed = true)
+        val messages = flow { emit(domain) }
+        val expected = mockk<ChatMessageModel>(relaxed = true)
+
         coEvery { interactor.getMessages() } returns messages
-        every { mapper.toModel(messages) } returns expected
+        every { mapper.toModel(domain) } returns expected
 
         // WHEN
         presenter.onViewCreated()
 
         // THEN
         verify {
-            view.setupMessages(expected)
+            view.addMessage(expected)
         }
     }
 

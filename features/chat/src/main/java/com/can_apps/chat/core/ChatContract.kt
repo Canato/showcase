@@ -8,8 +8,6 @@ internal interface ChatContract {
 
     interface View {
 
-        fun setupMessages(messages: List<ChatMessageModel>)
-
         fun addMessage(message: ChatMessageModel)
     }
 

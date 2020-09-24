@@ -35,11 +35,6 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is ChatMessageModel.System -> systemMsg
         }
 
-    fun updateList(messages: List<ChatMessageModel>) {
-        items = messages.toMutableList()
-        notifyItemRangeInserted(0, itemCount)
-    }
-
     fun addToList(message: ChatMessageModel) {
         if (items.isEmpty()) {
             items.add(0, message)

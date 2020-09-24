@@ -32,6 +32,11 @@ class TestCommonTimestampWrapper() : CommonTimestampWrapper {
     override val getOneHourInSeconds: Long
         get() = 0L // todo canato - add system test to integration
 
+    override val getOneDayInSeconds: Long
+        get() = 0L
+    override val getSevenDaysInSeconds: Long
+        get() = 0L
+
     override fun toDate(seconds: Long): String = ""
 }
 

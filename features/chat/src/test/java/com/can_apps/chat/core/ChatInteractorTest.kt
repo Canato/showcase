@@ -8,6 +8,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -83,8 +84,10 @@ internal class ChatInteractorTest {
     }
 
     @Test
-    fun `GIVEN messages short period send, WHEN get, THEN add system message on top only`() {
+    fun `GIVEN messages short period send, WHEN get, THEN add system message on top only`() =
+        testDispatcher.runBlockingTest  {
         // GIVEN
+        val resultList = mutableListOf<ChatDomain>()
         val time1 = ChatMessageTimestampDomain(80L)
         val time2 = ChatMessageTimestampDomain(75L)
         val time3 = ChatMessageTimestampDomain(70L)
@@ -109,60 +112,62 @@ internal class ChatInteractorTest {
         coEvery { repository.getMessages() } returns messages
 
         // WHEN
-        val result = runBlocking { interactor.getMessages() }
+        val flow = runBlocking { interactor.getMessages() }
 
         // THEN
-        assertEquals(SYSTEM, result[result.lastIndex].holder)
-        assertEquals(messages.size + 1, result.size)
+        launch {
+            flow.collect {
+                resultList.add(it)
+            }
+        }
+
+        assertEquals(SYSTEM, resultList[0].holder)
+        assertEquals(5, resultList.filter { it.holder == MY }.size)
+        assertEquals(messages.size + 1, resultList.size)
     }
 
     @Test
-    fun `GIVEN messages long period send, WHEN get, THEN add system message between`() {
-        // GIVEN
-        val time1 = ChatMessageTimestampDomain(30L)
-        val time2 = ChatMessageTimestampDomain(23L)
-        val time3 = ChatMessageTimestampDomain(20L)
-        val time4 = ChatMessageTimestampDomain(20L)
-        val time5 = ChatMessageTimestampDomain(10L)
-        val msg = ChatDomain(
-            ChatMessageIdDomain(42L),
-            ChatMessageTextDomain("Oe"),
-            ChatMessageTimestampDomain(0L),
-            MY
-        )
-        val messages = listOf(
-            msg.copy(timestamp = time1),
-            msg.copy(timestamp = time2),
-            msg.copy(timestamp = time3),
-            msg.copy(timestamp = time4),
-            msg.copy(timestamp = time5)
-        )
-        val timeThreshold = 5L
+    fun `GIVEN messages long period send, WHEN get, THEN add system message between`() =
+        testDispatcher.runBlockingTest {
+            // GIVEN
+            val resultList = mutableListOf<ChatDomain>()
+            val time1 = ChatMessageTimestampDomain(30L)
+            val time2 = ChatMessageTimestampDomain(23L)
+            val time3 = ChatMessageTimestampDomain(20L)
+            val time4 = ChatMessageTimestampDomain(20L)
+            val time5 = ChatMessageTimestampDomain(10L)
+            val msg = ChatDomain(
+                ChatMessageIdDomain(42L),
+                ChatMessageTextDomain("Oe"),
+                ChatMessageTimestampDomain(0L),
+                MY
+            )
+            val messages = listOf(
+                msg.copy(timestamp = time1),
+                msg.copy(timestamp = time2),
+                msg.copy(timestamp = time3),
+                msg.copy(timestamp = time4),
+                msg.copy(timestamp = time5)
+            )
+            val timeThreshold = 5L
 
-        every { timestamp.getOneHourInSeconds } returns timeThreshold
-        coEvery { repository.getMessages() } returns messages
+            every { timestamp.getOneHourInSeconds } returns timeThreshold
+            coEvery { repository.getMessages() } returns messages
 
-        // WHEN
-        val result = runBlocking { interactor.getMessages() }
+            // WHEN
+            val flow = interactor.getMessages()
 
-        // THEN
-        assertEquals(SYSTEM, result[result.size - 1].holder)
-        assertEquals(messages.size + 3, result.size)
-    }
+            // THEN
+            launch {
+                flow.collect {
+                    resultList.add(it)
+                }
+            }
 
-    @Test
-    fun `GIVEN no messages, WHEN get, THEN no system message`() {
-        // GIVEN
-        val messages = emptyList<ChatDomain>()
-
-        coEvery { repository.getMessages() } returns messages
-
-        // WHEN
-        val result = runBlocking { interactor.getMessages() }
-
-        // THEN
-        assertEquals(messages.size, result.size)
-    }
+            assertEquals(3, resultList.filter { it.holder == SYSTEM }.size)
+            assertEquals(5, resultList.filter { it.holder == MY }.size)
+            assertEquals(messages.size + 3, resultList.size)
+        }
 
     @Test
     fun `GIVEN no previous messages, WHEN get latest, THEN system message`() =
@@ -190,7 +195,7 @@ internal class ChatInteractorTest {
                 flow.collect {
                     if (isFirst) {
                         isFirst = false
-                        assertEquals(SYSTEM, it.)
+                        assertEquals(SYSTEM, it.holder)
                     } else {
                         assert(SYSTEM != it.holder)
                     }

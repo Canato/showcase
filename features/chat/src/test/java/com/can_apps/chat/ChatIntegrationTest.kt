@@ -267,7 +267,11 @@ internal class ChatIntegrationTest {
 
             // THEN
             verifySequence {
-                view.setupMessages(messagesModel)
+                view.addMessage(myMsg1)
+                view.addMessage(myMsg3)
+                view.addMessage(otherMsg3)
+                view.addMessage(myMsg5)
+                view.addMessage(otherMsg1)
                 view.addMessage(myMsg2)
                 view.addMessage(myMsg4)
                 view.addMessage(otherMsg5)

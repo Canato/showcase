@@ -22,10 +22,10 @@ internal interface MessageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(entity: MessageEntity): Long
 
-    @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_TIMESTAMP DESC")
+    @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_ID DESC")
     fun getAllMessages(): List<MessageEntity>
 
-    @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_TIMESTAMP DESC LIMIT 1")
+    @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_ID DESC LIMIT 1")
     fun getLatestValue(): Flow<MessageEntity>
 }
 
