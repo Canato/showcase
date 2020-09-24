@@ -14,6 +14,7 @@
     <color name="rank_item_background_my">#F2F5FC</color>
     <color name="rank_reset_background">#FFB561</color>
     <color name="white">#FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
     <color name="black">#151515</color>
     <color name="rank_list_background">#E5E5E5</color>
     <color name="red">#F44336</color>
