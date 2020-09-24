@@ -43,7 +43,6 @@ internal class ChatPresenter(
 
     override fun onViewCreated() {
         fetchMessages()
-        setupMessagesListener()
     }
 
     override fun onSendMessage(message: ChatMessageTextModel) {
@@ -65,6 +64,7 @@ internal class ChatPresenter(
             .collect {
                 view?.addMessage(mapper.toModel(it))
             }
+        setupMessagesListener()
     }
 
     @FlowPreview

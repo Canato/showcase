@@ -31,9 +31,7 @@ internal class ChatInteractor(
 
     override fun getLatest(): Flow<ChatDomain> =
         repository.getLatest().transform {
-            flow {
-                addSystemMessages(listOf(it))
-            }
+            addSystemMessages(listOf(it))
         }
 
     private suspend fun FlowCollector<ChatDomain>.addSystemMessages(
