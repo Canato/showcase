@@ -1,6 +1,7 @@
 package com.can_apps.chat.core
 
-import com.can_apps.chat.core.ChatMessageHolderEnumDto.*
+import com.can_apps.chat.core.ChatMessageHolderEnumDto.MY
+import com.can_apps.chat.core.ChatMessageHolderEnumDto.SYSTEM
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -8,7 +9,6 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -85,46 +85,46 @@ internal class ChatInteractorTest {
 
     @Test
     fun `GIVEN messages short period send, WHEN get, THEN add system message on top only`() =
-        testDispatcher.runBlockingTest  {
-        // GIVEN
-        val resultList = mutableListOf<ChatDomain>()
-        val time1 = ChatMessageTimestampDomain(80L)
-        val time2 = ChatMessageTimestampDomain(75L)
-        val time3 = ChatMessageTimestampDomain(70L)
-        val time4 = ChatMessageTimestampDomain(70L)
-        val time5 = ChatMessageTimestampDomain(60L)
-        val msg = ChatDomain(
-            ChatMessageIdDomain(42L),
-            ChatMessageTextDomain("Oe"),
-            ChatMessageTimestampDomain(0L),
-            MY
-        )
-        val messages = listOf(
-            msg.copy(timestamp = time1),
-            msg.copy(timestamp = time2),
-            msg.copy(timestamp = time3),
-            msg.copy(timestamp = time4),
-            msg.copy(timestamp = time5)
-        )
-        val timeThreshold = 50L
+        testDispatcher.runBlockingTest {
+            // GIVEN
+            val resultList = mutableListOf<ChatDomain>()
+            val time1 = ChatMessageTimestampDomain(80L)
+            val time2 = ChatMessageTimestampDomain(75L)
+            val time3 = ChatMessageTimestampDomain(70L)
+            val time4 = ChatMessageTimestampDomain(70L)
+            val time5 = ChatMessageTimestampDomain(60L)
+            val msg = ChatDomain(
+                ChatMessageIdDomain(42L),
+                ChatMessageTextDomain("Oe"),
+                ChatMessageTimestampDomain(0L),
+                MY
+            )
+            val messages = listOf(
+                msg.copy(timestamp = time1),
+                msg.copy(timestamp = time2),
+                msg.copy(timestamp = time3),
+                msg.copy(timestamp = time4),
+                msg.copy(timestamp = time5)
+            )
+            val timeThreshold = 50L
 
-        every { timestamp.getOneHourInSeconds } returns timeThreshold
-        coEvery { repository.getMessages() } returns messages
+            every { timestamp.getOneHourInSeconds } returns timeThreshold
+            coEvery { repository.getMessages() } returns messages
 
-        // WHEN
-        val flow = runBlocking { interactor.getMessages() }
+            // WHEN
+            val flow = runBlocking { interactor.getMessages() }
 
-        // THEN
-        launch {
-            flow.collect {
-                resultList.add(it)
+            // THEN
+            launch {
+                flow.collect {
+                    resultList.add(it)
+                }
             }
-        }
 
-        assertEquals(SYSTEM, resultList[0].holder)
-        assertEquals(5, resultList.filter { it.holder == MY }.size)
-        assertEquals(messages.size + 1, resultList.size)
-    }
+            assertEquals(SYSTEM, resultList[0].holder)
+            assertEquals(5, resultList.filter { it.holder == MY }.size)
+            assertEquals(messages.size + 1, resultList.size)
+        }
 
     @Test
     fun `GIVEN messages long period send, WHEN get, THEN add system message between`() =

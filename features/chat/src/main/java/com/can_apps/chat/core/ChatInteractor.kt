@@ -1,6 +1,5 @@
 package com.can_apps.chat.core
 
-import android.util.Log
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector

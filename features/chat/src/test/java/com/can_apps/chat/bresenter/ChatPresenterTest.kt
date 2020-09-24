@@ -4,11 +4,9 @@ import com.can_apps.chat.core.ChatContract
 import com.can_apps.chat.core.ChatDomain
 import com.can_apps.chat.core.ChatMessageHolderEnumDto
 import com.can_apps.chat.core.ChatMessageTextDomain
-import com.can_apps.chat.core.ChatMessageTimestampDomain
 import com.can_apps.chat.core.ChatNewDomain
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
-import com.can_apps.common.wrappers.CommonTimestampWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -55,23 +53,23 @@ internal class ChatPresenterTest {
 
     @Test
     fun `GIVEN messages, WHEN view create, THEN setup list`() =
-        testDispatcher.runBlockingTest  {
-        // GIVEN
+        testDispatcher.runBlockingTest {
+            // GIVEN
             val domain = mockk<ChatDomain>(relaxed = true)
-        val messages = flow { emit(domain) }
-        val expected = mockk<ChatMessageModel>(relaxed = true)
+            val messages = flow { emit(domain) }
+            val expected = mockk<ChatMessageModel>(relaxed = true)
 
-        coEvery { interactor.getMessages() } returns messages
-        every { mapper.toModel(domain) } returns expected
+            coEvery { interactor.getMessages() } returns messages
+            every { mapper.toModel(domain) } returns expected
 
-        // WHEN
-        presenter.onViewCreated()
+            // WHEN
+            presenter.onViewCreated()
 
-        // THEN
-        verify {
-            view.addMessage(expected)
+            // THEN
+            verify {
+                view.addMessage(expected)
+            }
         }
-    }
 
     @Test
     fun `GIVEN message empty, WHEN send, THEN do nothing`() {

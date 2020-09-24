@@ -2,9 +2,7 @@ package com.can_apps.chat.bresenter
 
 import com.can_apps.chat.core.ChatDomain
 import com.can_apps.chat.core.ChatMessageHolderEnumDto
-import com.can_apps.chat.core.ChatMessageIdDomain
 import com.can_apps.chat.core.ChatMessageTextDomain
-import com.can_apps.chat.core.ChatMessageTimestampDomain
 import com.can_apps.chat.core.ChatNewDomain
 
 internal interface ChatModelMapper {

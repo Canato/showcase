@@ -1,6 +1,5 @@
 package com.can_apps.chat.data
 
-import android.util.Log
 import com.can_apps.chat.core.ChatContract
 import com.can_apps.chat.core.ChatDomain
 import com.can_apps.chat.core.ChatNewDomain
