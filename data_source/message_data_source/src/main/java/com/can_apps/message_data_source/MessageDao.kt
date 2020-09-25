@@ -8,6 +8,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 private const val MESSAGE_TABLE = "message_table"
@@ -23,11 +24,17 @@ internal interface MessageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(entity: MessageEntity): Long
 
+    @Update
+    fun update(entity: MessageEntity): Int
+
     @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_ID DESC")
     fun getAllMessages(): List<MessageEntity>
 
     @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_ID DESC LIMIT 1")
-    fun getLatestValue(): Flow<MessageEntity>
+    fun getLatestValueFlow(): Flow<MessageEntity>
+
+    @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_ID DESC LIMIT 1")
+    fun getLatestValue(): MessageEntity?
 }
 
 @Entity(

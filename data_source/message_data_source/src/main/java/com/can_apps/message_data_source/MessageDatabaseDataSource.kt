@@ -10,9 +10,13 @@ interface MessageDatabaseDataSource {
 
     suspend fun add(dto: NewMessageDto): Boolean
 
+    suspend fun update(dto: MessageDto): Boolean
+
     suspend fun getAll(): List<MessageDto>
 
-    fun getLatestValue(): Flow<MessageDto>
+    suspend fun getLatestValue(): MessageDto?
+
+    fun getLatestValueFlow(): Flow<MessageDto>
 }
 
 internal class MessageDatabaseDataSourceDefault(
@@ -21,15 +25,21 @@ internal class MessageDatabaseDataSourceDefault(
     private val timestamp: CommonTimestampWrapper
 ) : MessageDatabaseDataSource {
 
-    override suspend fun add(dto: NewMessageDto): Boolean {
-        return dao.add(mapper.toEntity(dto, timestamp.currentTimeStampSeconds)) != -1L
-    }
+    override suspend fun add(dto: NewMessageDto): Boolean =
+         dao.add(mapper.toEntity(dto, timestamp.currentTimeStampSeconds)) != -1L
+
+
+    override suspend fun update(dto: MessageDto): Boolean =
+        dao.update(mapper.toEntity(dto)) != -1
 
     override suspend fun getAll(): List<MessageDto> =
         mapper.toDto(dao.getAllMessages())
 
-    override fun getLatestValue(): Flow<MessageDto> =
-        dao.getLatestValue()
+    override suspend fun getLatestValue(): MessageDto? =
+        dao.getLatestValue()?.let { mapper.toDto(it) }
+
+    override fun getLatestValueFlow(): Flow<MessageDto> =
+        dao.getLatestValueFlow()
             .distinctUntilChanged()
             .filterNotNull()
             .map {

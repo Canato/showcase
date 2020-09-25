@@ -25,10 +25,15 @@ internal class ChatModelMapperDefault : ChatModelMapper {
     override fun toModel(message: ChatDomain): ChatMessageModel {
         val id = ChatMessageIdModel(message.id.value)
         val text = ChatMessageTextModel(message.text.value)
-        return when (message.holder) {
-            ChatMessageHolderEnumDomain.MY -> ChatMessageModel.My(id, text)
-            ChatMessageHolderEnumDomain.OTHER -> ChatMessageModel.Other(id, text)
-            ChatMessageHolderEnumDomain.SYSTEM -> ChatMessageModel.System(id, text)
-        }
+
+        return if (message.holder == ChatMessageHolderEnumDomain.MY && message.hasTail.value)
+            ChatMessageModel.MyWithTail(id, text)
+        else if (message.holder == ChatMessageHolderEnumDomain.MY && !message.hasTail.value)
+            ChatMessageModel.My(id, text)
+        else if (message.holder == ChatMessageHolderEnumDomain.OTHER && message.hasTail.value)
+            ChatMessageModel.OtherWithTail(id, text)
+        else if (message.holder == ChatMessageHolderEnumDomain.OTHER && !message.hasTail.value)
+            ChatMessageModel.Other(id, text)
+        else ChatMessageModel.System(id, text)
     }
 }

@@ -272,7 +272,7 @@ internal class ChatIntegrationTest {
                 emit(otherMsgDto4)
             }
             coEvery { dataSource.getAll() } returns messagesDto
-            coEvery { dataSource.getLatestValue() } returns databaseFlowChange
+            coEvery { dataSource.getLatestValueFlow() } returns databaseFlowChange
 
             // WHEN
             presenter.onViewCreated()

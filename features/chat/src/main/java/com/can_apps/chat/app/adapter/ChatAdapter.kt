@@ -32,7 +32,9 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when (items[position]) {
             is ChatMessageModel.My -> myMsg
             is ChatMessageModel.Other -> otherMsg
+            is ChatMessageModel.MyWithTail -> myMsg
             is ChatMessageModel.System -> systemMsg
+            is ChatMessageModel.OtherWithTail -> otherMsg
         }
 
     fun addToList(message: ChatMessageModel) {

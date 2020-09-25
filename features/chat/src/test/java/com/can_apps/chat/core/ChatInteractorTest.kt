@@ -63,7 +63,7 @@ internal class ChatInteractorTest {
         // THEN
         coVerify {
             repository.addMessage(newMessage)
-            repository.uploadMessage(expected)
+            repository.updateMessage(expected)
         }
     }
 
@@ -93,7 +93,7 @@ internal class ChatInteractorTest {
         // THEN
         coVerify {
             repository.addMessage(newMessage)
-            repository.uploadMessage(expected)
+            repository.updateMessage(expected)
         }
     }
 
@@ -125,7 +125,7 @@ internal class ChatInteractorTest {
             repository.addMessage(newMessage)
         }
         coVerify(exactly = 0) {
-            repository.uploadMessage(expected)
+            repository.updateMessage(expected)
         }
     }
 

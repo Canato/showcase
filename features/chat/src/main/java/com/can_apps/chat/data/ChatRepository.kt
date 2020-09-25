@@ -5,8 +5,6 @@ import com.can_apps.chat.core.ChatDomain
 import com.can_apps.chat.core.ChatNewDomain
 import com.can_apps.message_data_source.MessageDatabaseDataSource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 internal class ChatRepository(
@@ -19,18 +17,19 @@ internal class ChatRepository(
         if (dto != null) messageDataSource.add(dto)
     }
 
-    override suspend fun uploadMessage(domain: ChatDomain) {
-
+    override suspend fun updateMessage(domain: ChatDomain) {
+        val dto = mapper.toDto(domain)
+        if (dto != null) messageDataSource.update(dto)
     }
 
     override suspend fun getMessages(): List<ChatDomain> =
         messageDataSource.getAll().map { mapper.toDomain(it) }
 
-    override suspend fun getLatest(): ChatDomain =
-        mapper.toDomain(messageDataSource.getLatestValue().first())
+    override suspend fun getLatest(): ChatDomain? =
+        messageDataSource.getLatestValue()?.let { mapper.toDomain(it) }
 
     override fun getLatestFlow(): Flow<ChatDomain> =
         messageDataSource
-            .getLatestValue()
+            .getLatestValueFlow()
             .map { mapper.toDomain(it) }
 }

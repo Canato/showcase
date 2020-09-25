@@ -28,11 +28,11 @@ internal class ChatInteractor(
     override suspend fun addMessage(domain: ChatNewDomain) {
         val previous = repository.getLatest()
 
-        if (previous.holder == domain.holder) {
+        if (previous != null && previous.holder == domain.holder) {
             val twentySecondsGap =
                 (time.currentTimeStampSeconds - previous.timestamp.value) > TWENTY_SECONDS
             val hasTails = ChatMessageTailDomain(twentySecondsGap)
-            repository.uploadMessage(previous.copy(hasTail = hasTails))
+            repository.updateMessage(previous.copy(hasTail = hasTails))
         }
 
         repository.addMessage(domain)

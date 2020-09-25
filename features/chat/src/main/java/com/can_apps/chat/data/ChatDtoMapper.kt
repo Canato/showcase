@@ -9,12 +9,17 @@ import com.can_apps.chat.core.ChatMessageTimestampDomain
 import com.can_apps.chat.core.ChatNewDomain
 import com.can_apps.message_data_source.MessageDto
 import com.can_apps.message_data_source.MessageHolderEnumDto
+import com.can_apps.message_data_source.MessageIdDto
+import com.can_apps.message_data_source.MessageTailDto
 import com.can_apps.message_data_source.MessageTextDto
+import com.can_apps.message_data_source.MessageTimestampDto
 import com.can_apps.message_data_source.NewMessageDto
 
 internal interface ChatDtoMapper {
 
     fun toDto(domain: ChatNewDomain): NewMessageDto?
+
+    fun toDto(domain: ChatDomain): MessageDto?
 
     fun toDomain(dto: MessageDto): ChatDomain
 }
@@ -33,6 +38,20 @@ internal class ChatDtoMapperDefault : ChatDtoMapper {
             )
             ChatMessageHolderEnumDomain.SYSTEM -> null
         }
+
+    override fun toDto(domain: ChatDomain): MessageDto? {
+        val id = MessageIdDto(domain.id.value)
+        val text = MessageTextDto(domain.text.value)
+        val time = MessageTimestampDto(domain.timestamp.value)
+        val hastTail = MessageTailDto(domain.hasTail.value)
+        return when (domain.holder) {
+            ChatMessageHolderEnumDomain.MY ->
+                MessageDto(id, text, time, MessageHolderEnumDto.MY, hastTail)
+            ChatMessageHolderEnumDomain.OTHER ->
+                MessageDto(id, text, time, MessageHolderEnumDto.OTHER, hastTail)
+            ChatMessageHolderEnumDomain.SYSTEM -> null
+        }
+    }
 
     override fun toDomain(dto: MessageDto): ChatDomain =
         ChatDomain(
