@@ -1,5 +1,6 @@
 package com.can_apps.chat.core
 
+import android.util.Log
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -13,8 +14,8 @@ internal class ChatInteractor(
 
     companion object {
 
-        const val TWENTY_SECONDS = 20
-        const val ONE_HOUR_SECONDS = 3600
+        const val TWENTY_MILLIS = 20000
+        const val ONE_HOUR_MILLIS = 3600000
     }
 
     private var latestTimestamp = ChatMessageTimestampDomain(0L)
@@ -29,9 +30,12 @@ internal class ChatInteractor(
         val previous = repository.getLatest()
 
         if (previous != null && previous.holder == domain.holder) {
-            val twentySecondsGap =
-                (time.currentTimeStampSeconds - previous.timestamp.value) > TWENTY_SECONDS
+            val timeNow = time.currentTimeStampMillis
+            val previousTime = previous.timestamp.value
+
+            val twentySecondsGap = (timeNow - previousTime) > TWENTY_MILLIS
             val hasTails = ChatMessageTailDomain(twentySecondsGap)
+
             repository.updateMessage(previous.copy(hasTail = hasTails))
         }
 
@@ -57,7 +61,7 @@ internal class ChatInteractor(
 
             while (position >= 0) {
                 val timeDiff = messages[position].timestamp.value - latestTimestamp.value
-                if (timeDiff > ONE_HOUR_SECONDS) {
+                if (timeDiff > ONE_HOUR_MILLIS) {
                     latestTimestamp = messages[position].timestamp
                     val systemMsg = ChatDomain(
                         ChatMessageIdDomain(latestTimestamp.value),

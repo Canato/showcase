@@ -55,7 +55,7 @@ internal class ChatInteractorTest {
         val expected = prevMessage.copy(hasTail = ChatMessageTailDomain(true))
 
         coEvery { repository.getLatest() } returns prevMessage
-        every { timestamp.currentTimeStampSeconds } returns newTimestamp
+        every { timestamp.currentTimeStampMillis } returns newTimestamp
 
         // WHEN
         runBlocking { interactor.addMessage(newMessage) }
@@ -85,7 +85,7 @@ internal class ChatInteractorTest {
         val expected = prevMessage.copy(hasTail = ChatMessageTailDomain(false))
 
         coEvery { repository.getLatest() } returns prevMessage
-        every { timestamp.currentTimeStampSeconds } returns newTimestamp
+        every { timestamp.currentTimeStampMillis } returns newTimestamp
 
         // WHEN
         runBlocking { interactor.addMessage(newMessage) }
@@ -115,7 +115,7 @@ internal class ChatInteractorTest {
         val expected = prevMessage.copy(hasTail = ChatMessageTailDomain(false))
 
         coEvery { repository.getLatest() } returns prevMessage
-        every { timestamp.currentTimeStampSeconds } returns newTimestamp
+        every { timestamp.currentTimeStampMillis } returns newTimestamp
 
         // WHEN
         runBlocking { interactor.addMessage(newMessage) }

@@ -26,10 +26,10 @@ internal class MockChatServiceLocator(
 
 class TestCommonTimestampWrapper() : CommonTimestampWrapper {
 
-    override val currentTimeStampSeconds: Long
+    override val currentTimeStampMillis: Long
         get() = 0L
 
-    override fun toDate(seconds: Long): String = ""
+    override fun toDate(millis: Long): String = ""
 }
 
 class TestCoroutineDispatcherFactory(

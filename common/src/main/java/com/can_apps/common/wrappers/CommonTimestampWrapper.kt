@@ -6,9 +6,9 @@ import java.util.Locale
 
 interface CommonTimestampWrapper {
 
-    val currentTimeStampSeconds: Long
+    val currentTimeStampMillis: Long
 
-    fun toDate(seconds: Long): String
+    fun toDate(millis: Long): String
 }
 
 class CommonTimestampWrapperDefault : CommonTimestampWrapper {
@@ -19,20 +19,20 @@ class CommonTimestampWrapperDefault : CommonTimestampWrapper {
         const val SEVEN_DAYS_SECONDS = 604800
     }
 
-    override val currentTimeStampSeconds: Long
-        get() = System.currentTimeMillis() / 1000
+    override val currentTimeStampMillis: Long
+        get() = System.currentTimeMillis()
 
-    override fun toDate(seconds: Long): String {
+    override fun toDate(millis: Long): String {
 
-        val isMoreThanOneDays = (currentTimeStampSeconds - seconds) > ONE_DAY_SECONDS
-        val isLessThanSevenDays = (currentTimeStampSeconds - seconds) < SEVEN_DAYS_SECONDS
+        val isMoreThanOneDays = (currentTimeStampMillis - millis) / 1000 > ONE_DAY_SECONDS
+        val isLessThanSevenDays = (currentTimeStampMillis - millis) / 1000 < SEVEN_DAYS_SECONDS
 
         val pattern = if (isMoreThanOneDays && isLessThanSevenDays) "EEEE hh:mm" else "dd/MM hh:mm"
 
         val formatter = SimpleDateFormat(pattern, Locale.getDefault())
 
         val calendar: Calendar = Calendar.getInstance()
-        calendar.timeInMillis = seconds * 1000
+        calendar.timeInMillis = millis
         return formatter.format(calendar.time)
     }
 }

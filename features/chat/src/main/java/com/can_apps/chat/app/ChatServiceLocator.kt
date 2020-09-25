@@ -24,7 +24,7 @@ internal open class ChatServiceLocator(
 
     companion object {
 
-        private const val SECOND_IN_MILLIS = 1500L
+        private const val SECOND_IN_MILLIS = 120500L //1500L
     }
 
     fun getPresenter(): ChatContract.Presenter =

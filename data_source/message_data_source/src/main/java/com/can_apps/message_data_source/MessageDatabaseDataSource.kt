@@ -1,5 +1,6 @@
 package com.can_apps.message_data_source
 
+import android.util.Log
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -26,10 +27,10 @@ internal class MessageDatabaseDataSourceDefault(
 ) : MessageDatabaseDataSource {
 
     override suspend fun add(dto: NewMessageDto): Boolean =
-        dao.add(mapper.toEntity(dto, timestamp.currentTimeStampSeconds)) != -1L
+        dao.add(mapper.toEntity(dto, timestamp.currentTimeStampMillis)) != -1L
 
     override suspend fun update(dto: MessageDto): Boolean =
-        dao.update(mapper.toEntity(dto)) != -1
+        dao.add(mapper.toEntity(dto)) != -1L
 
     override suspend fun getAll(): List<MessageDto> =
         mapper.toDto(dao.getAllMessages())
