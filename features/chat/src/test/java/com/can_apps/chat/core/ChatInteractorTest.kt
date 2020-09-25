@@ -173,19 +173,20 @@ internal class ChatInteractorTest {
     fun `GIVEN no previous messages, WHEN get latest, THEN system message`() =
         testDispatcher.runBlockingTest {
             // GIVEN
-            var isFirst = true
+            val resultList = mutableListOf<ChatDomain>()
             val messages = emptyList<ChatDomain>()
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
-                ChatMessageTimestampDomain(0L),
+                ChatMessageTimestampDomain(50L),
                 MY
             )
             val latestFlow = flow { emit(msg) }
 
             coEvery { repository.getMessages() } returns messages
             every { repository.getLatest() } returns latestFlow
-            interactor.getMessages()
+            val check = interactor.getMessages()
+            launch { check.collect { } }
 
             // WHEN
             val flow = interactor.getLatest()
@@ -193,14 +194,12 @@ internal class ChatInteractorTest {
             // THEN
             launch {
                 flow.collect {
-                    if (isFirst) {
-                        isFirst = false
-                        assertEquals(SYSTEM, it.holder)
-                    } else {
-                        assert(SYSTEM != it.holder)
-                    }
+                    resultList.add(it)
                 }
             }
+
+            assertEquals(SYSTEM, resultList[0].holder)
+            assertEquals(MY, resultList[1].holder)
         }
 
     @Test
@@ -224,7 +223,8 @@ internal class ChatInteractorTest {
             every { timestamp.getOneHourInSeconds } returns timeThreshold
             coEvery { repository.getMessages() } returns messages
             every { repository.getLatest() } returns latestFlow
-            interactor.getMessages()
+            val check = interactor.getMessages()
+            launch { check.collect { } }
 
             // WHEN
             val flow = interactor.getLatest()
@@ -262,7 +262,8 @@ internal class ChatInteractorTest {
             every { timestamp.getOneHourInSeconds } returns timeThreshold
             coEvery { repository.getMessages() } returns messages
             every { repository.getLatest() } returns latestFlow
-            interactor.getMessages()
+            val check = interactor.getMessages()
+            launch { check.collect { } }
 
             // WHEN
             val flow = interactor.getLatest()

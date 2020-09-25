@@ -162,6 +162,8 @@ internal class ChatIntegrationTest {
             presenter.onSendMessage(message5)
             testDispatcher.advanceTimeBy(debounceWait * 2)
 
+            coEvery { dataSource.add(any()) } returns true
+
             // THEN
             coVerify(exactly = 1) {
                 dataSource.add(newMyMsgDto1)
@@ -251,7 +253,6 @@ internal class ChatIntegrationTest {
         testDispatcher.runBlockingTest {
             // GIVEN
             val messagesDto = listOf(myMsgDto1, myMsgDto3, otherMsgDto3, myMsgDto5, otherMsgDto1)
-            val messagesModel = listOf(myMsg1, myMsg3, otherMsg3, myMsg5, otherMsg1)
             val databaseFlowChange = flow {
                 emit(myMsgDto2)
                 emit(myMsgDto4)
@@ -267,11 +268,12 @@ internal class ChatIntegrationTest {
 
             // THEN
             verifySequence {
-                view.addMessage(myMsg1)
-                view.addMessage(myMsg3)
-                view.addMessage(otherMsg3)
-                view.addMessage(myMsg5)
+                view.addMessage(ChatMessageModel.System(ChatMessageIdModel(timestamp), ChatMessageTextModel("")))
                 view.addMessage(otherMsg1)
+                view.addMessage(myMsg5)
+                view.addMessage(otherMsg3)
+                view.addMessage(myMsg3)
+                view.addMessage(myMsg1)
                 view.addMessage(myMsg2)
                 view.addMessage(myMsg4)
                 view.addMessage(otherMsg5)
