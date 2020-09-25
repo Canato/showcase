@@ -12,3 +12,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 - Messages are storage in the device and retrieve in a new session
+- Messages show date and time
