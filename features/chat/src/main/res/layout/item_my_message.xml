@@ -21,5 +21,7 @@
         android:background="@drawable/chat_my_bubble"
         android:textColor="@color/chat_send_message_color"
         android:gravity="start"
+        android:visibility="invisible"
+        tools:visibility="visible"
         tools:text="Freddie designed the Queen crest, using the astrological signs of the four members: two Leos, one Cancer and one Virgo. Despite this, Freddie claimed not to believe in astrology." />
 </LinearLayout>
