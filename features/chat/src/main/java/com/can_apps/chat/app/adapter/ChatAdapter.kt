@@ -9,8 +9,10 @@ import com.can_apps.chat.bresenter.ChatMessageModel
 internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
+
         val myMsg = R.layout.item_my_message
         val otherMsg = R.layout.item_other_message
+        val systemMsg = R.layout.item_system_message
     }
 
     private var items = mutableListOf<ChatMessageModel>()
@@ -30,18 +32,14 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when (items[position]) {
             is ChatMessageModel.My -> myMsg
             is ChatMessageModel.Other -> otherMsg
+            is ChatMessageModel.System -> systemMsg
         }
-
-    fun updateList(messages: List<ChatMessageModel>) {
-        items = messages.toMutableList()
-        notifyItemRangeInserted(0, itemCount)
-    }
 
     fun addToList(message: ChatMessageModel) {
         if (items.isEmpty()) {
             items.add(0, message)
             notifyItemInserted(0)
-        } else if (message.timestamp != items[0].timestamp) {
+        } else if (message.id != items[0].id) {
             items.add(0, message)
             notifyItemInserted(0)
         }

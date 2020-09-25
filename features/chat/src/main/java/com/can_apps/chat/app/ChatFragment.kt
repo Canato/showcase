@@ -83,11 +83,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
         }
     }
 
-    override fun setupMessages(messages: List<ChatMessageModel>) {
-        recyclerViewAdapter.updateList(messages)
-        chatRecyclerView.smoothScrollToPosition(0)
-    }
-
     override fun addMessage(message: ChatMessageModel) {
         recyclerViewAdapter.addToList(message)
         chatRecyclerView.smoothScrollToPosition(0)
