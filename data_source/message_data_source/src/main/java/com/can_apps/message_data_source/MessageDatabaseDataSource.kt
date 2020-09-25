@@ -26,8 +26,7 @@ internal class MessageDatabaseDataSourceDefault(
 ) : MessageDatabaseDataSource {
 
     override suspend fun add(dto: NewMessageDto): Boolean =
-         dao.add(mapper.toEntity(dto, timestamp.currentTimeStampSeconds)) != -1L
-
+        dao.add(mapper.toEntity(dto, timestamp.currentTimeStampSeconds)) != -1L
 
     override suspend fun update(dto: MessageDto): Boolean =
         dao.update(mapper.toEntity(dto)) != -1

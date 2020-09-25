@@ -1,8 +1,8 @@
 package com.can_apps.chat.core
 
 import com.can_apps.chat.core.ChatMessageHolderEnumDomain.MY
-import com.can_apps.chat.core.ChatMessageHolderEnumDomain.SYSTEM
 import com.can_apps.chat.core.ChatMessageHolderEnumDomain.OTHER
+import com.can_apps.chat.core.ChatMessageHolderEnumDomain.SYSTEM
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
