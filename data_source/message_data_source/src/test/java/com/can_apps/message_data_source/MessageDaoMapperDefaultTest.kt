@@ -12,15 +12,11 @@ internal class MessageDaoMapperDefaultTest {
         // GIVEN
         val text = "Voltrom"
         val timeStamp = 42L
-        val dto = MessageDto(
-            MessageTextDto(text),
-            MessageTimestampDto(timeStamp),
-            MessageHolderEnumDto.MY
-        )
+        val dto = NewMessageDto(MessageTextDto(text), MessageHolderEnumDto.MY)
         val expect = MessageEntity(0, text, timeStamp, "my")
 
         // WHEN
-        val result = mapper.toEntity(dto)
+        val result = mapper.toEntity(dto, timeStamp)
 
         // THEN
         assertEquals(expect, result)
@@ -34,6 +30,7 @@ internal class MessageDaoMapperDefaultTest {
         val entityList = listOf(MessageEntity(0, text, timeStamp, "other"))
         val expect = listOf(
             MessageDto(
+                MessageIdDto(0),
                 MessageTextDto(text),
                 MessageTimestampDto(timeStamp),
                 MessageHolderEnumDto.OTHER
