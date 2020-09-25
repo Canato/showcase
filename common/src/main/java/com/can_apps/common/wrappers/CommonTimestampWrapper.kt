@@ -13,25 +13,19 @@ interface CommonTimestampWrapper {
 
 class CommonTimestampWrapperDefault : CommonTimestampWrapper {
 
-//    override val getTwentySeconds: Long
-//        get() = 20
-//
-//    override val getOneHourInSeconds: Long
-//        get() = 3600
-//
-//    override val getOneDayInSeconds: Long
-//        get() = 86400
-//
-//    override val getSevenDaysInSeconds: Long
-//        get() = 604800
+    companion object {
+
+        const val ONE_DAY_SECONDS = 86400
+        const val SEVEN_DAYS_SECONDS = 604800
+    }
 
     override val currentTimeStampSeconds: Long
         get() = System.currentTimeMillis() / 1000
 
     override fun toDate(seconds: Long): String {
 
-        val isMoreThanOneDays = (currentTimeStampSeconds - seconds) > 86400
-        val isLessThanSevenDays = (currentTimeStampSeconds - seconds) < 604800
+        val isMoreThanOneDays = (currentTimeStampSeconds - seconds) > ONE_DAY_SECONDS
+        val isLessThanSevenDays = (currentTimeStampSeconds - seconds) < SEVEN_DAYS_SECONDS
 
         val pattern = if (isMoreThanOneDays && isLessThanSevenDays) "EEEE hh:mm" else "dd/MM hh:mm"
 

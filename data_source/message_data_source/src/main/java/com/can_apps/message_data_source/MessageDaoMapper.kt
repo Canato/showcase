@@ -10,13 +10,8 @@ internal interface MessageDaoMapper {
 internal class MessageDaoMapperDefault : MessageDaoMapper {
 
     override fun toEntity(dto: NewMessageDto, timestamp: Long): MessageEntity =
-        MessageEntity(
-            0,
-            dto.text.value,
-            timestamp,
-            dto.holder.value
-        )
-
+        MessageEntity(0, dto.text.value, timestamp, dto.holder.value, 1)
+// if (dto.isReadBadge.value) 1 else 0
     override fun toDto(messages: List<MessageEntity>): List<MessageDto> =
         messages.mapNotNull { toDto(it) }
 
@@ -27,7 +22,8 @@ internal class MessageDaoMapperDefault : MessageDaoMapper {
                 MessageIdDto(messages.id),
                 MessageTextDto(messages.text),
                 MessageTimestampDto(messages.timestamp),
-                holder
+                holder,
+                MessageTailDto(messages.hasTail == 1)
             )
         }
 }

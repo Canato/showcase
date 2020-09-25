@@ -15,6 +15,7 @@ private const val MESSAGE_ID = "message_id"
 private const val MESSAGE_TEXT = "message_text"
 private const val MESSAGE_TIMESTAMP = "message_timestamp"
 private const val MESSAGE_HOLDER = "message_holder"
+private const val MESSAGE_TAIL = "message_tail"
 
 @Dao
 internal interface MessageDao {
@@ -46,5 +47,9 @@ internal data class MessageEntity(
     val timestamp: Long,
 
     @ColumnInfo(name = MESSAGE_HOLDER)
-    val holder: String
+    val holder: String,
+
+    // SQLite don't have boolean type. 0 = false, 1 = true
+    @ColumnInfo(name = MESSAGE_TAIL)
+    val hasTail: Int
 )

@@ -8,6 +8,7 @@ import com.can_apps.message_data_source.MessageDatabaseDataSource
 import com.can_apps.message_data_source.MessageDto
 import com.can_apps.message_data_source.MessageHolderEnumDto
 import com.can_apps.message_data_source.MessageIdDto
+import com.can_apps.message_data_source.MessageTailDto
 import com.can_apps.message_data_source.MessageTextDto
 import com.can_apps.message_data_source.MessageTimestampDto
 import com.can_apps.message_data_source.NewMessageDto
@@ -71,62 +72,72 @@ internal class ChatIntegrationTest {
             MessageIdDto(id.value),
             MessageTextDto(text1),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
         val myMsgDto2 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto(text2),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
         val myMsgDto3 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto(text3),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
         val myMsgDto4 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto(text4),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
         val myMsgDto5 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto(text5),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
 
         val otherMsgDto1 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text1?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
         val otherMsgDto2 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text2?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
         val otherMsgDto3 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text3?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
         val otherMsgDto4 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text4?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
         val otherMsgDto5 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text5?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
     }
 

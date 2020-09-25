@@ -1,10 +1,12 @@
 package com.can_apps.chat.core
 
-import com.can_apps.chat.core.ChatMessageHolderEnumDto.MY
-import com.can_apps.chat.core.ChatMessageHolderEnumDto.SYSTEM
+import com.can_apps.chat.core.ChatMessageHolderEnumDomain.MY
+import com.can_apps.chat.core.ChatMessageHolderEnumDomain.SYSTEM
+import com.can_apps.chat.core.ChatMessageHolderEnumDomain.OTHER
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -34,6 +36,98 @@ internal class ChatInteractorTest {
 
     @Before
     fun setup() = MockKAnnotations.init(this, relaxed = true)
+
+    @Test
+    fun `GIVEN msg with long gap, WHEN add message, THEN previous with tail`() {
+        // GIVEN
+        val newText = ChatMessageTextDomain("Pinca")
+        val newHolder = MY
+        val newMessage = ChatNewDomain(newText, newHolder)
+        val newTimestamp = 80L
+
+        val prevId = ChatMessageIdDomain(42L)
+        val prevText = ChatMessageTextDomain("Tormenta")
+        val prevTime = ChatMessageTimestampDomain(50L)
+        val prevHolder = MY
+        val prevTail = ChatMessageTailDomain(false)
+        val prevMessage = ChatDomain(prevId, prevText, prevTime, prevHolder, prevTail)
+
+        val expected = prevMessage.copy(hasTail = ChatMessageTailDomain(true))
+
+        coEvery { repository.getLatest() } returns prevMessage
+        every { timestamp.currentTimeStampSeconds } returns newTimestamp
+
+        // WHEN
+        runBlocking { interactor.addMessage(newMessage) }
+
+        // THEN
+        coVerify {
+            repository.addMessage(newMessage)
+            repository.uploadMessage(expected)
+        }
+    }
+
+    @Test
+    fun `GIVEN msg with small gap, WHEN add message, THEN previous without tail`() {
+        // GIVEN
+        val newText = ChatMessageTextDomain("Pinca")
+        val newHolder = MY
+        val newMessage = ChatNewDomain(newText, newHolder)
+        val newTimestamp = 60L
+
+        val prevId = ChatMessageIdDomain(42L)
+        val prevText = ChatMessageTextDomain("Tormenta")
+        val prevTime = ChatMessageTimestampDomain(50L)
+        val prevHolder = MY
+        val prevTail = ChatMessageTailDomain(false)
+        val prevMessage = ChatDomain(prevId, prevText, prevTime, prevHolder, prevTail)
+
+        val expected = prevMessage.copy(hasTail = ChatMessageTailDomain(false))
+
+        coEvery { repository.getLatest() } returns prevMessage
+        every { timestamp.currentTimeStampSeconds } returns newTimestamp
+
+        // WHEN
+        runBlocking { interactor.addMessage(newMessage) }
+
+        // THEN
+        coVerify {
+            repository.addMessage(newMessage)
+            repository.uploadMessage(expected)
+        }
+    }
+
+    @Test
+    fun `GIVEN previous msg another holder, WHEN add message, THEN do nothing`() {
+        // GIVEN
+        val newText = ChatMessageTextDomain("Pinca")
+        val newHolder = MY
+        val newMessage = ChatNewDomain(newText, newHolder)
+        val newTimestamp = 60L
+
+        val prevId = ChatMessageIdDomain(42L)
+        val prevText = ChatMessageTextDomain("Tormenta")
+        val prevTime = ChatMessageTimestampDomain(50L)
+        val prevHolder = OTHER
+        val prevTail = ChatMessageTailDomain(false)
+        val prevMessage = ChatDomain(prevId, prevText, prevTime, prevHolder, prevTail)
+
+        val expected = prevMessage.copy(hasTail = ChatMessageTailDomain(false))
+
+        coEvery { repository.getLatest() } returns prevMessage
+        every { timestamp.currentTimeStampSeconds } returns newTimestamp
+
+        // WHEN
+        runBlocking { interactor.addMessage(newMessage) }
+
+        // THEN
+        coVerify {
+            repository.addMessage(newMessage)
+        }
+        coVerify(exactly = 0) {
+            repository.uploadMessage(expected)
+        }
+    }
 
     @Test
     fun `GIVEN message, WHEN get answer, THEN return question`() {
@@ -97,7 +191,8 @@ internal class ChatInteractorTest {
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
                 ChatMessageTimestampDomain(0L),
-                MY
+                MY,
+                ChatMessageTailDomain(false)
             )
             val messages = listOf(
                 msg.copy(timestamp = time1),
@@ -110,7 +205,7 @@ internal class ChatInteractorTest {
             coEvery { repository.getMessages() } returns messages
 
             // WHEN
-            val flow = interactor.getMessages()
+            val flow = interactor.getMessagesFlow()
 
             // THEN
             launch {
@@ -138,7 +233,8 @@ internal class ChatInteractorTest {
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
                 ChatMessageTimestampDomain(0L),
-                MY
+                MY,
+                ChatMessageTailDomain(false)
             )
             val messages = listOf(
                 msg.copy(timestamp = time1),
@@ -151,7 +247,7 @@ internal class ChatInteractorTest {
             coEvery { repository.getMessages() } returns messages
 
             // WHEN
-            val flow = interactor.getMessages()
+            val flow = interactor.getMessagesFlow()
 
             // THEN
             launch {
@@ -175,17 +271,18 @@ internal class ChatInteractorTest {
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
                 ChatMessageTimestampDomain(73600L),
-                MY
+                MY,
+                ChatMessageTailDomain(false)
             )
             val latestFlow = flow { emit(msg) }
 
             coEvery { repository.getMessages() } returns messages
-            every { repository.getLatest() } returns latestFlow
-            val check = interactor.getMessages()
+            every { repository.getLatestFlow() } returns latestFlow
+            val check = interactor.getMessagesFlow()
             launch { check.collect { } }
 
             // WHEN
-            val flow = interactor.getLatest()
+            val flow = interactor.getLatestFlow()
 
             // THEN
             launch {
@@ -209,18 +306,19 @@ internal class ChatInteractorTest {
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
                 ChatMessageTimestampDomain(0L),
-                MY
+                MY,
+                ChatMessageTailDomain(false)
             )
             val messages = listOf(msg.copy(timestamp = time2))
             val latestFlow = flow { emit(msg.copy(timestamp = time1)) }
 
             coEvery { repository.getMessages() } returns messages
-            every { repository.getLatest() } returns latestFlow
-            val check = interactor.getMessages()
+            every { repository.getLatestFlow() } returns latestFlow
+            val check = interactor.getMessagesFlow()
             launch { check.collect { } }
 
             // WHEN
-            val flow = interactor.getLatest()
+            val flow = interactor.getLatestFlow()
 
             // THEN
             launch {
@@ -245,18 +343,19 @@ internal class ChatInteractorTest {
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
                 ChatMessageTimestampDomain(0L),
-                MY
+                MY,
+                ChatMessageTailDomain(false)
             )
             val messages = listOf(msg.copy(timestamp = time1))
             val latestFlow = flow { emit(msg.copy(timestamp = time2)) }
 
             coEvery { repository.getMessages() } returns messages
-            every { repository.getLatest() } returns latestFlow
-            val check = interactor.getMessages()
+            every { repository.getLatestFlow() } returns latestFlow
+            val check = interactor.getMessagesFlow()
             launch { check.collect { } }
 
             // WHEN
-            val flow = interactor.getLatest()
+            val flow = interactor.getLatestFlow()
 
             // THEN
             launch {
@@ -265,28 +364,4 @@ internal class ChatInteractorTest {
                 }
             }
         }
-
-    @Test
-    fun `GIVEN msg with long gap, WHEN add message, THEN add tail to both`() {
-//        // GIVEN
-//        val timeGap = 20L
-//
-//        val newText = ChatMessageTextDomain("Pinca")
-//        val newHolder = MY
-//        val newMessage = ChatNewDomain(newText, newHolder)
-//        val newTimestamp = 60L
-//
-//        val prevId = ChatMessageIdDomain(42L)
-//        val prevText = ChatMessageTextDomain("Tormenta")
-//        val prevTime = ChatMessageTimestampDomain(50L)
-//        val prevHolder = MY
-//        val prevMessage = ChatDomain(prevId, prevText, prevTime, prevHolder)
-//
-//        every { repository.getLatest(newHolder) } returns
-//
-//            // WHEN
-//            interactor.addMessage(newMessage)
-//
-//        // THEN
-    }
 }
