@@ -88,11 +88,11 @@ internal class ChatInteractorTest {
         testDispatcher.runBlockingTest {
             // GIVEN
             val resultList = mutableListOf<ChatDomain>()
-            val time1 = ChatMessageTimestampDomain(80L)
-            val time2 = ChatMessageTimestampDomain(75L)
-            val time3 = ChatMessageTimestampDomain(70L)
-            val time4 = ChatMessageTimestampDomain(70L)
-            val time5 = ChatMessageTimestampDomain(60L)
+            val time1 = ChatMessageTimestampDomain(3650)
+            val time2 = ChatMessageTimestampDomain(3640)
+            val time3 = ChatMessageTimestampDomain(3630)
+            val time4 = ChatMessageTimestampDomain(3630)
+            val time5 = ChatMessageTimestampDomain(3620)
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
@@ -106,13 +106,11 @@ internal class ChatInteractorTest {
                 msg.copy(timestamp = time4),
                 msg.copy(timestamp = time5)
             )
-            val timeThreshold = 50L
 
-            every { timestamp.getOneHourInSeconds } returns timeThreshold
             coEvery { repository.getMessages() } returns messages
 
             // WHEN
-            val flow = runBlocking { interactor.getMessages() }
+            val flow = interactor.getMessages()
 
             // THEN
             launch {
@@ -131,11 +129,11 @@ internal class ChatInteractorTest {
         testDispatcher.runBlockingTest {
             // GIVEN
             val resultList = mutableListOf<ChatDomain>()
-            val time1 = ChatMessageTimestampDomain(30L)
-            val time2 = ChatMessageTimestampDomain(23L)
-            val time3 = ChatMessageTimestampDomain(20L)
-            val time4 = ChatMessageTimestampDomain(20L)
-            val time5 = ChatMessageTimestampDomain(10L)
+            val time1 = ChatMessageTimestampDomain(53600L)
+            val time2 = ChatMessageTimestampDomain(43601L)
+            val time3 = ChatMessageTimestampDomain(43300L)
+            val time4 = ChatMessageTimestampDomain(33603L)
+            val time5 = ChatMessageTimestampDomain(33601L)
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
@@ -149,9 +147,7 @@ internal class ChatInteractorTest {
                 msg.copy(timestamp = time4),
                 msg.copy(timestamp = time5)
             )
-            val timeThreshold = 5L
 
-            every { timestamp.getOneHourInSeconds } returns timeThreshold
             coEvery { repository.getMessages() } returns messages
 
             // WHEN
@@ -178,7 +174,7 @@ internal class ChatInteractorTest {
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
-                ChatMessageTimestampDomain(50L),
+                ChatMessageTimestampDomain(73600L),
                 MY
             )
             val latestFlow = flow { emit(msg) }
@@ -207,20 +203,17 @@ internal class ChatInteractorTest {
         testDispatcher.runBlockingTest {
             // GIVEN
             var isFirst = true
-            val time1 = ChatMessageTimestampDomain(30L)
-            val time2 = ChatMessageTimestampDomain(50L)
+            val time1 = ChatMessageTimestampDomain(23601L)
+            val time2 = ChatMessageTimestampDomain(13600L)
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
                 ChatMessageTimestampDomain(0L),
                 MY
             )
-            val messages = listOf(msg.copy(timestamp = time1))
-            val latestFlow = flow { emit(msg.copy(timestamp = time2)) }
+            val messages = listOf(msg.copy(timestamp = time2))
+            val latestFlow = flow { emit(msg.copy(timestamp = time1)) }
 
-            val timeThreshold = 10L
-
-            every { timestamp.getOneHourInSeconds } returns timeThreshold
             coEvery { repository.getMessages() } returns messages
             every { repository.getLatest() } returns latestFlow
             val check = interactor.getMessages()
@@ -246,8 +239,8 @@ internal class ChatInteractorTest {
     fun `GIVEN messages short period, WHEN get latest, THEN no system message`() =
         testDispatcher.runBlockingTest {
             // GIVEN
-            val time1 = ChatMessageTimestampDomain(30L)
-            val time2 = ChatMessageTimestampDomain(35L)
+            val time1 = ChatMessageTimestampDomain(3650L)
+            val time2 = ChatMessageTimestampDomain(3610L)
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
@@ -257,9 +250,6 @@ internal class ChatInteractorTest {
             val messages = listOf(msg.copy(timestamp = time1))
             val latestFlow = flow { emit(msg.copy(timestamp = time2)) }
 
-            val timeThreshold = 10L
-
-            every { timestamp.getOneHourInSeconds } returns timeThreshold
             coEvery { repository.getMessages() } returns messages
             every { repository.getLatest() } returns latestFlow
             val check = interactor.getMessages()
@@ -275,4 +265,28 @@ internal class ChatInteractorTest {
                 }
             }
         }
+
+    @Test
+    fun `GIVEN msg with long gap, WHEN add message, THEN add tail to both`() {
+//        // GIVEN
+//        val timeGap = 20L
+//
+//        val newText = ChatMessageTextDomain("Pinca")
+//        val newHolder = MY
+//        val newMessage = ChatNewDomain(newText, newHolder)
+//        val newTimestamp = 60L
+//
+//        val prevId = ChatMessageIdDomain(42L)
+//        val prevText = ChatMessageTextDomain("Tormenta")
+//        val prevTime = ChatMessageTimestampDomain(50L)
+//        val prevHolder = MY
+//        val prevMessage = ChatDomain(prevId, prevText, prevTime, prevHolder)
+//
+//        every { repository.getLatest(newHolder) } returns
+//
+//            // WHEN
+//            interactor.addMessage(newMessage)
+//
+//        // THEN
+    }
 }

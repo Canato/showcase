@@ -17,6 +17,10 @@ internal class ChatRepository(
         if (dto != null) messageDataSource.add(dto)
     }
 
+    override suspend fun uploadMessage(domain: ChatDomain) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getMessages(): List<ChatDomain> =
         messageDataSource.getAll().map { mapper.toDomain(it) }
 

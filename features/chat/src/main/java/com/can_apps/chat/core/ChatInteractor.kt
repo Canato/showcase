@@ -42,7 +42,7 @@ internal class ChatInteractor(
 
             while (position >= 0) {
                 val timeDiff = messages[position].timestamp.value - latestTimestamp.value
-                if (timeDiff > time.getOneHourInSeconds) {
+                if (timeDiff > 3600) {
                     latestTimestamp = messages[position].timestamp
                     val systemMsg = ChatDomain(
                         ChatMessageIdDomain(latestTimestamp.value),

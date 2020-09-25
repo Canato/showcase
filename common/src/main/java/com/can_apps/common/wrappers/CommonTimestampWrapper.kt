@@ -6,9 +6,6 @@ import java.util.Locale
 
 interface CommonTimestampWrapper {
 
-    val getOneHourInSeconds: Long
-    val getOneDayInSeconds: Long
-    val getSevenDaysInSeconds: Long
     val currentTimeStampSeconds: Long
 
     fun toDate(seconds: Long): String
@@ -16,22 +13,25 @@ interface CommonTimestampWrapper {
 
 class CommonTimestampWrapperDefault : CommonTimestampWrapper {
 
-    override val getOneHourInSeconds: Long
-        get() = 3600
-
-    override val getOneDayInSeconds: Long
-        get() = 86400
-
-    override val getSevenDaysInSeconds: Long
-        get() = 604800
+//    override val getTwentySeconds: Long
+//        get() = 20
+//
+//    override val getOneHourInSeconds: Long
+//        get() = 3600
+//
+//    override val getOneDayInSeconds: Long
+//        get() = 86400
+//
+//    override val getSevenDaysInSeconds: Long
+//        get() = 604800
 
     override val currentTimeStampSeconds: Long
         get() = System.currentTimeMillis() / 1000
 
     override fun toDate(seconds: Long): String {
 
-        val isMoreThanOneDays = (currentTimeStampSeconds - seconds) > getOneDayInSeconds
-        val isLessThanSevenDays = (currentTimeStampSeconds - seconds) < getSevenDaysInSeconds
+        val isMoreThanOneDays = (currentTimeStampSeconds - seconds) > 86400
+        val isLessThanSevenDays = (currentTimeStampSeconds - seconds) < 604800
 
         val pattern = if (isMoreThanOneDays && isLessThanSevenDays) "EEEE hh:mm" else "dd/MM hh:mm"
 

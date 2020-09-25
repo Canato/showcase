@@ -37,6 +37,8 @@ internal interface ChatContract {
 
         suspend fun addMessage(domain: ChatNewDomain)
 
+        suspend fun uploadMessage(domain: ChatDomain)
+
         suspend fun getMessages(): List<ChatDomain>
 
         fun getLatest(): Flow<ChatDomain>
