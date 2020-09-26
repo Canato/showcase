@@ -3,8 +3,11 @@ package com.can_apps.message_data_source
 internal interface MessageDaoMapper {
 
     fun toEntity(dto: NewMessageDto, timestamp: Long): MessageEntity
+
     fun toEntity(dto: MessageDto): MessageEntity
+
     fun toDto(messages: List<MessageEntity>): List<MessageDto>
+
     fun toDto(messages: MessageEntity): MessageDto?
 }
 

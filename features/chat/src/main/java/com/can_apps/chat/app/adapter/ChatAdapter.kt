@@ -40,12 +40,19 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
     fun addToList(message: ChatMessageModel) {
-        if (items.isEmpty()) {
-            items.add(0, message)
-            notifyItemInserted(0)
-        } else if (message.id != items[0].id) {
-            items.add(0, message)
-            notifyItemInserted(0)
+        when {
+            items.isEmpty() -> {
+                items.add(message)
+                notifyDataSetChanged()
+            }
+            message.id == items[0].id -> {
+                items[0] = message
+                notifyItemChanged(0)
+            }
+            else -> {
+                items.add(0, message)
+                notifyItemInserted(0)
+            }
         }
     }
 }

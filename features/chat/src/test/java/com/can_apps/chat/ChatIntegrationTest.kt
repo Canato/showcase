@@ -15,6 +15,7 @@ import com.can_apps.message_data_source.NewMessageDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verifySequence
 import kotlinx.coroutines.flow.flow
@@ -28,7 +29,7 @@ internal class ChatIntegrationTest {
     companion object {
 
         private const val debounceWait = 100L
-        private const val timestamp = 42L
+        private const val timestamp = 4200000L
 
         private val id = ChatMessageIdModel(42L)
 
@@ -165,6 +166,9 @@ internal class ChatIntegrationTest {
     @Test
     fun `WHEN no wait period, THEN return last one in question`() =
         testDispatcher.runBlockingTest {
+            // GIVEN
+            coEvery { dataSource.getLatestValue() } returns null
+
             // WHEN
             presenter.onSendMessage(message1)
             presenter.onSendMessage(message2)
@@ -196,6 +200,9 @@ internal class ChatIntegrationTest {
     @Test
     fun `WHEN small wait period, THEN return last one in question`() =
         testDispatcher.runBlockingTest {
+            // GIVEN
+            coEvery { dataSource.getLatestValue() } returns null
+
             // WHEN
             presenter.onSendMessage(message1)
             testDispatcher.advanceTimeBy(debounceWait / 2)
@@ -229,6 +236,9 @@ internal class ChatIntegrationTest {
     @Test
     fun `WHEN small and more wait period, THEN return some question`() =
         testDispatcher.runBlockingTest {
+            // GIVEN
+            coEvery { dataSource.getLatestValue() } returns null
+
             // WHEN
             presenter.onSendMessage(message1)
             testDispatcher.advanceTimeBy(debounceWait / 2)

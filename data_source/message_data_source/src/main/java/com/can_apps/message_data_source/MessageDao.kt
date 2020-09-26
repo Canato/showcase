@@ -25,15 +25,15 @@ internal interface MessageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(entity: MessageEntity): Long
 
-    @Update
-    fun update(entity: MessageEntity): Int
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun add(entity: List<MessageEntity>)
 
     @Transaction
     @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_ID DESC")
     fun getAllMessages(): List<MessageEntity>
 
     @Transaction
-    @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_ID DESC LIMIT 1")
+    @Query("SELECT * FROM $MESSAGE_TABLE ORDER BY $MESSAGE_ID DESC LIMIT 2")
     fun getLatestValueFlow(): Flow<MessageEntity>
 
     @Transaction

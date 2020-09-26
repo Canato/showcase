@@ -43,11 +43,11 @@ internal class ChatInteractorTest {
         val newText = ChatMessageTextDomain("Pinca")
         val newHolder = MY
         val newMessage = ChatNewDomain(newText, newHolder)
-        val newTimestamp = 80L
+        val newTimestamp = 80000L
 
         val prevId = ChatMessageIdDomain(42L)
         val prevText = ChatMessageTextDomain("Tormenta")
-        val prevTime = ChatMessageTimestampDomain(50L)
+        val prevTime = ChatMessageTimestampDomain(50000L)
         val prevHolder = MY
         val prevTail = ChatMessageTailDomain(false)
         val prevMessage = ChatDomain(prevId, prevText, prevTime, prevHolder, prevTail)
@@ -62,8 +62,7 @@ internal class ChatInteractorTest {
 
         // THEN
         coVerify {
-            repository.addMessage(newMessage)
-            repository.updateMessage(expected)
+            repository.updateAndAddMessage(expected, newMessage)
         }
     }
 
@@ -92,8 +91,7 @@ internal class ChatInteractorTest {
 
         // THEN
         coVerify {
-            repository.addMessage(newMessage)
-            repository.updateMessage(expected)
+            repository.updateAndAddMessage(expected, newMessage)
         }
     }
 
@@ -125,7 +123,7 @@ internal class ChatInteractorTest {
             repository.addMessage(newMessage)
         }
         coVerify(exactly = 0) {
-            repository.updateMessage(expected)
+            repository.updateAndAddMessage(expected, newMessage)
         }
     }
 
@@ -182,11 +180,11 @@ internal class ChatInteractorTest {
         testDispatcher.runBlockingTest {
             // GIVEN
             val resultList = mutableListOf<ChatDomain>()
-            val time1 = ChatMessageTimestampDomain(3650)
-            val time2 = ChatMessageTimestampDomain(3640)
-            val time3 = ChatMessageTimestampDomain(3630)
-            val time4 = ChatMessageTimestampDomain(3630)
-            val time5 = ChatMessageTimestampDomain(3620)
+            val time1 = ChatMessageTimestampDomain(3650000)
+            val time2 = ChatMessageTimestampDomain(3640000)
+            val time3 = ChatMessageTimestampDomain(3630000)
+            val time4 = ChatMessageTimestampDomain(3630000)
+            val time5 = ChatMessageTimestampDomain(3620000)
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
@@ -224,11 +222,11 @@ internal class ChatInteractorTest {
         testDispatcher.runBlockingTest {
             // GIVEN
             val resultList = mutableListOf<ChatDomain>()
-            val time1 = ChatMessageTimestampDomain(53600L)
-            val time2 = ChatMessageTimestampDomain(43601L)
-            val time3 = ChatMessageTimestampDomain(43300L)
-            val time4 = ChatMessageTimestampDomain(33603L)
-            val time5 = ChatMessageTimestampDomain(33601L)
+            val time1 = ChatMessageTimestampDomain(53600000L)
+            val time2 = ChatMessageTimestampDomain(43601000L)
+            val time3 = ChatMessageTimestampDomain(43300000L)
+            val time4 = ChatMessageTimestampDomain(33603000L)
+            val time5 = ChatMessageTimestampDomain(33601000L)
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
@@ -270,7 +268,7 @@ internal class ChatInteractorTest {
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),
-                ChatMessageTimestampDomain(73600L),
+                ChatMessageTimestampDomain(73600000L),
                 MY,
                 ChatMessageTailDomain(false)
             )
@@ -300,8 +298,8 @@ internal class ChatInteractorTest {
         testDispatcher.runBlockingTest {
             // GIVEN
             var isFirst = true
-            val time1 = ChatMessageTimestampDomain(23601L)
-            val time2 = ChatMessageTimestampDomain(13600L)
+            val time1 = ChatMessageTimestampDomain(23601000L)
+            val time2 = ChatMessageTimestampDomain(13600000L)
             val msg = ChatDomain(
                 ChatMessageIdDomain(42L),
                 ChatMessageTextDomain("Oe"),

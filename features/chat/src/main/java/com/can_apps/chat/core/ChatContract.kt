@@ -37,7 +37,7 @@ internal interface ChatContract {
 
         suspend fun addMessage(domain: ChatNewDomain)
 
-        suspend fun updateMessage(domain: ChatDomain)
+        suspend fun updateAndAddMessage(update: ChatDomain, new: ChatNewDomain)
 
         suspend fun getMessages(): List<ChatDomain>
 

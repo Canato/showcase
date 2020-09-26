@@ -17,9 +17,13 @@ internal class ChatRepository(
         if (dto != null) messageDataSource.add(dto)
     }
 
-    override suspend fun updateMessage(domain: ChatDomain) {
-        val dto = mapper.toDto(domain)
-        if (dto != null) messageDataSource.update(dto)
+    override suspend fun updateAndAddMessage(update: ChatDomain, new: ChatNewDomain) {
+        val updateDto = mapper.toDto(update)
+        val newDto = mapper.toDto(new)
+        if (newDto != null) {
+            if (updateDto != null) messageDataSource.update(updateDto, newDto)
+            else messageDataSource.add(newDto)
+        }
     }
 
     override suspend fun getMessages(): List<ChatDomain> =

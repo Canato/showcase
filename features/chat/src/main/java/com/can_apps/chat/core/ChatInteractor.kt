@@ -1,6 +1,5 @@
 package com.can_apps.chat.core
 
-import android.util.Log
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -30,16 +29,14 @@ internal class ChatInteractor(
         val previous = repository.getLatest()
 
         if (previous != null && previous.holder == domain.holder) {
-            val timeNow = time.currentTimeStampMillis
-            val previousTime = previous.timestamp.value
+            val twentySecondsGap =
+                (time.currentTimeStampMillis - previous.timestamp.value) > TWENTY_MILLIS
 
-            val twentySecondsGap = (timeNow - previousTime) > TWENTY_MILLIS
-            val hasTails = ChatMessageTailDomain(twentySecondsGap)
-
-            repository.updateMessage(previous.copy(hasTail = hasTails))
-        }
-
-        repository.addMessage(domain)
+            repository.updateAndAddMessage(
+                previous.copy(hasTail = ChatMessageTailDomain(twentySecondsGap)),
+                domain
+            )
+        } else repository.addMessage(domain)
     }
 
     override suspend fun getMessagesFlow(): Flow<ChatDomain> = flow {

@@ -1,7 +1,7 @@
 package com.can_apps.message_data_source
 
-import android.util.Log
 import com.can_apps.common.wrappers.CommonTimestampWrapper
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
@@ -11,7 +11,7 @@ interface MessageDatabaseDataSource {
 
     suspend fun add(dto: NewMessageDto): Boolean
 
-    suspend fun update(dto: MessageDto): Boolean
+    suspend fun update(updateDto: MessageDto, newDto: NewMessageDto)
 
     suspend fun getAll(): List<MessageDto>
 
@@ -29,8 +29,11 @@ internal class MessageDatabaseDataSourceDefault(
     override suspend fun add(dto: NewMessageDto): Boolean =
         dao.add(mapper.toEntity(dto, timestamp.currentTimeStampMillis)) != -1L
 
-    override suspend fun update(dto: MessageDto): Boolean =
-        dao.add(mapper.toEntity(dto)) != -1L
+    override suspend fun update(updateDto: MessageDto, newDto: NewMessageDto) {
+        dao.add(mapper.toEntity(updateDto))
+        delay(1) // This is a hack fix, when ROOM DB update and add item in sequence really fast, it will only trigger data change for the last item.
+        dao.add(mapper.toEntity(newDto, timestamp.currentTimeStampMillis))
+    }
 
     override suspend fun getAll(): List<MessageDto> =
         mapper.toDto(dao.getAllMessages())
@@ -40,8 +43,8 @@ internal class MessageDatabaseDataSourceDefault(
 
     override fun getLatestValueFlow(): Flow<MessageDto> =
         dao.getLatestValueFlow()
-            .distinctUntilChanged()
             .filterNotNull()
+            .distinctUntilChanged()
             .map {
                 mapper.toDto(it)
             }
