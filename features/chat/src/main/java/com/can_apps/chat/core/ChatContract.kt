@@ -28,17 +28,21 @@ internal interface ChatContract {
 
         suspend fun addMessage(domain: ChatNewDomain)
 
-        suspend fun getMessages(): Flow<ChatDomain>
+        suspend fun getMessagesFlow(): Flow<ChatDomain>
 
-        fun getLatest(): Flow<ChatDomain>
+        fun getLatestFlow(): Flow<ChatDomain>
     }
 
     interface Repository {
 
         suspend fun addMessage(domain: ChatNewDomain)
 
+        suspend fun updateAndAddMessage(update: ChatDomain, new: ChatNewDomain)
+
         suspend fun getMessages(): List<ChatDomain>
 
-        fun getLatest(): Flow<ChatDomain>
+        suspend fun getLatest(): ChatDomain?
+
+        fun getLatestFlow(): Flow<ChatDomain>
     }
 }

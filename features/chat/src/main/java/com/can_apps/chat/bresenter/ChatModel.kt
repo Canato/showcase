@@ -10,7 +10,17 @@ sealed class ChatMessageModel {
         override val text: ChatMessageTextModel
     ) : ChatMessageModel()
 
+    data class MyWithTail(
+        override val id: ChatMessageIdModel,
+        override val text: ChatMessageTextModel
+    ) : ChatMessageModel()
+
     data class Other(
+        override val id: ChatMessageIdModel,
+        override val text: ChatMessageTextModel
+    ) : ChatMessageModel()
+
+    data class OtherWithTail(
         override val id: ChatMessageIdModel,
         override val text: ChatMessageTextModel
     ) : ChatMessageModel()

@@ -2,7 +2,7 @@ package com.can_apps.chat.bresenter
 
 import com.can_apps.chat.core.ChatContract
 import com.can_apps.chat.core.ChatDomain
-import com.can_apps.chat.core.ChatMessageHolderEnumDto
+import com.can_apps.chat.core.ChatMessageHolderEnumDomain
 import com.can_apps.chat.core.ChatMessageTextDomain
 import com.can_apps.chat.core.ChatNewDomain
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
@@ -59,7 +59,7 @@ internal class ChatPresenterTest {
             val messages = flow { emit(domain) }
             val expected = mockk<ChatMessageModel>(relaxed = true)
 
-            coEvery { interactor.getMessages() } returns messages
+            coEvery { interactor.getMessagesFlow() } returns messages
             every { mapper.toModel(domain) } returns expected
 
             // WHEN
@@ -77,7 +77,7 @@ internal class ChatPresenterTest {
         val message = ""
         val messageModel = ChatMessageTextModel(message)
         val messageDomain = ChatMessageTextDomain(message)
-        val expect = ChatNewDomain(messageDomain, ChatMessageHolderEnumDto.MY)
+        val expect = ChatNewDomain(messageDomain, ChatMessageHolderEnumDomain.MY)
 
         // WHEN
         presenter.onSendMessage(messageModel)

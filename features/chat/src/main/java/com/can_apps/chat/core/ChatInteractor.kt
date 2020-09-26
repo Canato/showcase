@@ -11,26 +11,42 @@ internal class ChatInteractor(
     private val time: CommonTimestampWrapper
 ) : ChatContract.Interactor {
 
+    companion object {
+
+        const val TWENTY_MILLIS = 20000
+        const val ONE_HOUR_MILLIS = 3600000
+    }
+
     private var latestTimestamp = ChatMessageTimestampDomain(0L)
 
     override fun getSystemAnswer(domain: ChatNewDomain): ChatNewDomain =
         ChatNewDomain(
             ChatMessageTextDomain("${domain.text.value}?"),
-            ChatMessageHolderEnumDto.OTHER
+            ChatMessageHolderEnumDomain.OTHER
         )
 
     override suspend fun addMessage(domain: ChatNewDomain) {
-        repository.addMessage(domain)
+        val previous = repository.getLatest()
+
+        if (previous != null && previous.holder == domain.holder) {
+            val twentySecondsGap =
+                (time.currentTimeStampMillis - previous.timestamp.value) > TWENTY_MILLIS
+
+            repository.updateAndAddMessage(
+                previous.copy(hasTail = ChatMessageTailDomain(twentySecondsGap)),
+                domain
+            )
+        } else repository.addMessage(domain)
     }
 
-    override suspend fun getMessages(): Flow<ChatDomain> = flow {
+    override suspend fun getMessagesFlow(): Flow<ChatDomain> = flow {
         val messages = repository.getMessages()
 
         addSystemMessages(messages)
     }
 
-    override fun getLatest(): Flow<ChatDomain> =
-        repository.getLatest().transform {
+    override fun getLatestFlow(): Flow<ChatDomain> =
+        repository.getLatestFlow().transform {
             addSystemMessages(listOf(it))
         }
 
@@ -42,13 +58,14 @@ internal class ChatInteractor(
 
             while (position >= 0) {
                 val timeDiff = messages[position].timestamp.value - latestTimestamp.value
-                if (timeDiff > time.getOneHourInSeconds) {
+                if (timeDiff > ONE_HOUR_MILLIS) {
                     latestTimestamp = messages[position].timestamp
                     val systemMsg = ChatDomain(
                         ChatMessageIdDomain(latestTimestamp.value),
                         ChatMessageTextDomain(time.toDate(latestTimestamp.value)),
                         latestTimestamp,
-                        ChatMessageHolderEnumDto.SYSTEM
+                        ChatMessageHolderEnumDomain.SYSTEM,
+                        ChatMessageTailDomain(false)
                     )
                     emit(systemMsg)
                 }

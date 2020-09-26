@@ -6,39 +6,33 @@ import java.util.Locale
 
 interface CommonTimestampWrapper {
 
-    val getOneHourInSeconds: Long
-    val getOneDayInSeconds: Long
-    val getSevenDaysInSeconds: Long
-    val currentTimeStampSeconds: Long
+    val currentTimeStampMillis: Long
 
-    fun toDate(seconds: Long): String
+    fun toDate(millis: Long): String
 }
 
 class CommonTimestampWrapperDefault : CommonTimestampWrapper {
 
-    override val getOneHourInSeconds: Long
-        get() = 3600
+    companion object {
 
-    override val getOneDayInSeconds: Long
-        get() = 86400
+        const val ONE_DAY_SECONDS = 86400
+        const val SEVEN_DAYS_SECONDS = 604800
+    }
 
-    override val getSevenDaysInSeconds: Long
-        get() = 604800
+    override val currentTimeStampMillis: Long
+        get() = System.currentTimeMillis()
 
-    override val currentTimeStampSeconds: Long
-        get() = System.currentTimeMillis() / 1000
+    override fun toDate(millis: Long): String {
 
-    override fun toDate(seconds: Long): String {
-
-        val isMoreThanOneDays = (currentTimeStampSeconds - seconds) > getOneDayInSeconds
-        val isLessThanSevenDays = (currentTimeStampSeconds - seconds) < getSevenDaysInSeconds
+        val isMoreThanOneDays = (currentTimeStampMillis - millis) / 1000 > ONE_DAY_SECONDS
+        val isLessThanSevenDays = (currentTimeStampMillis - millis) / 1000 < SEVEN_DAYS_SECONDS
 
         val pattern = if (isMoreThanOneDays && isLessThanSevenDays) "EEEE hh:mm" else "dd/MM hh:mm"
 
         val formatter = SimpleDateFormat(pattern, Locale.getDefault())
 
         val calendar: Calendar = Calendar.getInstance()
-        calendar.timeInMillis = seconds * 1000
+        calendar.timeInMillis = millis
         return formatter.format(calendar.time)
     }
 }

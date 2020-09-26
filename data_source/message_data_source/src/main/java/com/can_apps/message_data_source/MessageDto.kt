@@ -11,12 +11,14 @@ data class MessageDto(
     val id: MessageIdDto,
     val text: MessageTextDto,
     val timestamp: MessageTimestampDto,
-    val holder: MessageHolderEnumDto
+    val holder: MessageHolderEnumDto,
+    val hasTail: MessageTailDto
 )
 
 inline class MessageIdDto(val value: Long)
 inline class MessageTextDto(val value: String)
 inline class MessageTimestampDto(val value: Long)
+inline class MessageTailDto(val value: Boolean)
 enum class MessageHolderEnumDto(val value: String) {
     MY("my"),
     OTHER("other");
