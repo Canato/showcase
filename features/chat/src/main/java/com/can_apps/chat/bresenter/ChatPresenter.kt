@@ -59,7 +59,7 @@ internal class ChatPresenter(
         }
 
     private fun CoroutineScope.fetchMessages() = launch {
-        interactor.getMessages()
+        interactor.getMessagesFlow()
             .flowOn(dispatcher.IO)
             .collect {
                 view?.addMessage(mapper.toModel(it))
@@ -83,7 +83,7 @@ internal class ChatPresenter(
 
     private fun CoroutineScope.setupMessagesListener() = launch {
         interactor
-            .getLatest()
+            .getLatestFlow()
             .flowOn(dispatcher.IO)
             .collect {
                 view?.addMessage(mapper.toModel(it))

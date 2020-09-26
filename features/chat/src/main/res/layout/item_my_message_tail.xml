@@ -18,7 +18,7 @@
         android:paddingEnd="@dimen/keyline_3"
         android:paddingTop="@dimen/keyline"
         android:paddingBottom="@dimen/keyline_2"
-        android:background="@drawable/chat_my_bubble"
+        android:background="@drawable/chat_my_bubble_tail"
         android:textColor="@color/chat_send_message_color"
         android:gravity="start"
         android:visibility="invisible"

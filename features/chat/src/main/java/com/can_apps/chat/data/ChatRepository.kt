@@ -17,11 +17,23 @@ internal class ChatRepository(
         if (dto != null) messageDataSource.add(dto)
     }
 
+    override suspend fun updateAndAddMessage(update: ChatDomain, new: ChatNewDomain) {
+        val updateDto = mapper.toDto(update)
+        val newDto = mapper.toDto(new)
+        if (newDto != null) {
+            if (updateDto != null) messageDataSource.update(updateDto, newDto)
+            else messageDataSource.add(newDto)
+        }
+    }
+
     override suspend fun getMessages(): List<ChatDomain> =
         messageDataSource.getAll().map { mapper.toDomain(it) }
 
-    override fun getLatest(): Flow<ChatDomain> =
+    override suspend fun getLatest(): ChatDomain? =
+        messageDataSource.getLatestValue()?.let { mapper.toDomain(it) }
+
+    override fun getLatestFlow(): Flow<ChatDomain> =
         messageDataSource
-            .getLatestValue()
+            .getLatestValueFlow()
             .map { mapper.toDomain(it) }
 }

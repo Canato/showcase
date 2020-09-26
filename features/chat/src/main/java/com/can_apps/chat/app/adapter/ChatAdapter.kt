@@ -13,6 +13,8 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val myMsg = R.layout.item_my_message
         val otherMsg = R.layout.item_other_message
         val systemMsg = R.layout.item_system_message
+        val myMsgTail = R.layout.item_my_message_tail
+        val otherMsgTail = R.layout.item_other_message_tail
     }
 
     private var items = mutableListOf<ChatMessageModel>()
@@ -33,15 +35,24 @@ internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is ChatMessageModel.My -> myMsg
             is ChatMessageModel.Other -> otherMsg
             is ChatMessageModel.System -> systemMsg
+            is ChatMessageModel.MyWithTail -> myMsgTail
+            is ChatMessageModel.OtherWithTail -> otherMsgTail
         }
 
     fun addToList(message: ChatMessageModel) {
-        if (items.isEmpty()) {
-            items.add(0, message)
-            notifyItemInserted(0)
-        } else if (message.id != items[0].id) {
-            items.add(0, message)
-            notifyItemInserted(0)
+        when {
+            items.isEmpty() -> {
+                items.add(message)
+                notifyDataSetChanged()
+            }
+            message.id == items[0].id -> {
+                items[0] = message
+                notifyItemChanged(0)
+            }
+            else -> {
+                items.add(0, message)
+                notifyItemInserted(0)
+            }
         }
     }
 }

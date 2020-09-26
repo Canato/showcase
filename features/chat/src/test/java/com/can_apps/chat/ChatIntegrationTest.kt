@@ -8,6 +8,7 @@ import com.can_apps.message_data_source.MessageDatabaseDataSource
 import com.can_apps.message_data_source.MessageDto
 import com.can_apps.message_data_source.MessageHolderEnumDto
 import com.can_apps.message_data_source.MessageIdDto
+import com.can_apps.message_data_source.MessageTailDto
 import com.can_apps.message_data_source.MessageTextDto
 import com.can_apps.message_data_source.MessageTimestampDto
 import com.can_apps.message_data_source.NewMessageDto
@@ -27,7 +28,7 @@ internal class ChatIntegrationTest {
     companion object {
 
         private const val debounceWait = 100L
-        private const val timestamp = 42L
+        private const val timestamp = 4200000L
 
         private val id = ChatMessageIdModel(42L)
 
@@ -71,62 +72,72 @@ internal class ChatIntegrationTest {
             MessageIdDto(id.value),
             MessageTextDto(text1),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
         val myMsgDto2 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto(text2),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
         val myMsgDto3 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto(text3),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
         val myMsgDto4 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto(text4),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
         val myMsgDto5 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto(text5),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.MY
+            MessageHolderEnumDto.MY,
+            MessageTailDto(false)
         )
 
         val otherMsgDto1 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text1?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
         val otherMsgDto2 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text2?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
         val otherMsgDto3 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text3?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
         val otherMsgDto4 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text4?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
         val otherMsgDto5 = MessageDto(
             MessageIdDto(id.value),
             MessageTextDto("$text5?"),
             MessageTimestampDto(timestamp),
-            MessageHolderEnumDto.OTHER
+            MessageHolderEnumDto.OTHER,
+            MessageTailDto(false)
         )
     }
 
@@ -154,6 +165,9 @@ internal class ChatIntegrationTest {
     @Test
     fun `WHEN no wait period, THEN return last one in question`() =
         testDispatcher.runBlockingTest {
+            // GIVEN
+            coEvery { dataSource.getLatestValue() } returns null
+
             // WHEN
             presenter.onSendMessage(message1)
             presenter.onSendMessage(message2)
@@ -185,6 +199,9 @@ internal class ChatIntegrationTest {
     @Test
     fun `WHEN small wait period, THEN return last one in question`() =
         testDispatcher.runBlockingTest {
+            // GIVEN
+            coEvery { dataSource.getLatestValue() } returns null
+
             // WHEN
             presenter.onSendMessage(message1)
             testDispatcher.advanceTimeBy(debounceWait / 2)
@@ -218,6 +235,9 @@ internal class ChatIntegrationTest {
     @Test
     fun `WHEN small and more wait period, THEN return some question`() =
         testDispatcher.runBlockingTest {
+            // GIVEN
+            coEvery { dataSource.getLatestValue() } returns null
+
             // WHEN
             presenter.onSendMessage(message1)
             testDispatcher.advanceTimeBy(debounceWait / 2)
@@ -261,7 +281,7 @@ internal class ChatIntegrationTest {
                 emit(otherMsgDto4)
             }
             coEvery { dataSource.getAll() } returns messagesDto
-            coEvery { dataSource.getLatestValue() } returns databaseFlowChange
+            coEvery { dataSource.getLatestValueFlow() } returns databaseFlowChange
 
             // WHEN
             presenter.onViewCreated()
