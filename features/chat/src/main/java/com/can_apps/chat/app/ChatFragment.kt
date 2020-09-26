@@ -2,11 +2,9 @@ package com.can_apps.chat.app
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -77,19 +75,21 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
             .translationX(150F)
             .alpha(0.0f)
             .setDuration(150)
-            .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    chatInputTextAnimation.text = ""
-                    chatInputTextAnimation
-                        .animate()
-                        .translationY(0F)
-                        .translationX(0F)
-                        .alpha(1f)
-                        .setDuration(1)
-                        .setListener(null)
-                        .start()
+            .setListener(
+                object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        chatInputTextAnimation.text = ""
+                        chatInputTextAnimation
+                            .animate()
+                            .translationY(0F)
+                            .translationX(0F)
+                            .alpha(1f)
+                            .setDuration(1)
+                            .setListener(null)
+                            .start()
+                    }
                 }
-            })
+            )
             .start()
         chatInputText.text.clear()
     }
