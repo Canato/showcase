@@ -5,7 +5,6 @@
     android:id="@+id/chatLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical">
@@ -29,6 +28,7 @@
             android:layout_marginTop="@dimen/keyline_2"
             android:layout_marginEnd="@dimen/keyline_4"
             android:layout_marginBottom="@dimen/keyline_2"
+            android:contentDescription="@string/cd_user_avatar"
             android:src="@drawable/profile" />
 
         <TextView
@@ -49,7 +49,7 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
+        android:overScrollMode="always"
         app:layout_constraintBottom_toTopOf="@id/chatInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,9 +61,9 @@
         android:id="@+id/chatInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:background="@color/white"
         android:elevation="@dimen/keyline_2"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -75,47 +75,48 @@
         <EditText
             android:id="@+id/chatInputText"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/keyline_4"
             android:layout_marginTop="@dimen/keyline_2"
+            android:layout_marginEnd="@dimen/keyline_4"
             android:layout_marginBottom="@dimen/keyline_3"
+            android:layout_weight="1"
+            android:background="@drawable/chat_text_input_background"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:paddingStart="@dimen/keyline_4"
-            android:paddingEnd="@dimen/keyline_4"
-            android:paddingTop="@dimen/keyline"
-            android:paddingBottom="@dimen/keyline"
-            android:imeOptions="actionSend"
-            android:layout_gravity="center"
             android:hint="@string/chat_tip"
+            android:imeOptions="actionSend"
+            android:importantForAutofill="no"
             android:inputType="textCapSentences|textShortMessage|textMultiLine"
-            android:textSize="14sp"
             android:maxLines="4"
-            android:background="@drawable/chat_text_input_background"
-            android:layout_marginStart="@dimen/keyline_4"
-            android:layout_marginEnd="@dimen/keyline_4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:paddingStart="@dimen/keyline_4"
+            android:paddingTop="@dimen/keyline"
+            android:paddingEnd="@dimen/keyline_4"
+            android:paddingBottom="@dimen/keyline"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/chatSendButton"/>
+            app:layout_constraintEnd_toStartOf="@id/chatSendButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/chatInputTextAnimation"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@drawable/chat_text_input_background"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:textSize="14sp"
-            android:paddingStart="@dimen/keyline_4"
-            android:paddingEnd="@dimen/keyline_4"
-            android:paddingTop="@dimen/keyline"
-            android:paddingBottom="@dimen/keyline"
             android:gravity="center_vertical"
-            android:background="@drawable/chat_text_input_background"
-            app:layout_constraintStart_toStartOf="@id/chatInputText"
+            android:paddingStart="@dimen/keyline_4"
+            android:paddingTop="@dimen/keyline"
+            android:paddingEnd="@dimen/keyline_4"
+            android:paddingBottom="@dimen/keyline"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/chatInputText"
             app:layout_constraintEnd_toEndOf="@id/chatInputText"
-            app:layout_constraintTop_toTopOf="@id/chatInputText"
-            app:layout_constraintBottom_toBottomOf="@id/chatInputText"/>
+            app:layout_constraintStart_toStartOf="@id/chatInputText"
+            app:layout_constraintTop_toTopOf="@id/chatInputText" />
 
         <ImageView
             android:id="@+id/chatSendButton"
@@ -126,11 +127,12 @@
             android:layout_marginEnd="@dimen/keyline_4"
             android:layout_marginBottom="@dimen/keyline_3"
             android:background="@drawable/chat_send_button_background"
+            android:contentDescription="@string/cd_send_button"
             android:padding="@dimen/keyline_2"
             android:src="@drawable/ic_baseline_send_white_24"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
