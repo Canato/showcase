@@ -15,7 +15,6 @@ import com.can_apps.message_data_source.NewMessageDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verifySequence
 import kotlinx.coroutines.flow.flow
