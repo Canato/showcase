@@ -101,7 +101,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
                 reverseLayout = true
             }
             adapter = recyclerViewAdapter
-            setHasFixedSize(true)
         }
     }
 
