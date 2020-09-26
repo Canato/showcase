@@ -49,6 +49,7 @@ internal class ChatPresenter(
         if (message.value.isNotBlank()) {
             channel.offer(message)
             saveMessage(message)
+            view?.showTextAnimation(message)
         }
     }
 

@@ -1,5 +1,7 @@
 package com.can_apps.chat.app
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -61,9 +63,33 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
     private fun setupTextInput() {
         chatSendButton.setOnClickListener {
             val message = chatInputText.text.toString()
-            chatInputText.text.clear()
             presenter.onSendMessage(ChatMessageTextModel(message))
         }
+    }
+
+    override fun showTextAnimation(message: ChatMessageTextModel) {
+        chatInputTextAnimation.text = message.value
+        chatInputTextAnimation
+            .animate()
+            .translationY(-130F)
+            .translationX(150F)
+            .alpha(0.0f)
+            .setDuration(150)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    chatInputTextAnimation.text = ""
+                    chatInputTextAnimation
+                        .animate()
+                        .translationY(0F)
+                        .translationX(0F)
+                        .alpha(1f)
+                        .setDuration(1)
+                        .setListener(null)
+                        .start()
+                }
+            })
+            .start()
+        chatInputText.text.clear()
     }
 
     private fun setupRecyclerView() {
