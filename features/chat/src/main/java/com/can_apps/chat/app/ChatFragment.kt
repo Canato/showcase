@@ -3,13 +3,8 @@ package com.can_apps.chat.app
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
-import android.graphics.Point
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Log
-import android.view.Display
 import android.view.View
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
