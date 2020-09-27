@@ -31,7 +31,7 @@ internal class MessageDatabaseDataSourceDefault(
 
     override suspend fun update(updateDto: MessageDto, newDto: NewMessageDto) {
         dao.add(mapper.toEntity(updateDto))
-        delay(1) // This is a hack fix, when ROOM DB update and add item in sequence really fast, it will only trigger data change for the last item.
+        delay(10) // This is a hack fix, when ROOM DB update and add item in sequence really fast, it will only trigger data change for the last item.
         dao.add(mapper.toEntity(newDto, timestamp.currentTimeStampMillis))
     }
 

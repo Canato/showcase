@@ -3,8 +3,13 @@ package com.can_apps.chat.app
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Log
+import android.view.Display
 import android.view.View
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -72,7 +77,7 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
         chatInputTextAnimation
             .animate()
             .translationY(-130F)
-            .translationX(150F)
+            .translationX(175F)
             .alpha(0.0f)
             .setDuration(150)
             .setListener(
