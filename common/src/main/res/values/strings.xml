@@ -12,4 +12,6 @@
     <string name="license">License</string>
     <string name="chat_tip">Time to Chat!!</string>
     <string name="canato">Canato</string>
+    <string name="cd_user_avatar">round avatar image of the user</string>
+    <string name="cd_send_button">icon to send message</string>
 </resources>

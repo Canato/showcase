@@ -9,6 +9,8 @@ internal interface ChatContract {
     interface View {
 
         fun addMessage(message: ChatMessageModel)
+
+        fun showTextAnimation(message: ChatMessageTextModel)
     }
 
     interface Presenter {

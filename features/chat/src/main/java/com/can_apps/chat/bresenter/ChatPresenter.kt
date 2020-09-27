@@ -49,6 +49,7 @@ internal class ChatPresenter(
         if (message.value.isNotBlank()) {
             channel.offer(message)
             saveMessage(message)
+            view?.showTextAnimation(message)
         }
     }
 
@@ -61,10 +62,8 @@ internal class ChatPresenter(
     private fun CoroutineScope.fetchMessages() = launch {
         interactor.getMessagesFlow()
             .flowOn(dispatcher.IO)
-            .collect {
-                view?.addMessage(mapper.toModel(it))
-            }
-        setupMessagesListener()
+            .collect { view?.addMessage(mapper.toModel(it)) }
+            .let { setupMessagesListener() }
     }
 
     @FlowPreview
@@ -85,8 +84,6 @@ internal class ChatPresenter(
         interactor
             .getLatestFlow()
             .flowOn(dispatcher.IO)
-            .collect {
-                view?.addMessage(mapper.toModel(it))
-            }
+            .collect { view?.addMessage(mapper.toModel(it)) }
     }
 }
