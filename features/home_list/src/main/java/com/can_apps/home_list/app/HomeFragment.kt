@@ -25,7 +25,7 @@ import com.can_apps.home_list.core.HomeContract
 import com.can_apps.home_list.databinding.FragmentHomeBinding
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
-class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
+class HomeFragment : Fragment(), HomeContract.View {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -111,6 +111,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
 
     override fun onDestroyView() {
         presenter.unbind()
+        _binding = null
         super.onDestroyView()
     }
 }

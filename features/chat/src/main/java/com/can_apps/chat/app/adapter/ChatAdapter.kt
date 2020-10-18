@@ -9,7 +9,6 @@ import com.can_apps.chat.bresenter.ChatMessageModel
 internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-
         val myMsg = R.layout.item_my_message
         val otherMsg = R.layout.item_other_message
         val systemMsg = R.layout.item_system_message
