@@ -16,8 +16,8 @@ internal class RankAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val root = LayoutInflater.from(parent.context)
         return when (items[viewType]) {
-            is RankModel.Profile -> RankItemViewHolder(ItemProfileBinding.inflate(root))
-            is RankModel.MyOwn -> RankItemMyViewHolder(ItemMyProfileBinding.inflate(root)) //inflate(root, parent, false))
+            is RankModel.Profile -> RankItemViewHolder(ItemProfileBinding.inflate(root, parent, false))
+            is RankModel.MyOwn -> RankItemMyViewHolder(ItemMyProfileBinding.inflate(root, parent, false))
         }
     }
 

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.chat.R
 import com.can_apps.chat.bresenter.ChatMessageModel
-
+// todo canato
 internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {

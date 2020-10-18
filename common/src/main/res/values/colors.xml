@@ -3,7 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="rank_title">#E47A00</color>
+    <color name="rank_header">#E47A00</color>
     <color name="rank_background">#FFF1C7</color>
     <color name="rank_subtitle">#FFFFFF</color>
     <color name="rank_cta">#E47A00</color>
