@@ -2,21 +2,23 @@ package com.can_apps.rank_board.app
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.can_apps.common.extensions.showDefaultError
-import com.can_apps.rank_board.R
 import com.can_apps.rank_board.bresenter.RankModel
 import com.can_apps.rank_board.core.RankContract
-import kotlinx.android.synthetic.main.fragment_rank.*
+import com.can_apps.rank_board.databinding.FragmentRankBinding
 
-class RankFragment :
-    Fragment(R.layout.fragment_rank),
-    RankContract.View {
+class RankFragment : Fragment(), RankContract.View {
+
+    private var _binding: FragmentRankBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var presenter: RankContract.Presenter
     private lateinit var recyclerViewAdapter: RankAdapter
@@ -28,6 +30,15 @@ class RankFragment :
         val serviceLocator = RankServiceLocator(context)
         presenter = serviceLocator.getPresenter()
         recyclerViewAdapter = serviceLocator.getAdapter()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentRankBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,20 +59,20 @@ class RankFragment :
     }
 
     private fun setupRecyclerView() {
-        recyclerView.apply {
+        binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            recyclerView.adapter = recyclerViewAdapter
+            adapter = recyclerViewAdapter
         }
     }
 
     private fun setupAnimations() {
-        rankLayout.apply {
+        binding.rankLayout.apply {
             transitionName = args.transitionNameArg
         }
     }
 
     override fun updateResetTime(resetTime: String) {
-        resetTimeText.text = resetTime
+        binding.resetTimeText.text = resetTime
     }
 
     override fun updateRankList(model: List<RankModel>) {
@@ -69,11 +80,11 @@ class RankFragment :
     }
 
     override fun showLoading() {
-        progressView.visibility = View.VISIBLE
+        binding.progressView.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        progressView.visibility = View.GONE
+        binding.progressView.visibility = View.GONE
     }
 
     override fun showError() {
@@ -82,6 +93,7 @@ class RankFragment :
 
     override fun onDestroyView() {
         presenter.unbindView()
+        _binding = null
         super.onDestroyView()
     }
 }
