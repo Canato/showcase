@@ -13,6 +13,7 @@ Here you can find a compilation of some best practices of Android Development ac
 - [CI](#continuous-integration)
 - [Single Activity - Jetpack Navigation](#single-activity) 
 - [Material Motion](#material-motion)
+- [View Binding](view-binding)
 - [Gradle.kts](#gradle.kts) 
 - [KtLint](#ktlint) 
 - [Git Hook](#git-hooks)
@@ -46,6 +47,14 @@ By now we do not use `<include-dynamic>` for navigation with feature modules bec
 
 Use the [material motion](https://material.io/develop/android/theming/motion) to make nice animations between fragments. 
 Since we are using one single activity with Jetpack Navigation, this animation need a little of work on it, so it can be use from any other place
+
+## 💍 View Binding
+
+Usage of [View Binding](https://developer.android.com/topic/libraries/view-binding) in the place of Kotlin Synthetics to: 
+- Expose nullability in compilation time
+- Better code performance
+- Don't expose layout id not need
+- Type guaranteed
 
 ## :elephant: Gradle.kts
 
