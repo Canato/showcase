@@ -2,10 +2,10 @@ package com.can_apps.rank_board.app
 
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.rank_board.bresenter.RankModel
-import com.can_apps.rank_board.databinding.ItemProfileBinding
+import com.can_apps.rank_board.databinding.ItemMyProfileBinding
 
-internal class RankItemViewHolder(
-    private val binding: ItemProfileBinding
+internal class RankItemMyViewHolder(
+    private val binding: ItemMyProfileBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(model: RankModel, position: Int) {
