@@ -26,11 +26,9 @@ internal class RankAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (items[position]) {
             is RankModel.Profile -> (holder as RankItemViewHolder).bind(items[position], position)
-            is RankModel.MyOwn ->(holder as RankItemMyViewHolder).bind(items[position], position)
+            is RankModel.MyOwn -> (holder as RankItemMyViewHolder).bind(items[position], position)
         }
     }
-
-
 
     fun updateList(model: List<RankModel>) {
         items = model
