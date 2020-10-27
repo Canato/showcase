@@ -5,51 +5,38 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.chat.R
 import com.can_apps.chat.bresenter.ChatMessageModel
-import com.can_apps.chat.databinding.ItemMyMessageBinding
-import com.can_apps.chat.databinding.ItemMyMessageTailBinding
-import com.can_apps.chat.databinding.ItemOtherMessageBinding
-import com.can_apps.chat.databinding.ItemOtherMessageTailBinding
-import com.can_apps.chat.databinding.ItemSystemMessageBinding
-
+// todo canato
 internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        val myMsg = R.layout.item_my_message
+        val otherMsg = R.layout.item_other_message
+        val systemMsg = R.layout.item_system_message
+        val myMsgTail = R.layout.item_my_message_tail
+        val otherMsgTail = R.layout.item_other_message_tail
+    }
 
     private var items = mutableListOf<ChatMessageModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val root = LayoutInflater.from(parent.context)
-        return when (items[viewType]) {
-            is ChatMessageModel.My ->
-                ChatMyMessageViewHolder(ItemMyMessageBinding.inflate(root, parent, false))
-            is ChatMessageModel.Other ->
-                ChatOtherMessageViewHolder(ItemOtherMessageBinding.inflate(root, parent, false))
-            is ChatMessageModel.System ->
-                ChatSystemMessageViewHolder(ItemSystemMessageBinding.inflate(root, parent, false))
-            is ChatMessageModel.MyWithTail ->
-                ChatMyMessageTailViewHolder(ItemMyMessageTailBinding.inflate(root, parent, false))
-            is ChatMessageModel.OtherWithTail -> ChatOtherMessageTailViewHolder(
-                ItemOtherMessageTailBinding.inflate(root, parent, false)
-            )
-        }
+        val root = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
+        return ChatMessageViewHolder(root)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (items[position]) {
-            is ChatMessageModel.My ->
-                (holder as ChatMyMessageViewHolder).bind(items[position])
-            is ChatMessageModel.Other ->
-                (holder as ChatOtherMessageViewHolder).bind(items[position])
-            is ChatMessageModel.System ->
-                (holder as ChatSystemMessageViewHolder).bind(items[position])
-            is ChatMessageModel.MyWithTail ->
-                (holder as ChatMyMessageTailViewHolder).bind(items[position])
-            is ChatMessageModel.OtherWithTail ->
-                (holder as ChatOtherMessageTailViewHolder).bind(items[position])
-        }
+        (holder as ChatMessageViewHolder).bind(items[position])
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun getItemViewType(position: Int): Int = position
+    override fun getItemViewType(position: Int): Int =
+        when (items[position]) {
+            is ChatMessageModel.My -> myMsg
+            is ChatMessageModel.Other -> otherMsg
+            is ChatMessageModel.System -> systemMsg
+            is ChatMessageModel.MyWithTail -> myMsgTail
+            is ChatMessageModel.OtherWithTail -> otherMsgTail
+        }
 
     fun addToList(message: ChatMessageModel) {
         when {
