@@ -35,8 +35,8 @@
                 android:paddingStart="@dimen/keyline_6"
                 android:paddingEnd="@dimen/keyline_6"
                 android:paddingBottom="@dimen/keyline_3"
-                android:text="@string/rank_title"
-                android:textColor="@color/rank_title"
+                android:text="@string/rank_header"
+                android:textColor="@color/rank_header"
                 android:textSize="30sp" />
 
             <LinearLayout

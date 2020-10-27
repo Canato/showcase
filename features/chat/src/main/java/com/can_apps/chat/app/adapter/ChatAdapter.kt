@@ -5,11 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.chat.R
 import com.can_apps.chat.bresenter.ChatMessageModel
-
+// todo canato
 internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-
         val myMsg = R.layout.item_my_message
         val otherMsg = R.layout.item_other_message
         val systemMsg = R.layout.item_system_message

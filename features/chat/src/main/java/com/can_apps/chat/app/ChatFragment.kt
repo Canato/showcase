@@ -4,7 +4,9 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,13 +20,25 @@ import com.can_apps.chat.app.adapter.ChatAdapter
 import com.can_apps.chat.bresenter.ChatMessageModel
 import com.can_apps.chat.bresenter.ChatMessageTextModel
 import com.can_apps.chat.core.ChatContract
-import kotlinx.android.synthetic.main.fragment_chat.*
+import com.can_apps.chat.databinding.FragmentChatBinding
 
-class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
+class ChatFragment : Fragment(), ChatContract.View {
+
+    private var _binding: FragmentChatBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var presenter: ChatContract.Presenter
     private lateinit var recyclerViewAdapter: ChatAdapter
     private val args: ChatFragmentArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentChatBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,19 +71,19 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
 
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 
     private fun setupTextInput() {
-        chatSendButton.setOnClickListener {
-            val message = chatInputText.text.toString()
+        binding.chatSendButton.setOnClickListener {
+            val message = binding.chatInputText.text.toString()
             presenter.onSendMessage(ChatMessageTextModel(message))
         }
     }
 
     override fun showTextAnimation(message: ChatMessageTextModel) {
-        chatInputTextAnimation.text = message.value
-        chatInputTextAnimation
+        binding.chatInputTextAnimation.text = message.value
+        binding.chatInputTextAnimation
             .animate()
             .translationY(-130F)
             .translationX(175F)
@@ -78,8 +92,8 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
             .setListener(
                 object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        chatInputTextAnimation.text = ""
-                        chatInputTextAnimation
+                        binding.chatInputTextAnimation.text = ""
+                        binding.chatInputTextAnimation
                             .animate()
                             .translationY(0F)
                             .translationX(0F)
@@ -91,11 +105,11 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
                 }
             )
             .start()
-        chatInputText.text.clear()
+        binding.chatInputText.text.clear()
     }
 
     private fun setupRecyclerView() {
-        chatRecyclerView.apply {
+        binding.chatRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false).apply {
                 stackFromEnd = false
                 reverseLayout = true
@@ -105,18 +119,19 @@ class ChatFragment : Fragment(R.layout.fragment_chat), ChatContract.View {
     }
 
     private fun setupAnimations() {
-        chatLayout.apply {
+        binding.chatLayout.apply {
             transitionName = args.transitionNameArg
         }
     }
 
     override fun addMessage(message: ChatMessageModel) {
         recyclerViewAdapter.addToList(message)
-        chatRecyclerView.smoothScrollToPosition(0)
+        binding.chatRecyclerView.smoothScrollToPosition(0)
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         presenter.unbind()
+        _binding = null
+        super.onDestroyView()
     }
 }

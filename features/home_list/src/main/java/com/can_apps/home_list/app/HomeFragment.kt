@@ -3,10 +3,12 @@ package com.can_apps.home_list.app
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -20,13 +22,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.home_list.R
 import com.can_apps.home_list.bresenter.HomeFeatModel
 import com.can_apps.home_list.core.HomeContract
+import com.can_apps.home_list.databinding.FragmentHomeBinding
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
+class HomeFragment : Fragment(), HomeContract.View {
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var presenter: HomeContract.Presenter
     private lateinit var homeAdapter: HomeAdapter
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -67,15 +81,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
 
     private fun setupActionbar() {
         setHasOptionsMenu(true)
-        activity?.let { (it as AppCompatActivity).setSupportActionBar(toolbar) }
+        activity?.let { (it as AppCompatActivity).setSupportActionBar(binding.toolbar) }
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
 
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 
     private fun setupRecyclerView() {
-        homeRecyclerView.apply {
+        binding.homeRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = homeAdapter
         }
@@ -97,6 +111,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeContract.View {
 
     override fun onDestroyView() {
         presenter.unbind()
+        _binding = null
         super.onDestroyView()
     }
 }

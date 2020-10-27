@@ -3,37 +3,32 @@ package com.can_apps.rank_board.app
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.can_apps.rank_board.R
 import com.can_apps.rank_board.bresenter.RankModel
+import com.can_apps.rank_board.databinding.ItemMyProfileBinding
+import com.can_apps.rank_board.databinding.ItemProfileBinding
 
-internal class RankAdapter : RecyclerView.Adapter<RankItemViewHolder>() {
-
-    companion object {
-        val profile = R.layout.item_profile
-        val myOwn = R.layout.item_my_profile
-    }
+internal class RankAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<RankModel> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankItemViewHolder {
-        val root = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-        return RankItemViewHolder(root)
+    override fun getItemViewType(position: Int): Int = position
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val root = LayoutInflater.from(parent.context)
+        return when (items[viewType]) {
+            is RankModel.Profile -> RankItemViewHolder(ItemProfileBinding.inflate(root, parent, false))
+            is RankModel.MyOwn -> RankItemMyViewHolder(ItemMyProfileBinding.inflate(root, parent, false))
+        }
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: RankItemViewHolder, position: Int) {
-        val item = items[position]
-        holder.position.text = (position + 1).toString()
-        holder.username.text = item.username.value
-        holder.xp.text = item.weeklyXP.value
-    }
-
-    override fun getItemViewType(position: Int): Int =
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (items[position]) {
-            is RankModel.Profile -> profile
-            is RankModel.MyOwn -> myOwn
+            is RankModel.Profile -> (holder as RankItemViewHolder).bind(items[position], position)
+            is RankModel.MyOwn -> (holder as RankItemMyViewHolder).bind(items[position], position)
         }
+    }
 
     fun updateList(model: List<RankModel>) {
         items = model
