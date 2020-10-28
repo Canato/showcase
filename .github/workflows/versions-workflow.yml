@@ -17,8 +17,8 @@ jobs:
         run: ./gradlew refreshVersions
 
       - name: Create branch and checkout if don't exist
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git branch ci_refresh_versions
           git checkout ci_refresh_versions
