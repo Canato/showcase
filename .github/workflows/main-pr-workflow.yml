@@ -1,34 +1,23 @@
-# This is a basic workflow to help you get started with Actions
+name: pr_main_ci
 
-name: MainPRCI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the main branch
 on:
   pull_request:
     branches: [ main ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-    # KtLint
-    - name: Run ktlint check for code conventions
-      run: ./gradlew ktlintCheck
+      - name: Ktlint check for code conventions
+        run: ./gradlew ktlintCheck
 
-    # Test
-    - name: Run unit test in debug build
-      id: testDebug
-      run: ./gradlew testDebugUnitTest
+      - name: Run unit test in debug build
+        id: testDebug
+        run: ./gradlew testDebugUnitTest
 
-    # Assemble
-    - name: Run assemble to debug
-      run: ./gradlew assembleDebug
+      - name: Assemble to debug
+        run: ./gradlew assembleDebug
