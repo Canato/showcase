@@ -1,0 +1,26 @@
+name: schedule_versions_ci
+
+on:
+  schedule:
+    - cron: '* * * * *' # '0 6 * * 1' #Run on Monday's 6am
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Refresh versions
+        run: ./gradlew refreshVersions
+
+      - name: Create branch and checkout if don't exist
+        run: |
+          git branch ci_refresh_versions
+          git checkout ci_refresh_versions
+          git commit --allow-empty -m "[CI]: Add new versions if exist"
+          git push -u origin ci_refresh_versions
+
+      - name: Pull Request
+        run: hub pull-request -m CI Refresh Version -b main -h ci_refresh_versions -r Canato
