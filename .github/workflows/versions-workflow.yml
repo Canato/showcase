@@ -13,12 +13,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - uses: oleksiyrudenko/gha-git-credentials@v1
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+
       - name: Refresh versions
         run: ./gradlew refreshVersions
 
       - name: Create branch and checkout if don't exist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git branch ci_refresh_versions
           git checkout ci_refresh_versions
