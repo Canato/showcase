@@ -22,11 +22,16 @@ jobs:
 
       - name: Create branch and checkout if don't exist
         run: |
+          echo "branch"
           git branch ci_refresh_versions
+          echo "checkout"
           git checkout ci_refresh_versions
+          echo "add"
           git add -A
+          echo "commit"
           git commit --allow-empty -m "[CI]: Add new versions if exist"
-          git push
+          echo "push"
+          git push -u origin ci_refresh_versions
 
       - name: Pull Request
         uses: peter-evans/create-pull-request@v3
