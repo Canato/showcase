@@ -30,8 +30,10 @@ jobs:
           git add -A
           echo "========= commit"
           git commit --allow-empty -m "[CI]: Add new versions if exist"
-          echo "========= push"
+          echo "========= push -u"
           git push -u origin ci_refresh_versions
+          echo "========= push"
+          git push
           echo "========= diff"
           git diff origin/main origin/ci_refresh_versions
 
