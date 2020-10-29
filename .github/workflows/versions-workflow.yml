@@ -24,8 +24,16 @@ jobs:
         run: |
           git branch ci_refresh_versions
           git checkout ci_refresh_versions
+          git add -A
           git commit --allow-empty -m "[CI]: Add new versions if exist"
           git push -u origin ci_refresh_versions
 
       - name: Pull Request
-        run: hub pull-request -m CI Refresh Version -b main -h ci_refresh_versions -r Canato
+        uses: peter-evans/create-pull-request@v3
+        with:
+          branch: ci_refresh_versions
+          delete-branch: true
+          base: main
+          title: '[CI] Refresh Version'
+          reviewers: Canato
+          labels: Merge When Ready
