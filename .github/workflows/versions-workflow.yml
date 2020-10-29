@@ -13,23 +13,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-#      - uses: oleksiyrudenko/gha-git-credentials@v1
-#        with:
-#          token: '${{ secrets.GITHUB_TOKEN }}'
-
       - name: Refresh versions
         run: ./gradlew refreshVersions
-
-#      - name: Create branch and checkout if don't exist
-#        run: |
-#          git branch ci_refresh_versions
-#          git checkout ci_refresh_versions
-#          git add -A
-#          git commit --allow-empty -m "[CI]: Add new versions if exist"
-#          echo "========= push -u"
-#          git push -u origin ci_refresh_versions
-#          echo "========= diff"
-#          git diff origin/main origin/ci_refresh_versions
 
       - name: Pull Request
         uses: peter-evans/create-pull-request@v3
