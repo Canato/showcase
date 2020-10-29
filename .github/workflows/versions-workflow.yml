@@ -21,7 +21,7 @@ jobs:
         with:
           commit-message: [CI]: Add new versions if exist
           delete-branch: true
-          branch: ci/refresh_versions
+          branch: ci_refresh_versions
           base: main
           title: '[CI] Refresh Version'
           reviewers: Canato
