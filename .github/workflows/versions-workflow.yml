@@ -19,9 +19,9 @@ jobs:
       - name: Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: [CI]: Add new versions if exist
+          commit-message: CI - Add new versions if exist
           delete-branch: true
-          branch: ci_refresh_versions
+          branch: ci/refresh_versions
           base: main
           title: '[CI] Refresh Version'
           reviewers: Canato
