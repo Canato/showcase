@@ -32,7 +32,6 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           branch: ci_refresh_versions
-          delete-branch: true
           base: main
           title: '[CI] Refresh Version'
           reviewers: Canato
