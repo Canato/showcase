@@ -28,7 +28,7 @@ You can find more in the talk that I give about it:
 - [Video](https://www.youtube.com/watch?v=pxBNyLZiIVI&ab_channel=CanatoVictor)
 - [Medium Article](https://medium.com/@vcanato/depop-mvp-architecture-in-android-8a7b2eed5dd2)
 
-The long goal is to use Kotlin as MultiPlatform as extract the Business Logic into submodule that can be used from Android, iOS or even Web. 
+The long goal is to use Kotlin as MultiPlatform as extracasfgvhjbkkhsdgfst the Business Logic into submodule that can be used from Android, iOS or even Web. 
 
 ## :arrows_counterclockwise: Continuous Integration
 
