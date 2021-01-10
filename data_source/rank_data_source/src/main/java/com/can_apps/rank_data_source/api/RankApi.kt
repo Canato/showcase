@@ -2,7 +2,6 @@ package com.can_apps.rank_data_source.api
 
 import com.can_apps.rank_data_source.RankDto
 import retrofit2.http.GET
-import javax.inject.Inject
 
 internal interface RankApi {
 

@@ -4,7 +4,6 @@ import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
 import com.can_apps.common.wrappers.CommonCalendarWrapper
 import com.can_apps.common.wrappers.CommonStringResource
-import com.can_apps.rank_board.bresenter.RankModelMapper
 import com.can_apps.rank_board.bresenter.RankModelMapperDefault
 import com.can_apps.rank_board.bresenter.RankPresenter
 import com.can_apps.rank_board.core.RankContract

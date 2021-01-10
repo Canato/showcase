@@ -7,7 +7,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
-import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
 internal class RankInteractor @Inject constructor(

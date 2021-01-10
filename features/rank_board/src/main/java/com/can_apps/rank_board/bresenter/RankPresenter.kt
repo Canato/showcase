@@ -7,7 +7,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
 internal class RankPresenter @Inject constructor(
