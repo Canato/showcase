@@ -12,7 +12,7 @@ interface CommonTimestampWrapper {
     fun toDate(millis: Long): String
 }
 
-class CommonTimestampWrapperDefault @Inject constructor(): CommonTimestampWrapper {
+class CommonTimestampWrapperDefault @Inject constructor() : CommonTimestampWrapper {
 
     companion object {
 

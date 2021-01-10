@@ -22,13 +22,13 @@ internal abstract class BindingHomeModule {
     // want the same instance (in a fragment lifecycle)
     @Binds
     @FragmentScoped
-    internal abstract fun bindPresenter(bound: HomePresenter) : HomeContract.Presenter
+    internal abstract fun bindPresenter(bound: HomePresenter): HomeContract.Presenter
 
     @Binds
-    internal abstract fun bindInteractor(bound: HomeInteractor) : HomeContract.Interactor
+    internal abstract fun bindInteractor(bound: HomeInteractor): HomeContract.Interactor
 
     @Binds
-    internal abstract fun bindHomeModelMapper(bound: HomeModelMapperDefault) : HomeModelMapper
+    internal abstract fun bindHomeModelMapper(bound: HomeModelMapperDefault): HomeModelMapper
 }
 
 @Module
@@ -40,4 +40,3 @@ internal class HomeModule {
         return HomeAdapter(presenter)
     }
 }
-

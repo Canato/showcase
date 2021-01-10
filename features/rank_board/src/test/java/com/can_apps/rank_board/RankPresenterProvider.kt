@@ -28,8 +28,11 @@ private class TestRankDataSource(
 }
 
 internal object RankPresenterProvider {
-    fun getPresenter(mockServerUrl: String, string: CommonStringResource,
-                     calendarWrapper: CommonCalendarWrapper) : RankContract.Presenter {
+    fun getPresenter(
+        mockServerUrl: String,
+        string: CommonStringResource,
+        calendarWrapper: CommonCalendarWrapper
+    ): RankContract.Presenter {
         val dispatcher = getDispatcher()
 
         return RankPresenter(

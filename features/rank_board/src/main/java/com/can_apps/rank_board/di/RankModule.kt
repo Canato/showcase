@@ -28,7 +28,7 @@ internal class RankModule {
 @InstallIn(FragmentComponent::class)
 internal abstract class BindingRankModule {
     @Binds
-    internal abstract fun bindRankModelMapper(bound: RankModelMapperDefault) : RankModelMapper
+    internal abstract fun bindRankModelMapper(bound: RankModelMapperDefault): RankModelMapper
 
     @Binds
     internal abstract fun bindRankDtoMapper(bound: RankDtoMapperDefault): RankDtoMapper

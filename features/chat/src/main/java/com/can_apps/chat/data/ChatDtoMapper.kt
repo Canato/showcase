@@ -25,7 +25,7 @@ internal interface ChatDtoMapper {
     fun toDomain(dto: MessageDto): ChatDomain
 }
 
-internal class ChatDtoMapperDefault @Inject constructor(): ChatDtoMapper {
+internal class ChatDtoMapperDefault @Inject constructor() : ChatDtoMapper {
 
     override fun toDto(domain: ChatNewDomain): NewMessageDto? =
         when (domain.holder) {

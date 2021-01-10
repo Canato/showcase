@@ -19,7 +19,7 @@ import dagger.hilt.components.SingletonComponent
 internal class MessageDataSourceModule {
 
     @Provides
-    internal fun provideMessageDao(@ApplicationContext context: Context) : MessageDao {
+    internal fun provideMessageDao(@ApplicationContext context: Context): MessageDao {
         return MessageDatabaseProvider.getInstance(context).getMessageDao()
     }
 }

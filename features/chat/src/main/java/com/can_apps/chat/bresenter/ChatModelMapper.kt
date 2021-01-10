@@ -15,7 +15,7 @@ internal interface ChatModelMapper {
     fun toOtherDomain(message: ChatMessageTextModel): ChatNewDomain
 }
 
-internal class ChatModelMapperDefault @Inject constructor(): ChatModelMapper {
+internal class ChatModelMapperDefault @Inject constructor() : ChatModelMapper {
 
     override fun toMyDomain(message: ChatMessageTextModel): ChatNewDomain =
         ChatNewDomain(ChatMessageTextDomain(message.value), ChatMessageHolderEnumDomain.MY)
