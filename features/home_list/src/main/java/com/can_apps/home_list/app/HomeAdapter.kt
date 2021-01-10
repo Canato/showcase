@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.home_list.bresenter.HomeFeatModel
 import com.can_apps.home_list.core.HomeContract
 import com.can_apps.home_list.databinding.ItemHomeFeatureBinding
+import javax.inject.Inject
 
-internal class HomeAdapter(
+internal class HomeAdapter @Inject constructor(
     private val presenter: HomeContract.Presenter
 ) : RecyclerView.Adapter<HomeItemViewHolder>() {
 

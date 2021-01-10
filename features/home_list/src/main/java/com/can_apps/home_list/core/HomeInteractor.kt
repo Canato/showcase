@@ -1,8 +1,9 @@
 package com.can_apps.home_list.core
 
 import com.can_apps.home_list.R
+import javax.inject.Inject
 
-internal class HomeInteractor : HomeContract.Interactor {
+internal class HomeInteractor @Inject constructor(): HomeContract.Interactor {
 
     override fun fetchFeatures(): HomeDomain =
         HomeDomain(
