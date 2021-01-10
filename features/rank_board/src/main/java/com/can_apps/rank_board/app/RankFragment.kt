@@ -1,6 +1,5 @@
 package com.can_apps.rank_board.app
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,29 +13,26 @@ import com.can_apps.common.extensions.showDefaultError
 import com.can_apps.rank_board.bresenter.RankModel
 import com.can_apps.rank_board.core.RankContract
 import com.can_apps.rank_board.databinding.FragmentRankBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RankFragment : Fragment(), RankContract.View {
 
     private var _binding: FragmentRankBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var presenter: RankContract.Presenter
-    private lateinit var recyclerViewAdapter: RankAdapter
+    @Inject
+    internal lateinit var presenter: RankContract.Presenter
+    @Inject
+    internal lateinit var recyclerViewAdapter: RankAdapter
     private val args: RankFragmentArgs by navArgs()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        val serviceLocator = RankServiceLocator(context)
-        presenter = serviceLocator.getPresenter()
-        recyclerViewAdapter = serviceLocator.getAdapter()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRankBinding.inflate(inflater, container, false)
         return binding.root
     }

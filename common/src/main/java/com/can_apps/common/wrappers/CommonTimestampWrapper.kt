@@ -3,6 +3,7 @@ package com.can_apps.common.wrappers
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
 interface CommonTimestampWrapper {
 
@@ -11,7 +12,7 @@ interface CommonTimestampWrapper {
     fun toDate(millis: Long): String
 }
 
-class CommonTimestampWrapperDefault : CommonTimestampWrapper {
+class CommonTimestampWrapperDefault @Inject constructor() : CommonTimestampWrapper {
 
     companion object {
 

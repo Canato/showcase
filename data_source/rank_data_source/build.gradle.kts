@@ -2,6 +2,8 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -32,6 +34,8 @@ kotlin {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
+    implementation(project(Libs.showcase.common))
+
     implementation(Libs.kotlin.stdLib)
 
     implementation(Libs.android.coreKtx)
@@ -40,6 +44,9 @@ dependencies {
     // retrofit
     implementation(Libs.retrofit.retrofit)
     implementation(Libs.retrofit.gson)
+
+    implementation(Libs.hilt.hiltAndroid)
+    kapt(Libs.hilt.hiltAndroidCompiler)
 
     // test
     testImplementation(Libs.test.junit)

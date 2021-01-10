@@ -2,6 +2,8 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("android.extensions")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-android")
 }
@@ -60,6 +62,9 @@ dependencies {
 
     implementation(Libs.navigation.fragment)
     implementation(Libs.navigation.ui)
+
+    implementation(Libs.hilt.hiltAndroid)
+    kapt(Libs.hilt.hiltAndroidCompiler)
 
     // test
     testImplementation(Libs.test.junit)

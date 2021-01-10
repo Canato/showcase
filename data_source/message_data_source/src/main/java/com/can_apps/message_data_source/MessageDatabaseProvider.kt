@@ -3,11 +3,10 @@ package com.can_apps.message_data_source
 import android.content.Context
 import androidx.room.Room
 import com.can_apps.common.singleton.CommonSingletonDatabase
-import com.can_apps.common.wrappers.CommonTimestampWrapperDefault
 
 const val MESSAGE_DB_NAME = "message.db"
 
-class MessageDatabaseProvider private constructor(context: Context) {
+internal class MessageDatabaseProvider private constructor(context: Context) {
 
     private var database: MessageDatabase =
         Room.databaseBuilder(context, MessageDatabase::class.java, MESSAGE_DB_NAME)
@@ -17,10 +16,7 @@ class MessageDatabaseProvider private constructor(context: Context) {
     companion object : CommonSingletonDatabase<MessageDatabaseProvider, Context>
     (::MessageDatabaseProvider)
 
-    fun getMessageDatabaseDataSource(): MessageDatabaseDataSource =
-        MessageDatabaseDataSourceDefault(
-            database.messageDao(),
-            MessageDaoMapperDefault(),
-            CommonTimestampWrapperDefault()
-        )
+    internal fun getMessageDao(): MessageDao {
+        return database.messageDao()
+    }
 }

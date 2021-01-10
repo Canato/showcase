@@ -1,6 +1,5 @@
 package com.can_apps.home_list.app
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,31 +23,27 @@ import com.can_apps.home_list.bresenter.HomeFeatModel
 import com.can_apps.home_list.core.HomeContract
 import com.can_apps.home_list.databinding.FragmentHomeBinding
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), HomeContract.View {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var presenter: HomeContract.Presenter
-    private lateinit var homeAdapter: HomeAdapter
+    @Inject
+    internal lateinit var presenter: HomeContract.Presenter
+    @Inject
+    internal lateinit var homeAdapter: HomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        val serviceLocator = HomeServiceLocator(context)
-
-        presenter = serviceLocator.getPresenter()
-        homeAdapter = serviceLocator.getAdapter()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

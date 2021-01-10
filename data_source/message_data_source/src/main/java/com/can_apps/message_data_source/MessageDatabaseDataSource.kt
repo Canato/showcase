@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 interface MessageDatabaseDataSource {
 
@@ -20,7 +21,7 @@ interface MessageDatabaseDataSource {
     fun getLatestValueFlow(): Flow<MessageDto>
 }
 
-internal class MessageDatabaseDataSourceDefault(
+internal class MessageDatabaseDataSourceDefault @Inject constructor(
     private val dao: MessageDao,
     private val mapper: MessageDaoMapper,
     private val timestamp: CommonTimestampWrapper

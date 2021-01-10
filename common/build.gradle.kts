@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
     kotlin("android.extensions")
 }
 
@@ -39,10 +41,13 @@ dependencies {
 
     implementation(Libs.google.materialDesign)
 
-    implementation(Libs.retrofit.retrofit)
+    api(Libs.retrofit.retrofit)
     implementation(Libs.retrofit.gson)
 
     implementation(Libs.kotlin.coroutineCore)
+
+    implementation(Libs.hilt.hiltAndroid)
+    kapt(Libs.hilt.hiltAndroidCompiler)
 
     implementation(Libs.navigation.fragment)
     implementation(Libs.navigation.ui)

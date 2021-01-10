@@ -4,13 +4,14 @@ import com.can_apps.common.wrappers.CommonStringResource
 import com.can_apps.home_list.R
 import com.can_apps.home_list.core.HomeDomain
 import com.can_apps.home_list.core.HomeEnumDomain
+import javax.inject.Inject
 
 internal interface HomeModelMapper {
 
     fun toModel(domain: HomeDomain): HomeModel
 }
 
-internal class HomeModelMapperDefault(
+internal class HomeModelMapperDefault @Inject constructor(
     private val string: CommonStringResource
 ) : HomeModelMapper {
 

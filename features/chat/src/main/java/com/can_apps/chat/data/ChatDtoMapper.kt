@@ -14,6 +14,7 @@ import com.can_apps.message_data_source.MessageTailDto
 import com.can_apps.message_data_source.MessageTextDto
 import com.can_apps.message_data_source.MessageTimestampDto
 import com.can_apps.message_data_source.NewMessageDto
+import javax.inject.Inject
 
 internal interface ChatDtoMapper {
 
@@ -24,7 +25,7 @@ internal interface ChatDtoMapper {
     fun toDomain(dto: MessageDto): ChatDomain
 }
 
-internal class ChatDtoMapperDefault : ChatDtoMapper {
+internal class ChatDtoMapperDefault @Inject constructor() : ChatDtoMapper {
 
     override fun toDto(domain: ChatNewDomain): NewMessageDto? =
         when (domain.holder) {

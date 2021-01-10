@@ -6,12 +6,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-internal class RankInteractor(
+internal class RankInteractor @Inject constructor(
     private val repository: RankContract.Repository,
     private val calendarWrapper: CommonCalendarWrapper,
-    private val dispatcher: CommonCoroutineDispatcherFactory
+    private val dispatcher: CommonCoroutineDispatcherFactory,
 ) : RankContract.Interactor, CoroutineScope {
 
     private val job = Job()

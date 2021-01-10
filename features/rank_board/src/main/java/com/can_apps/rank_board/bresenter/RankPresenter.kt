@@ -6,9 +6,10 @@ import com.can_apps.rank_board.core.RankDomain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-internal class RankPresenter(
+internal class RankPresenter @Inject constructor(
     private val dispatcher: CommonCoroutineDispatcherFactory,
     private val interactor: RankContract.Interactor,
     private val modelMapper: RankModelMapper

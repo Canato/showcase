@@ -40,9 +40,7 @@ internal class RankIntegrationTest {
         MockKAnnotations.init(this, relaxed = true)
         val mockServerUrl = mockWebServerRule.url("/").toString()
 
-        val serviceLocator = MockRankServiceLocator(mockServerUrl, string, calendarWrapper)
-        presenter = serviceLocator.getPresenter()
-
+        presenter = RankPresenterProvider.getPresenter(mockServerUrl, string, calendarWrapper)
         presenter.bindView(view)
     }
 

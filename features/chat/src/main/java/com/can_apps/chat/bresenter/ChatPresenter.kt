@@ -12,13 +12,15 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
-internal class ChatPresenter(
+internal class ChatPresenter @Inject constructor(
     private val interactor: ChatContract.Interactor,
     private val dispatcher: CommonCoroutineDispatcherFactory,
     private val mapper: ChatModelMapper,
-    private val debounceWait: Long,
+    @Named("debouncedWait") private val debounceWait: Long,
 ) : ChatContract.Presenter, CoroutineScope {
 
     private val job = Job()

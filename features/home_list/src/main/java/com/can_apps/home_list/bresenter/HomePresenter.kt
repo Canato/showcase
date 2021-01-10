@@ -2,8 +2,9 @@ package com.can_apps.home_list.bresenter
 
 import android.widget.LinearLayout
 import com.can_apps.home_list.core.HomeContract
+import javax.inject.Inject
 
-internal class HomePresenter(
+internal class HomePresenter @Inject constructor(
     private val interactor: HomeContract.Interactor,
     private val mapper: HomeModelMapper
 ) : HomeContract.Presenter {
