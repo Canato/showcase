@@ -2,13 +2,14 @@ package com.can_apps.common.wrappers
 
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
 interface CommonCalendarWrapper {
 
     fun getDayOfWeek(): Int
 }
 
-class CommonCalendarWrapperDefault : CommonCalendarWrapper {
+class CommonCalendarWrapperDefault @Inject constructor() : CommonCalendarWrapper {
 
     /**
      *  1 -> "Sunday"

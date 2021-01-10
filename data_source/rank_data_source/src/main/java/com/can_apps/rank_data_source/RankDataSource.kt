@@ -3,6 +3,7 @@ package com.can_apps.rank_data_source
 import com.can_apps.rank_data_source.api.Api
 import com.can_apps.rank_data_source.api.RankApi
 import com.can_apps.rank_data_source.api.RankApiDefault
+import javax.inject.Inject
 
 interface RankDataSource {
 

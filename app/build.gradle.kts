@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
     id("com.google.android.gms.oss-licenses-plugin")
 }
 
@@ -55,6 +57,9 @@ dependencies {
     implementation(project(Libs.showcase.dataSource.msg))
 
     implementation(project(Libs.showcase.common))
+
+    implementation(Libs.hilt.hiltAndroid)
+    kapt(Libs.hilt.hiltAndroidCompiler)
 
     implementation(Libs.kotlin.stdLib)
 

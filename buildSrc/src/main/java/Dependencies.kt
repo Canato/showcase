@@ -26,6 +26,7 @@ object Libs {
     val android = AndroidLibs
     val kotlin = KotlinLibs
     val google = GoogleLibs
+    val hilt = HiltLibs
     val thirdParty = ThirdPartyLibs
     val test = TestLibs
 }
@@ -109,6 +110,13 @@ object FirebaseLibs {
 
     const val auth = "com.google.firebase:firebase-auth:_"
     const val analytics = "com.google.firebase:firebase-analytics:_"
+}
+
+object HiltLibs {
+
+    const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:_"
+    const val hiltAndroid = "com.google.dagger:hilt-android:_"
+    const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:_"
 }
 
 object ThirdPartyLibs {

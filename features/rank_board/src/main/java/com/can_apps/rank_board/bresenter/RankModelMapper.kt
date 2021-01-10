@@ -4,6 +4,7 @@ import com.can_apps.common.wrappers.CommonStringResource
 import com.can_apps.rank_board.R
 import com.can_apps.rank_board.core.RankProfileDomain
 import com.can_apps.rank_board.core.RankResetTimeDomain
+import javax.inject.Inject
 
 internal interface RankModelMapper {
 
@@ -12,7 +13,9 @@ internal interface RankModelMapper {
     fun toModel(profiles: Set<RankProfileDomain>): List<RankModel>
 }
 
-internal class RankModelMapperDefault(private val string: CommonStringResource) : RankModelMapper {
+internal class RankModelMapperDefault @Inject constructor(
+    private val string: CommonStringResource
+) : RankModelMapper {
 
     override fun toResetTitle(resetTime: RankResetTimeDomain): String =
         when (resetTime.value) {

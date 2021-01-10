@@ -3,8 +3,10 @@ package com.can_apps.common.wrappers
 import android.content.Context
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class CommonStringResource(private val context: Context) {
+class CommonStringResource @Inject constructor(@ApplicationContext private val context: Context) {
 
     fun getString(@StringRes stringResId: Int): String = context.getString(stringResId)
 
