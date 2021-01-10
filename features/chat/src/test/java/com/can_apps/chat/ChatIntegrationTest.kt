@@ -149,16 +149,14 @@ internal class ChatIntegrationTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
 
+    @MockK
     private lateinit var presenter: ChatContract.Presenter
 
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
 
-        val serviceLocator = MockChatServiceLocator(testDispatcher, debounceWait, dataSource)
-
-        presenter = serviceLocator.getPresenter()
-
+        presenter = ChatPresenterProvider.getPresenter(testDispatcher, debounceWait, dataSource)
         presenter.bind(view)
     }
 

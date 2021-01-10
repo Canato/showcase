@@ -45,12 +45,4 @@ internal class CommonModule {
     internal fun provideRankRetrofit(@ApplicationContext context: Context): Retrofit {
         return CommonHttpClientProvider(context).buildRank()
     }
-
-    @Provides
-    @Named("ui")
-    internal fun provideUiDispatcher(): CoroutineContext = Dispatchers.Main
-
-    @Provides
-    @Named("io")
-    internal fun bindIoDispatcher(): CoroutineContext = Dispatchers.IO
 }

@@ -13,15 +13,15 @@ import kotlin.coroutines.CoroutineContext
 internal class RankInteractor @Inject constructor(
     private val repository: RankContract.Repository,
     private val calendarWrapper: CommonCalendarWrapper,
-    @Named("io") private val ioDispatcher: CoroutineContext
+    private val dispatcher: CommonCoroutineDispatcherFactory,
 ) : RankContract.Interactor, CoroutineScope {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
-        get() = ioDispatcher + job
+        get() = dispatcher.IO + job
 
     override suspend fun getInitialState(): RankDomain {
-        val profiles = coroutineScope { async(ioDispatcher) { repository.getProfiles() } }
+        val profiles = coroutineScope { async(dispatcher.IO) { repository.getProfiles() } }
         val dayOfWeek = calendarWrapper.getDayOfWeek()
 
         val resetTime = RankResetTimeDomain(9 - dayOfWeek) // Resets on Mondays
