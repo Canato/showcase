@@ -1,5 +1,6 @@
 package com.can_apps.rank_board.bresenter
 
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.rank_board.core.RankContract
 import com.can_apps.rank_board.core.RankDomain
 import kotlinx.coroutines.CoroutineScope
@@ -10,15 +11,14 @@ import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
 internal class RankPresenter @Inject constructor(
-    @Named("ui") private val uiDispatcher: CoroutineContext,
-    @Named("io") private val ioDispatcher: CoroutineContext,
+    private val dispatcher: CommonCoroutineDispatcherFactory,
     private val interactor: RankContract.Interactor,
     private val modelMapper: RankModelMapper
 ) : RankContract.Presenter, CoroutineScope {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
-        get() = uiDispatcher + job
+        get() = dispatcher.UI + job
 
     private var view: RankContract.View? = null
 
@@ -36,7 +36,7 @@ internal class RankPresenter @Inject constructor(
         fetchData()
     }
 
-    private fun CoroutineScope.fetchData() = launch(ioDispatcher) {
+    private fun CoroutineScope.fetchData() = launch(dispatcher.IO) {
         when (val domain = interactor.getInitialState()) {
             is RankDomain.Valid -> {
                 val resetTitle = modelMapper.toResetTitle(domain.resetTime)
@@ -52,20 +52,20 @@ internal class RankPresenter @Inject constructor(
     }
 
     private fun CoroutineScope.updateEmptyState() =
-        launch(uiDispatcher) {
+        launch(dispatcher.UI) {
             view?.hideLoading()
             view?.showError()
             view?.updateResetTime("0")
         }
 
     private fun CoroutineScope.updateList(model: List<RankModel>) =
-        launch(uiDispatcher) {
+        launch(dispatcher.UI) {
             view?.hideLoading()
             view?.updateRankList(model)
         }
 
     private fun CoroutineScope.updateReset(resetTitle: String) =
-        launch(uiDispatcher) {
+        launch(dispatcher.UI) {
             view?.updateResetTime(resetTitle)
         }
 }

@@ -18,8 +18,7 @@ import kotlin.coroutines.CoroutineContext
 
 internal class ChatPresenter @Inject constructor(
     private val interactor: ChatContract.Interactor,
-    @Named("ui") private val uiDispatcher: CoroutineContext,
-    @Named("io") private val ioDispatcher: CoroutineContext,
+    private val dispatcher: CommonCoroutineDispatcherFactory,
     private val mapper: ChatModelMapper,
     @Named("debouncedWait") private val debounceWait: Long,
 ) : ChatContract.Presenter, CoroutineScope {
@@ -27,7 +26,7 @@ internal class ChatPresenter @Inject constructor(
     private val job = Job()
 
     override val coroutineContext: CoroutineContext
-        get() = uiDispatcher + job
+        get() = dispatcher.UI + job
 
     private val channel = BroadcastChannel<ChatMessageTextModel>(Channel.CONFLATED)
 
@@ -57,14 +56,14 @@ internal class ChatPresenter @Inject constructor(
     }
 
     private fun CoroutineScope.saveMessage(message: ChatMessageTextModel) =
-        launch(ioDispatcher) {
+        launch(dispatcher.IO) {
             val domain = mapper.toMyDomain(message)
             interactor.addMessage(domain)
         }
 
     private fun CoroutineScope.fetchMessages() = launch {
         interactor.getMessagesFlow()
-            .flowOn(ioDispatcher)
+            .flowOn(dispatcher.IO)
             .collect { view?.addMessage(mapper.toModel(it)) }
             .let { setupMessagesListener() }
     }
@@ -72,7 +71,7 @@ internal class ChatPresenter @Inject constructor(
     @FlowPreview
     private fun CoroutineScope.getAnswer(
         receiveChannel: BroadcastChannel<ChatMessageTextModel>
-    ) = launch(ioDispatcher) {
+    ) = launch(dispatcher.IO) {
         receiveChannel
             .asFlow()
             .debounce(debounceWait)
@@ -86,7 +85,7 @@ internal class ChatPresenter @Inject constructor(
     private fun CoroutineScope.setupMessagesListener() = launch {
         interactor
             .getLatestFlow()
-            .flowOn(ioDispatcher)
+            .flowOn(dispatcher.IO)
             .collect { view?.addMessage(mapper.toModel(it)) }
     }
 }

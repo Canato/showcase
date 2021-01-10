@@ -1,8 +1,8 @@
-
-
 package com.can_apps.common.di
 
 import android.content.Context
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryDefault
 import com.can_apps.common.network.CommonHttpClientProvider
 import com.can_apps.common.wrappers.CommonCalendarWrapper
 import com.can_apps.common.wrappers.CommonCalendarWrapperDefault
@@ -30,6 +30,9 @@ internal abstract class BindingCommonModule {
 
     @Binds
     internal abstract fun bindCommonTimestampWrapper(bound: CommonTimestampWrapperDefault): CommonTimestampWrapper
+
+    @Binds
+    internal abstract fun bindCommonCoroutineDispatcher(bound: CommonCoroutineDispatcherFactoryDefault): CommonCoroutineDispatcherFactory
 }
 
 @Module
@@ -50,5 +53,4 @@ internal class CommonModule {
     @Provides
     @Named("io")
     internal fun bindIoDispatcher(): CoroutineContext = Dispatchers.IO
-
 }

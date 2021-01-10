@@ -24,8 +24,7 @@ class CommonCoroutineDispatcherFactoryDefault @Inject constructor() :
 }
 
 @ExperimentalCoroutinesApi
-class CommonCoroutineDispatcherFactoryUnconfined @Inject constructor() :
-    CommonCoroutineDispatcherFactory {
+class CommonCoroutineDispatcherFactoryUnconfined : CommonCoroutineDispatcherFactory {
 
     override val IO: CoroutineContext
         get() = Unconfined
