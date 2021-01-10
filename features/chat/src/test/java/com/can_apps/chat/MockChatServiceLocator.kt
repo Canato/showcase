@@ -1,6 +1,5 @@
 package com.can_apps.chat
 
-import com.can_apps.chat.app.ChatServiceLocator
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import com.can_apps.message_data_source.MessageDatabaseDataSource

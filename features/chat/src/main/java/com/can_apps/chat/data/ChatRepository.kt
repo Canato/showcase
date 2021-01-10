@@ -6,8 +6,9 @@ import com.can_apps.chat.core.ChatNewDomain
 import com.can_apps.message_data_source.MessageDatabaseDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-internal class ChatRepository(
+internal class ChatRepository @Inject constructor(
     private val messageDataSource: MessageDatabaseDataSource,
     private val mapper: ChatDtoMapper
 ) : ChatContract.Repository {

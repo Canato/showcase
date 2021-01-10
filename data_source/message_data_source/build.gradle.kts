@@ -50,6 +50,9 @@ dependencies {
 
     implementation(Libs.kotlin.coroutineCore)
 
+    implementation(Libs.hilt.hiltAndroid)
+    kapt(Libs.hilt.hiltAndroidCompiler)
+
     implementation(Libs.androidx.roomRuntime)
     implementation(Libs.androidx.roomKtx)
     kapt(Libs.androidx.roomCompiler)

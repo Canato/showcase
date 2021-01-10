@@ -1,5 +1,7 @@
 package com.can_apps.message_data_source
 
+import javax.inject.Inject
+
 internal interface MessageDaoMapper {
 
     fun toEntity(dto: NewMessageDto, timestamp: Long): MessageEntity
@@ -11,7 +13,7 @@ internal interface MessageDaoMapper {
     fun toDto(messages: MessageEntity): MessageDto?
 }
 
-internal class MessageDaoMapperDefault : MessageDaoMapper {
+internal class MessageDaoMapperDefault @Inject constructor(): MessageDaoMapper {
 
     override fun toEntity(dto: NewMessageDto, timestamp: Long): MessageEntity =
         MessageEntity(0, dto.text.value, timestamp, dto.holder.value, 1)

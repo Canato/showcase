@@ -2,7 +2,6 @@ package com.can_apps.chat.app
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,37 +14,33 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
-import com.can_apps.chat.R
 import com.can_apps.chat.app.adapter.ChatAdapter
 import com.can_apps.chat.bresenter.ChatMessageModel
 import com.can_apps.chat.bresenter.ChatMessageTextModel
 import com.can_apps.chat.core.ChatContract
 import com.can_apps.chat.databinding.FragmentChatBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ChatFragment : Fragment(), ChatContract.View {
 
     private var _binding: FragmentChatBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var presenter: ChatContract.Presenter
-    private lateinit var recyclerViewAdapter: ChatAdapter
+    @Inject
+    internal lateinit var presenter: ChatContract.Presenter
+    @Inject
+    internal lateinit var recyclerViewAdapter: ChatAdapter
     private val args: ChatFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentChatBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        val serviceLocator = ChatServiceLocator(context)
-        presenter = serviceLocator.getPresenter()
-        recyclerViewAdapter = serviceLocator.getAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,6 +4,7 @@ import com.can_apps.chat.core.ChatDomain
 import com.can_apps.chat.core.ChatMessageHolderEnumDomain
 import com.can_apps.chat.core.ChatMessageTextDomain
 import com.can_apps.chat.core.ChatNewDomain
+import javax.inject.Inject
 
 internal interface ChatModelMapper {
 
@@ -14,7 +15,7 @@ internal interface ChatModelMapper {
     fun toOtherDomain(message: ChatMessageTextModel): ChatNewDomain
 }
 
-internal class ChatModelMapperDefault : ChatModelMapper {
+internal class ChatModelMapperDefault @Inject constructor(): ChatModelMapper {
 
     override fun toMyDomain(message: ChatMessageTextModel): ChatNewDomain =
         ChatNewDomain(ChatMessageTextDomain(message.value), ChatMessageHolderEnumDomain.MY)

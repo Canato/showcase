@@ -5,8 +5,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.transform
+import javax.inject.Inject
 
-internal class ChatInteractor(
+internal class ChatInteractor @Inject constructor(
     private val repository: ChatContract.Repository,
     private val time: CommonTimestampWrapper
 ) : ChatContract.Interactor {

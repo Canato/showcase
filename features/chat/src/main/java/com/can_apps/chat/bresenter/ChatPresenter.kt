@@ -12,19 +12,22 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
-internal class ChatPresenter(
+internal class ChatPresenter @Inject constructor(
     private val interactor: ChatContract.Interactor,
-    private val dispatcher: CommonCoroutineDispatcherFactory,
+    @Named("ui") private val uiDispatcher: CoroutineContext,
+    @Named("io") private val ioDispatcher: CoroutineContext,
     private val mapper: ChatModelMapper,
-    private val debounceWait: Long,
+    @Named("debouncedWait") private val debounceWait: Long,
 ) : ChatContract.Presenter, CoroutineScope {
 
     private val job = Job()
 
     override val coroutineContext: CoroutineContext
-        get() = dispatcher.UI + job
+        get() = uiDispatcher + job
 
     private val channel = BroadcastChannel<ChatMessageTextModel>(Channel.CONFLATED)
 
@@ -54,14 +57,14 @@ internal class ChatPresenter(
     }
 
     private fun CoroutineScope.saveMessage(message: ChatMessageTextModel) =
-        launch(dispatcher.IO) {
+        launch(ioDispatcher) {
             val domain = mapper.toMyDomain(message)
             interactor.addMessage(domain)
         }
 
     private fun CoroutineScope.fetchMessages() = launch {
         interactor.getMessagesFlow()
-            .flowOn(dispatcher.IO)
+            .flowOn(ioDispatcher)
             .collect { view?.addMessage(mapper.toModel(it)) }
             .let { setupMessagesListener() }
     }
@@ -69,7 +72,7 @@ internal class ChatPresenter(
     @FlowPreview
     private fun CoroutineScope.getAnswer(
         receiveChannel: BroadcastChannel<ChatMessageTextModel>
-    ) = launch(dispatcher.IO) {
+    ) = launch(ioDispatcher) {
         receiveChannel
             .asFlow()
             .debounce(debounceWait)
@@ -83,7 +86,7 @@ internal class ChatPresenter(
     private fun CoroutineScope.setupMessagesListener() = launch {
         interactor
             .getLatestFlow()
-            .flowOn(dispatcher.IO)
+            .flowOn(ioDispatcher)
             .collect { view?.addMessage(mapper.toModel(it)) }
     }
 }
