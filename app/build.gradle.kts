@@ -53,6 +53,7 @@ dependencies {
     implementation(project(Libs.showcase.dataSource.bad))
     implementation(project(Libs.showcase.dataSource.rank))
     implementation(project(Libs.showcase.dataSource.msg))
+    implementation(project(Libs.showcase.dataSource.properties))
 
     implementation(project(Libs.showcase.common))
 
