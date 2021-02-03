@@ -2,14 +2,12 @@ package com.can_apps.properties.app
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
-import androidx.transition.TransitionManager
 import com.can_apps.common.extensions.hideFadeOut
 import com.can_apps.common.extensions.showDefaultError
 import com.can_apps.common.extensions.showFadeIn

@@ -19,10 +19,12 @@ fun View.hideFadeOut(finalVisibility: Int = View.INVISIBLE) {
     this.animate()
         .alpha(0f)
         .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong())
-        .setListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                super.onAnimationEnd(animation)
-                visibility = finalVisibility
+        .setListener(
+            object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    super.onAnimationEnd(animation)
+                    visibility = finalVisibility
+                }
             }
-        })
+        )
 }
