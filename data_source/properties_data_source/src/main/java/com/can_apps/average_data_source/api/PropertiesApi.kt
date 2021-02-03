@@ -2,6 +2,8 @@ package com.can_apps.average_data_source.api
 
 import com.can_apps.average_data_source.PropertiesDto
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
 
 internal interface PropertiesApi {
 

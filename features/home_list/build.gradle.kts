@@ -46,6 +46,7 @@ dependencies {
 
     implementation(project(Libs.showcase.features.rank))
     implementation(project(Libs.showcase.features.chat))
+    implementation(project(Libs.showcase.features.properties))
 
     implementation(Libs.kotlin.stdLib)
 

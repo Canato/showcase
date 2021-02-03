@@ -19,7 +19,7 @@ import retrofit2.create
 internal open class PropertiesServiceLocator(private val context: Context) {
 
     private val retrofit: Retrofit
-        get() = CommonHttpClientProvider(context).buildRank()
+        get() = CommonHttpClientProvider(context).buildGithub()
 
     fun getPresenter(): PropertiesContract.Presenter =
         PropertiesPresenter(getCoroutine(), getInteractor())

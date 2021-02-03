@@ -26,6 +26,7 @@ internal class HomeModelMapperDefault(
             when (enum) {
                 HomeEnumDomain.RANK -> string.getString(R.string.rank_title)
                 HomeEnumDomain.CHAT -> string.getString(R.string.chat_title)
+                HomeEnumDomain.PROPERTIES -> string.getString(R.string.properties_title)
             }
         )
 }

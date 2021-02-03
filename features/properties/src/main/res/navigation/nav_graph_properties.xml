@@ -2,15 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/rank_dest"
-    android:id="@+id/nav_graph_rank"
-    tools:ignore="UnusedNavigation">
+    app:startDestination="@id/properties_dest"
+    android:id="@+id/nav_graph_properties">
 
     <fragment
-        android:id="@+id/rank_dest"
-        android:name="com.can_apps.rank_board.app.RankFragment"
-        android:label="@string/rank_title"
-        tools:layout="@layout/fragment_rank" >
+        android:id="@+id/properties_dest"
+        android:name="com.can_apps.properties.app.PropertiesFragment"
+        android:label="@string/properties_title"
+        tools:layout="@layout/fragment_properties" >
 
         <argument
             android:name="transitionNameArg"
