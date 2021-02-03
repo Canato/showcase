@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/chat" />
             <option value="$PROJECT_DIR$/features/home_list" />
+            <option value="$PROJECT_DIR$/features/properties" />
             <option value="$PROJECT_DIR$/features/rank_board" />
           </set>
         </option>

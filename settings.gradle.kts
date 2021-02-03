@@ -1,5 +1,6 @@
 import de.fayard.refreshVersions.bootstrapRefreshVersions
 
+include()
 rootProject.buildFileName = "build.gradle.kts"
 rootProject.name = "Showcase"
 
@@ -9,6 +10,7 @@ include(
     ":features",
     ":features:rank_board",
     ":features:home_list",
+    ":features:properties",
     ":features:chat"
 )
 
