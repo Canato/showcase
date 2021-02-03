@@ -6,10 +6,9 @@ import com.can_apps.properties.core.PropertiesContract
 
 internal class PropertiesRepository(
     private val dataSource: PropertiesDataSource,
-    private val mapper: PropertiesMapper
+    private val mapper: PropertiesDtoMapper
 ) : PropertiesContract.Repository {
 
-    override suspend fun getPrices(): Set<PriceDomain> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getPrices(): Set<PriceDomain> =
+        mapper.toDomain(dataSource.getPrices())
 }

@@ -8,6 +8,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import java.math.BigDecimal
 
 internal class PropertiesInteractorTest {
 
@@ -38,8 +39,13 @@ internal class PropertiesInteractorTest {
     @Test
     fun `GIVEN values, WHEN getAverage, THEN average`() {
         // GIVEN
-        val domain = setOf(PriceDomain(42F), PriceDomain(24F), PriceDomain(1F), PriceDomain(22F))
-        val expected = PriceDomain(22.25F)
+        val domain = setOf(
+            PriceDomain(BigDecimal(42)),
+            PriceDomain(BigDecimal(24)),
+            PriceDomain(BigDecimal(1)),
+            PriceDomain(BigDecimal(22))
+        )
+        val expected = PriceDomain(BigDecimal(22.25))
 
         coEvery { repository.getPrices() } returns domain
 

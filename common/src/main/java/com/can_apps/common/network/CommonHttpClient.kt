@@ -16,8 +16,8 @@ interface CommonHttpClient {
 }
 
 internal class Urls {
-
     companion object {
+
         const val RANK_URL = "https://www.stairwaylearning.com"
         const val BAD_URL = "https://breakingbadapi.com"
         const val GITHUB_USER_CONTENT = "https://raw.githubusercontent.com"
@@ -41,15 +41,6 @@ class CommonHttpClientProvider(private val context: Context) : CommonHttpClient 
     private fun getOkHttpClient(): OkHttpClient =
         OkHttpClient()
             .newBuilder()
-            .addInterceptor(getChuckerInterceptor())
-            .build()
-
-    private fun getChuckerInterceptor(): Interceptor =
-        ChuckerInterceptor
-            .Builder(context)
-            .collector(ChuckerCollector(context))
-            .maxContentLength(250000L)
-            .redactHeaders(emptySet())
-            .alwaysReadResponseBody(false)
+            .addInterceptor(ChuckerInterceptor(context))
             .build()
 }

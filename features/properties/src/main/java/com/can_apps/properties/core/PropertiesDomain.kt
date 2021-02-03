@@ -1,3 +1,5 @@
 package com.can_apps.properties.core
 
-inline class PriceDomain(val value: Float)
+import java.math.BigDecimal
+
+inline class PriceDomain(val value: BigDecimal)

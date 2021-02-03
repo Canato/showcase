@@ -8,6 +8,10 @@ import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryDefault
 import com.can_apps.common.network.CommonHttpClientProvider
 import com.can_apps.properties.bresenter.PropertiesPresenter
 import com.can_apps.properties.core.PropertiesContract
+import com.can_apps.properties.core.PropertiesInteractor
+import com.can_apps.properties.data.PropertiesDtoMapper
+import com.can_apps.properties.data.PropertiesDtoMapperDefault
+import com.can_apps.properties.data.PropertiesRepository
 import retrofit2.Retrofit
 import retrofit2.create
 
@@ -17,7 +21,16 @@ internal open class PropertiesServiceLocator(private val context: Context) {
     private val retrofit: Retrofit
         get() = CommonHttpClientProvider(context).buildRank()
 
-    fun getPresenter(): PropertiesContract.Presenter = PropertiesPresenter()
+    fun getPresenter(): PropertiesContract.Presenter =
+        PropertiesPresenter(getCoroutine(), getInteractor())
+
+    private fun getInteractor(): PropertiesContract.Interactor =
+        PropertiesInteractor(getRepository())
+
+    private fun getRepository(): PropertiesContract.Repository =
+        PropertiesRepository(getDataSource(), getDtoMapper())
+
+    private fun getDtoMapper(): PropertiesDtoMapper = PropertiesDtoMapperDefault()
 
     open fun getCoroutine(): CommonCoroutineDispatcherFactory =
         CommonCoroutineDispatcherFactoryDefault()

@@ -12,4 +12,12 @@ class PropertiesFragment: Fragment(), PropertiesContract.View {
     override fun showError() {
         TODO("Not yet implemented")
     }
+
+    override fun showLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideLoading() {
+        TODO("Not yet implemented")
+    }
 }

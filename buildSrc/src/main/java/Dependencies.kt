@@ -22,7 +22,6 @@ object Libs {
     val chuckerTeam = ChuckerTeam
     val navigation = Navigation
     val showcase = Showcase
-    val retrofit = RetrofitLibs
     val android = AndroidLibs
     val kotlin = KotlinLibs
     val google = GoogleLibs
@@ -70,12 +69,6 @@ object Navigation {
     const val ui = "androidx.navigation:navigation-ui-ktx:_"
     const val fragment = "androidx.navigation:navigation-fragment-ktx:_"
     const val safeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:_"
-}
-
-object RetrofitLibs {
-
-    const val retrofit = "com.squareup.retrofit2:retrofit:_"
-    const val gson = "com.squareup.retrofit2:converter-gson:_"
 }
 
 object AndroidLibs {

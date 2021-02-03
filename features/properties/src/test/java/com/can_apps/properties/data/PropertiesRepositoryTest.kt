@@ -20,7 +20,7 @@ internal class PropertiesRepositoryTest {
     private lateinit var dataSource: PropertiesDataSource
 
     @MockK
-    private lateinit var mapper: PropertiesMapper
+    private lateinit var mapper: PropertiesDtoMapper
 
     @InjectMockKs
     private lateinit var repository: PropertiesRepository
