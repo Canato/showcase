@@ -39,8 +39,8 @@ dependencies {
     implementation(Libs.android.appCompat)
 
     // retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(Libs.retrofit.retrofit)
+    implementation(Libs.retrofit.gson)
 
     // test
     testImplementation(Libs.test.junit)

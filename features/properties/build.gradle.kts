@@ -55,8 +55,8 @@ dependencies {
     implementation(Libs.android.constraintLayout)
 
     // retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(Libs.retrofit.retrofit)
+    implementation(Libs.retrofit.gson)
 
     implementation(Libs.navigation.fragment)
     implementation(Libs.navigation.ui)
@@ -64,5 +64,6 @@ dependencies {
     // test
     testImplementation(Libs.test.junit)
     testImplementation(Libs.test.mockK)
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
+    testImplementation(Libs.test.mockWebServer)
+    implementation(Libs.retrofit.okHttp)
 }

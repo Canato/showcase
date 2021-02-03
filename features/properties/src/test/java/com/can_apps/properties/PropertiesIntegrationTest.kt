@@ -13,7 +13,6 @@ import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
-@Ignore
 internal class PropertiesIntegrationTest {
 
     @JvmField
@@ -52,7 +51,7 @@ internal class PropertiesIntegrationTest {
         mockWebServerRule.dispatcher = dispatcher
 
         // GIVEN
-        val expected = "410,280.78"
+        val expected = "410280.78"
 
         // WHEN
         presenter.onViewCreated()
