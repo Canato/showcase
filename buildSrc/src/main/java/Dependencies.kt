@@ -49,6 +49,7 @@ object ShowcaseDataSource {
     const val bad = ":data_source:bad_char_data_source"
     const val rank = ":data_source:rank_data_source"
     const val msg = ":data_source:message_data_source"
+    const val properties = ":data_source:properties_data_source"
 }
 
 object AndroidX {
