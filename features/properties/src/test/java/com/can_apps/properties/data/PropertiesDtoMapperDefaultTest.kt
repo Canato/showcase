@@ -2,7 +2,7 @@ package com.can_apps.properties.data
 
 import com.can_apps.average_data_source.PriceDto
 import com.can_apps.properties.core.PriceDomain
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 internal class PropertiesDtoMapperDefaultTest {

@@ -30,7 +30,6 @@ internal class MockPropertiesServiceLocator(
         )
 }
 
-
 private class TestPropertiesDataSource(
     private val api: Api
 ) : PropertiesDataSource {

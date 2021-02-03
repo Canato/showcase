@@ -9,7 +9,7 @@ internal interface PropertiesContract {
         fun hideLoading()
     }
 
-    interface  Presenter {
+    interface Presenter {
         fun bindView(view: View)
         fun unbind()
         fun onViewCreated()
