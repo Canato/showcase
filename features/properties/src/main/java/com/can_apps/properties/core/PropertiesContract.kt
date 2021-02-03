@@ -5,6 +5,8 @@ internal interface PropertiesContract {
     interface View {
         fun updatePriceAverage(priceAverage: String)
         fun showError()
+        fun showLoading()
+        fun hideLoading()
     }
 
     interface  Presenter {
@@ -14,7 +16,7 @@ internal interface PropertiesContract {
     }
 
     interface Interactor {
-        suspend fun getAverage(): PriceDomain
+        suspend fun getAverage(): PriceDomain?
     }
 
     interface Repository {

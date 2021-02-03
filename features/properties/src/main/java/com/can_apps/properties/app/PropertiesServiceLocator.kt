@@ -1,4 +1,27 @@
 package com.can_apps.properties.app
 
-internal class PropertiesServiceLocator {
+import android.content.Context
+import com.can_apps.average_data_source.PropertiesDataSource
+import com.can_apps.average_data_source.getPropertiesDataSourceProvider
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
+import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryDefault
+import com.can_apps.common.network.CommonHttpClientProvider
+import com.can_apps.properties.bresenter.PropertiesPresenter
+import com.can_apps.properties.core.PropertiesContract
+import retrofit2.Retrofit
+import retrofit2.create
+
+// open for integration tests
+internal open class PropertiesServiceLocator(private val context: Context) {
+
+    private val retrofit: Retrofit
+        get() = CommonHttpClientProvider(context).buildRank()
+
+    fun getPresenter(): PropertiesContract.Presenter = PropertiesPresenter()
+
+    open fun getCoroutine(): CommonCoroutineDispatcherFactory =
+        CommonCoroutineDispatcherFactoryDefault()
+
+    open fun getDataSource(): PropertiesDataSource =
+        getPropertiesDataSourceProvider(retrofit.create())
 }
