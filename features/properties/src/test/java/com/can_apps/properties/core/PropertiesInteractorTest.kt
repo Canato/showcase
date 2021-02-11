@@ -24,7 +24,7 @@ internal class PropertiesInteractorTest {
     @Test
     fun `GIVEN empty, WHEN getAverage, THEN null`() {
         // GIVEN
-        val domain = emptySet<PriceDomain>()
+        val domain = emptySet<PropertiesDomain>()
         val expected = null
 
         coEvery { repository.getPrices() } returns domain
@@ -40,10 +40,10 @@ internal class PropertiesInteractorTest {
     fun `GIVEN values, WHEN getAverage, THEN average`() {
         // GIVEN
         val domain = setOf(
-            PriceDomain(BigDecimal(42)),
-            PriceDomain(BigDecimal(24)),
-            PriceDomain(BigDecimal(1)),
-            PriceDomain(BigDecimal(22))
+            PropertiesDomain(IdDomain(1), PriceDomain(BigDecimal(42))),
+            PropertiesDomain(IdDomain(2), PriceDomain(BigDecimal(24))),
+            PropertiesDomain(IdDomain(3), PriceDomain(BigDecimal(1))),
+            PropertiesDomain(IdDomain(4), PriceDomain(BigDecimal(22))),
         )
         val expected = PriceDomain(BigDecimal(22.25))
 

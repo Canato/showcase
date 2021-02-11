@@ -66,5 +66,5 @@ dependencies {
     // test
     testImplementation(Libs.test.junit)
     testImplementation(Libs.test.mockK)
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
+    testImplementation(Libs.test.mockWebServer)
 }

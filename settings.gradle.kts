@@ -1,6 +1,5 @@
 import de.fayard.refreshVersions.bootstrapRefreshVersions
 
-include()
 rootProject.buildFileName = "build.gradle.kts"
 rootProject.name = "Showcase"
 

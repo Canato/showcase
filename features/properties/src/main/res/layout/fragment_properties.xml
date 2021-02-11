@@ -16,10 +16,7 @@
         android:gravity="center"
         android:text="@string/what_is_the_average_price"
         android:textAppearance="@style/TextAppearance.Properties.14" />
-    <!--
-    This is not using the 10dp as request on the task, but keep the same keyline balance is healthy
-    for the project. On day to day life this would be discuss with "Project Manager/Designer"
-    -->
+
     <TextView
         android:id="@+id/response"
         android:layout_width="match_parent"

@@ -50,7 +50,7 @@ internal class PropertiesIntegrationTest {
         mockWebServerRule.dispatcher = dispatcher
 
         // GIVEN
-        val expected = "410280.78"
+        val expected = "510280.78"
 
         // WHEN
         presenter.onViewCreated()
