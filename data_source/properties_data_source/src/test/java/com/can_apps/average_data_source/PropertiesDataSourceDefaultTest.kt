@@ -30,6 +30,7 @@ internal class PropertiesDataSourceDefaultTest {
         val price1 = PriceDto(42F)
         val price2 = PriceDto(24F)
         val price3 = PriceDto(99F)
+
         val dto = PropertiesDto(
             setOf(
                 PropertyInfoDto(id1, price1),
@@ -44,12 +45,13 @@ internal class PropertiesDataSourceDefaultTest {
         val result = runBlocking { dataSource.getPrices() }
 
         // THEN
-        Assert.assertEquals(dto, result)
+        Assert.assertEquals(dto.properties, result)
     }
 
     @Test
     fun `GIVEN empty, WHEN getPrices, THEN return empty`() {
         // GIVEN
+        val expected = emptySet<PriceDto>()
         val dto = PropertiesDto(emptySet())
 
         coEvery { api.getProperties() } returns dto
@@ -58,13 +60,13 @@ internal class PropertiesDataSourceDefaultTest {
         val result = runBlocking { dataSource.getPrices() }
 
         // THEN
-        Assert.assertEquals(dto, result)
+        Assert.assertEquals(expected, result)
     }
 
     @Test
     fun `GIVEN exception, WHEN get all, THEN return empty`() {
         // GIVEN
-        val expected = PropertiesDto(emptySet())
+        val expected = emptySet<PriceDto>()
         val exception = Exception("oppsss")
 
         coEvery { api.getProperties() } throws exception
