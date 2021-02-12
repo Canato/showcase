@@ -1,7 +1,6 @@
 package com.can_apps.properties
 
 import com.can_apps.average_data_source.PropertiesDataSource
-import com.can_apps.average_data_source.PropertiesDto
 import com.can_apps.average_data_source.PropertyInfoDto
 import com.can_apps.average_data_source.api.Api
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory

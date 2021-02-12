@@ -11,5 +11,4 @@ internal class PropertiesRepository(
 
     override suspend fun getPrices(): Set<PropertiesDomain> =
         mapper.toDomain(dataSource.getPrices())
-
 }
