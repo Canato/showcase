@@ -1,9 +1,7 @@
 package com.can_apps.properties.data
 
-import com.can_apps.average_data_source.PriceDto
 import com.can_apps.average_data_source.PropertiesDataSource
 import com.can_apps.average_data_source.PropertiesDto
-import com.can_apps.properties.core.PriceDomain
 import com.can_apps.properties.core.PropertiesDomain
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
