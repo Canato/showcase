@@ -2,6 +2,7 @@ package com.can_apps.properties.data
 
 import com.can_apps.average_data_source.PropertiesDataSource
 import com.can_apps.average_data_source.PropertiesDto
+import com.can_apps.average_data_source.PropertyInfoDto
 import com.can_apps.properties.core.PropertiesDomain
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -31,7 +32,7 @@ internal class PropertiesRepositoryTest {
     @Test
     fun `GIVEN dto empty, WHEN get prices, THEN null`() {
         // GIVEN
-        val dto = PropertiesDto(emptySet())
+        val dto = emptySet<PropertyInfoDto>()
         val domain = emptySet<PropertiesDomain>()
 
         coEvery { dataSource.getPrices() } returns dto
@@ -47,7 +48,7 @@ internal class PropertiesRepositoryTest {
     @Test
     fun `GIVEN dto, WHEN get profiles, THEN domain`() {
         // GIVEN
-        val dto = mockk<PropertiesDto>()
+        val dto = setOf<PropertyInfoDto>(mockk(), mockk(), mockk())
         val domain = setOf<PropertiesDomain>(mockk(), mockk(), mockk())
 
         coEvery { dataSource.getPrices() } returns dto
