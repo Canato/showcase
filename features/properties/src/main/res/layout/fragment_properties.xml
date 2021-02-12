@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/propertiesLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/properties_background"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/keyline_4"
+        android:layout_marginEnd="@dimen/keyline_4"
+        android:gravity="center"
+        android:text="@string/what_is_the_average_price"
+        android:textAppearance="@style/TextAppearance.Properties.14" />
+
+    <TextView
+        android:id="@+id/response"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/keyline_4"
+        android:layout_marginTop="@dimen/keyline_3"
+        android:layout_marginEnd="@dimen/keyline_4"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.Properties.14"
+        android:visibility="gone"
+        tools:text="12345.67"
+        tools:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/keyline_4"
+        android:layout_marginTop="@dimen/keyline"
+        android:layout_marginEnd="@dimen/keyline_4"
+        android:elevation="@dimen/keyline_4"
+        android:indeterminateOnly="true"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
+</LinearLayout>

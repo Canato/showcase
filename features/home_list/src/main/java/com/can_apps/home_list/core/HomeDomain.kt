@@ -12,5 +12,6 @@ internal data class HomeFeatDomain(
 internal inline class HomeDestLinkDomain(val value: Int)
 internal enum class HomeEnumDomain {
     RANK,
-    CHAT
+    CHAT,
+    PROPERTIES,
 }

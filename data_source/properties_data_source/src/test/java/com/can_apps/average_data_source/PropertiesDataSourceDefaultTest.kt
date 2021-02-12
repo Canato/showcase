@@ -24,15 +24,18 @@ internal class PropertiesDataSourceDefaultTest {
     @Test
     fun `GIVEN valid prices, WHEN getPrices, THEN return set of it`() {
         // GIVEN
+        val id1 = IdDto(1)
+        val id2 = IdDto(2)
+        val id3 = IdDto(3)
         val price1 = PriceDto(42F)
         val price2 = PriceDto(24F)
         val price3 = PriceDto(99F)
-        val expected = setOf(price1, price2, price3)
+
         val dto = PropertiesDto(
             setOf(
-                PropertyInfoDto(price1),
-                PropertyInfoDto(price2),
-                PropertyInfoDto(price3)
+                PropertyInfoDto(id1, price1),
+                PropertyInfoDto(id2, price2),
+                PropertyInfoDto(id3, price3)
             )
         )
 
@@ -42,7 +45,7 @@ internal class PropertiesDataSourceDefaultTest {
         val result = runBlocking { dataSource.getPrices() }
 
         // THEN
-        Assert.assertEquals(expected, result)
+        Assert.assertEquals(dto.properties, result)
     }
 
     @Test

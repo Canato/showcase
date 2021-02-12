@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+
+files=$(git diff --diff-filter=d --no-renames --name-only --cached --relative | grep '\.kt[s"]\?$')
+echo $files | xargs ktlint --android --disabled_rules=import-ordering,max-line-length,indent -F --relative .
+rc=$?
+echo $files | xargs git add
+if [ $rc -ne 0 ]; then exit 1; fi

@@ -8,8 +8,11 @@ data class PropertiesDto(
 )
 
 data class PropertyInfoDto(
+    @SerializedName("id")
+    val id: IdDto,
     @SerializedName("price")
     val price: PriceDto,
 )
 
+inline class IdDto(val value: Int)
 inline class PriceDto(val value: Float)

@@ -6,7 +6,7 @@ import com.can_apps.average_data_source.api.PropertiesApiDefault
 
 interface PropertiesDataSource {
 
-    suspend fun getPrices(): Set<PriceDto>
+    suspend fun getPrices(): Set<PropertyInfoDto>
 }
 
 fun getPropertiesDataSourceProvider(api: Api): PropertiesDataSource =
@@ -14,9 +14,8 @@ fun getPropertiesDataSourceProvider(api: Api): PropertiesDataSource =
 
 internal class PropertiesDataSourceDefault(private val api: PropertiesApi) : PropertiesDataSource {
 
-    override suspend fun getPrices(): Set<PriceDto> = try {
-        val response = api.getProperties()
-        response.properties.map { it.price }.toSet()
+    override suspend fun getPrices(): Set<PropertyInfoDto> = try {
+        api.getProperties().properties
     } catch (e: Exception) {
         // todo #21 log Exception
         emptySet()

@@ -42,6 +42,7 @@ object ShowcaseFeatures {
     const val home = ":features:home_list"
     const val rank = ":features:rank_board"
     const val chat = ":features:chat"
+    const val properties = ":features:properties"
 }
 
 object ShowcaseDataSource {
@@ -74,6 +75,7 @@ object Navigation {
 
 object RetrofitLibs {
 
+    const val okHttp= "com.squareup.okhttp3:okhttp:4.9.1"
     const val retrofit = "com.squareup.retrofit2:retrofit:_"
     const val gson = "com.squareup.retrofit2:converter-gson:_"
 }

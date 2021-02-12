@@ -15,4 +15,6 @@
     <string name="canato">Canato</string>
     <string name="cd_user_avatar">round avatar image of the user</string>
     <string name="cd_send_button">icon to send message</string>
+    <string name="properties_title">Properties</string>
+    <string name="what_is_the_average_price">What is the average price?</string>
 </resources>

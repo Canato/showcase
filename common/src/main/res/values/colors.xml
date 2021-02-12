@@ -23,4 +23,6 @@
     <color name="chat_sender_background_color">@color/chat_primary</color>
     <color name="chat_send_message_color">#ffffff</color>
     <color name="chat_primary">#E91E63</color>
+    <color name="properties_background">#FFFFFF</color>
+    <color name="properties_text_colour">#262637</color>
 </resources>

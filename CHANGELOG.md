@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Home List
 - Rank Screen
 - Chat
+- Properties
 
 ### Changed
 - Messages are storage in the device and retrieve in a new session
