@@ -83,7 +83,7 @@ object RetrofitLibs {
 object AndroidLibs {
 
     const val coreKtx = "androidx.core:core-ktx:${Versions.core}"
-    const val gradle = "com.android.tools.build:gradle:_"
+    const val gradle = "com.android.tools.build:gradle:7.0.0"
     const val appCompat = "androidx.appcompat:appcompat:_"
     const val recyclerView = "androidx.recyclerview:recyclerview:_"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:_"
