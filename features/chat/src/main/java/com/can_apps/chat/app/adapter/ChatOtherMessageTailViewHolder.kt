@@ -4,10 +4,13 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.chat.bresenter.ChatMessageModel
-import kotlinx.android.synthetic.main.item_my_message.view.*
+import com.can_apps.chat.databinding.ItemOtherMessageTailBinding
 
-internal class ChatMessageViewHolder(root: View) : RecyclerView.ViewHolder(root) {
-    private val messageText: TextView = root.itemMessageText
+internal class ChatOtherMessageTailViewHolder(
+    binding: ItemOtherMessageTailBinding
+) : RecyclerView.ViewHolder(binding.root) {
+
+    private val messageText: TextView = binding.itemMessageText
 
     fun bind(chatMessageModel: ChatMessageModel) {
 

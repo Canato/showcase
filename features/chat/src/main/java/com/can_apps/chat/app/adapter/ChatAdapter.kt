@@ -5,37 +5,63 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.chat.R
 import com.can_apps.chat.bresenter.ChatMessageModel
+import com.can_apps.chat.databinding.ItemMyMessageBinding
+import com.can_apps.chat.databinding.ItemMyMessageTailBinding
+import com.can_apps.chat.databinding.ItemOtherMessageBinding
+import com.can_apps.chat.databinding.ItemOtherMessageTailBinding
+import com.can_apps.chat.databinding.ItemSystemMessageBinding
 
 internal class ChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        val myMsg = R.layout.item_my_message
-        val otherMsg = R.layout.item_other_message
-        val systemMsg = R.layout.item_system_message
-        val myMsgTail = R.layout.item_my_message_tail
-        val otherMsgTail = R.layout.item_other_message_tail
+        private const val MY_MSG = 0
+        private const val OTHER_MSG = 1
+        private const val SYSTEM_MSG = 2
+        private const val MY_MSG_TAIL = 3
+        private const val OTHER_MSG_TAIL = 4
     }
 
     private var items = mutableListOf<ChatMessageModel>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val root = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-        return ChatMessageViewHolder(root)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        when(viewType) {
+            MY_MSG -> ChatMyMessageViewHolder(ItemMyMessageBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false))
+            OTHER_MSG -> ChatOtherMessageViewHolder(ItemOtherMessageBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false))
+            SYSTEM_MSG -> ChatSystemMessageViewHolder(ItemSystemMessageBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false))
+            MY_MSG_TAIL -> ChatMyMessageTailViewHolder(ItemMyMessageTailBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false))
+            OTHER_MSG_TAIL -> ChatOtherMessageTailViewHolder(ItemOtherMessageTailBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false))
+            else -> throw IllegalArgumentException("Invalid view holder for type $viewType")
+        }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ChatMessageViewHolder).bind(items[position])
+        when (items[position]) {
+            is ChatMessageModel.My ->
+                (holder as ChatMyMessageViewHolder).bind(items[position])
+            is ChatMessageModel.Other ->
+                (holder as ChatOtherMessageViewHolder).bind(items[position])
+            is ChatMessageModel.System ->
+                (holder as ChatSystemMessageViewHolder).bind(items[position])
+            is ChatMessageModel.MyWithTail ->
+                (holder as ChatMyMessageTailViewHolder).bind(items[position])
+            is ChatMessageModel.OtherWithTail ->
+                (holder as ChatOtherMessageTailViewHolder).bind(items[position])
+        }
     }
 
     override fun getItemCount(): Int = items.size
 
     override fun getItemViewType(position: Int): Int =
         when (items[position]) {
-            is ChatMessageModel.My -> myMsg
-            is ChatMessageModel.Other -> otherMsg
-            is ChatMessageModel.System -> systemMsg
-            is ChatMessageModel.MyWithTail -> myMsgTail
-            is ChatMessageModel.OtherWithTail -> otherMsgTail
+            is ChatMessageModel.My -> MY_MSG
+            is ChatMessageModel.Other -> OTHER_MSG
+            is ChatMessageModel.System -> SYSTEM_MSG
+            is ChatMessageModel.MyWithTail -> MY_MSG_TAIL
+            is ChatMessageModel.OtherWithTail -> OTHER_MSG_TAIL
         }
 
     fun addToList(message: ChatMessageModel) {
