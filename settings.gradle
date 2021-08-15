@@ -1,9 +1,11 @@
-include(":app", ":common")
+include(":app")
+
+include(":app:common")
 
 include(
-    ":features",
-    ":features:rank_board",
-    ":features:home_list",
-    ":features:properties",
-    ":features:chat"
+    ":app:features",
+    ":app:features:rank_board",
+    ":app:features:home_list",
+    ":app:features:properties",
+    ":app:features:chat"
 )

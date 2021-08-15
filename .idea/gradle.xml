@@ -13,12 +13,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/common" />
-            <option value="$PROJECT_DIR$/features" />
-            <option value="$PROJECT_DIR$/features/chat" />
-            <option value="$PROJECT_DIR$/features/home_list" />
-            <option value="$PROJECT_DIR$/features/properties" />
-            <option value="$PROJECT_DIR$/features/rank_board" />
+            <option value="$PROJECT_DIR$/app/common" />
+            <option value="$PROJECT_DIR$/app/features" />
+            <option value="$PROJECT_DIR$/app/features/chat" />
+            <option value="$PROJECT_DIR$/app/features/home_list" />
+            <option value="$PROJECT_DIR$/app/features/properties" />
+            <option value="$PROJECT_DIR$/app/features/rank_board" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
