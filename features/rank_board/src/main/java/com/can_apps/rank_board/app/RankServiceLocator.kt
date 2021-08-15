@@ -12,11 +12,10 @@ import com.can_apps.rank_board.bresenter.RankModelMapperDefault
 import com.can_apps.rank_board.bresenter.RankPresenter
 import com.can_apps.rank_board.core.RankContract
 import com.can_apps.rank_board.core.RankInteractor
+import com.can_apps.rank_board.data.RankApi
 import com.can_apps.rank_board.data.RankDtoMapper
 import com.can_apps.rank_board.data.RankDtoMapperDefault
 import com.can_apps.rank_board.data.RankRepository
-import com.can_apps.rank_data_source.RankDataSource
-import com.can_apps.rank_data_source.getRankDataSourceProvider
 import retrofit2.Retrofit
 import retrofit2.create
 
@@ -42,9 +41,11 @@ internal open class RankServiceLocator(private val context: Context) {
 
     private fun getRepository(): RankContract.Repository =
         RankRepository(
-            getDataSource(),
-            getDtoMapper()
+            rankApi = getRankApi(),
+            dtoMapper = getDtoMapper()
         )
+
+    open fun getRankApi(): RankApi = retrofit.create()
 
     private fun getModelMapper(): RankModelMapper =
         RankModelMapperDefault(getString())
@@ -57,9 +58,6 @@ internal open class RankServiceLocator(private val context: Context) {
 
     open fun getCalendar(): CommonCalendarWrapper =
         CommonCalendarWrapperDefault()
-
-    open fun getDataSource(): RankDataSource =
-        getRankDataSourceProvider(retrofit.create())
 
     private fun getDtoMapper(): RankDtoMapper =
         RankDtoMapperDefault()

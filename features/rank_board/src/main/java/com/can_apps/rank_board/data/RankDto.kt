@@ -1,13 +1,13 @@
-package com.can_apps.rank_data_source
+package com.can_apps.rank_board.data
 
 import com.google.gson.annotations.SerializedName
 
-data class RankDto(
+internal data class RankDto(
     @SerializedName("profiles")
     val profiles: Set<RankProfileDto>
 )
 
-data class RankProfileDto(
+internal data class RankProfileDto(
     @SerializedName("username")
     val username: RankUsernameDto,
     @SerializedName("weeklyXP")
@@ -16,6 +16,6 @@ data class RankProfileDto(
     val isCurrentUser: RankCurrentUserDto
 )
 
-inline class RankUsernameDto(val value: String)
-inline class RankXpDto(val value: Long)
-inline class RankCurrentUserDto(val value: Boolean)
+internal inline class RankUsernameDto(val value: String)
+internal inline class RankXpDto(val value: Long)
+internal inline class RankCurrentUserDto(val value: Boolean)

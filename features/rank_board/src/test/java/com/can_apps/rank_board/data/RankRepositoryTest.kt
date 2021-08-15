@@ -1,8 +1,6 @@
 package com.can_apps.rank_board.data
 
 import com.can_apps.rank_board.core.RankProfileDomain
-import com.can_apps.rank_data_source.RankDataSource
-import com.can_apps.rank_data_source.RankDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
@@ -17,7 +15,7 @@ import org.junit.Test
 internal class RankRepositoryTest {
 
     @MockK
-    private lateinit var dataSource: RankDataSource
+    private lateinit var api: RankApi
 
     @MockK
     private lateinit var mapper: RankDtoMapper
@@ -34,7 +32,7 @@ internal class RankRepositoryTest {
         val dto = RankDto(emptySet())
         val expected = emptySet<RankProfileDomain>()
 
-        coEvery { dataSource.getAll() } returns dto
+        coEvery { api.getAll() } returns dto
         every { mapper.toDomain(dto.profiles) } returns expected
 
         // WHEN
@@ -51,7 +49,7 @@ internal class RankRepositoryTest {
         val domain = mockk<RankProfileDomain>(relaxed = true)
         val expected = setOf(domain)
 
-        coEvery { dataSource.getAll() } returns dto
+        coEvery { api.getAll() } returns dto
         every { mapper.toDomain(dto.profiles) } returns expected
 
         // WHEN

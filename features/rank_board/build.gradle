@@ -12,7 +12,6 @@ android {
 
 dependencies {
     implementation project(':common')
-    implementation project(':data_source:rank_data_source')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
@@ -25,7 +24,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
 
     // retrofit
-    testImplementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$gson"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
@@ -34,6 +32,8 @@ dependencies {
     // test
     testImplementation "junit:junit:$junit"
     testImplementation "io.mockk:mockk:$mockk"
-    testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer"
     testImplementation "com.squareup.okhttp3:okhttp:$okHttp"
+    testImplementation "com.squareup.retrofit2:retrofit:$retrofit"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
 }

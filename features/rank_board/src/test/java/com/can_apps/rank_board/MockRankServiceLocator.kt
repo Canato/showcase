@@ -5,9 +5,8 @@ import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
 import com.can_apps.common.wrappers.CommonCalendarWrapper
 import com.can_apps.common.wrappers.CommonStringResource
 import com.can_apps.rank_board.app.RankServiceLocator
-import com.can_apps.rank_data_source.RankDataSource
-import com.can_apps.rank_data_source.RankDto
-import com.can_apps.rank_data_source.api.Api
+import com.can_apps.rank_board.data.RankApi
+import com.can_apps.rank_board.data.RankDto
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import retrofit2.Retrofit
@@ -27,8 +26,8 @@ internal class MockRankServiceLocator(
 
     override fun getCalendar(): CommonCalendarWrapper = calendarWrapper
 
-    override fun getDataSource(): RankDataSource =
-        TestRankDataSource(
+    override fun getRankApi(): RankApi =
+        TestRankApi(
             Retrofit
                 .Builder()
                 .baseUrl(mockServerUrl)
@@ -38,9 +37,9 @@ internal class MockRankServiceLocator(
         )
 }
 
-private class TestRankDataSource(
-    private val api: Api
-) : RankDataSource {
+private class TestRankApi(
+    private val api: RankApi
+) : RankApi {
 
     override suspend fun getAll(): RankDto = runBlocking {
         api.getAll()

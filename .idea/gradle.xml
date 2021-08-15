@@ -17,7 +17,6 @@
             <option value="$PROJECT_DIR$/data_source" />
             <option value="$PROJECT_DIR$/data_source/message_data_source" />
             <option value="$PROJECT_DIR$/data_source/properties_data_source" />
-            <option value="$PROJECT_DIR$/data_source/rank_data_source" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/chat" />
             <option value="$PROJECT_DIR$/features/home_list" />

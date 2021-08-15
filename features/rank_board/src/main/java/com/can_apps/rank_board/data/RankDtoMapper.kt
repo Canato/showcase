@@ -4,7 +4,6 @@ import com.can_apps.rank_board.core.RankCurrentUserDomain
 import com.can_apps.rank_board.core.RankProfileDomain
 import com.can_apps.rank_board.core.RankUsernameDomain
 import com.can_apps.rank_board.core.RankXpDomain
-import com.can_apps.rank_data_source.RankProfileDto
 
 internal interface RankDtoMapper {
 
