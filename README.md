@@ -14,7 +14,7 @@ Here you can find a compilation of some best practices of Android Development ac
 - [Single Activity - Jetpack Navigation](#single-activity) 
 - [Material Motion](#material-motion)
 - [View Binding](view-binding)
-- [Gradle.kts](#gradle.kts) 
+- ~[Gradle.kts](#gradle.kts)~ 
 - [KtLint](#ktlint) 
 - [Git Hook](#git-hooks)
 - [License](#license)
@@ -28,7 +28,9 @@ You can find more in the talk that I give about it:
 - [Video](https://www.youtube.com/watch?v=pxBNyLZiIVI&ab_channel=CanatoVictor)
 - [Medium Article](https://medium.com/@vcanato/depop-mvp-architecture-in-android-8a7b2eed5dd2)
 
-The long goal is to use Kotlin as MultiPlatform as extract the Business Logic into submodule that can be used from Android, iOS or even Web. 
+Obs: the video and article are now outdated, since we put all modules inside `app` module and remove the split `data_source` module, since is not need
+
+The long goal is to use Kotlin as MultiPlatform as extract the Business Logic into submodule that can be used from Android, iOS or even Web.
 
 ## :arrows_counterclockwise: Continuous Integration
 
@@ -58,14 +60,17 @@ Usage of [View Binding](https://developer.android.com/topic/libraries/view-bindi
 
 ## :elephant: Gradle.kts
 
-Decide to use [Gradle Kotlin DSL Primer](https://docs.gradle.org/current/userguide/kotlin_dsl.html) because of:
+~Decide to use [Gradle Kotlin DSL Primer](https://docs.gradle.org/current/userguide/kotlin_dsl.html) because of:~
 
-- More Kotlin friendly code
-- Avoid Magic Strings*
-- Centralized dependencies* 
-- Better dependency management (have an issue with library versions - WIP) 
+- ~More Kotlin friendly code~
+- ~Avoid Magic Strings*~
+- ~Centralized dependencies*~ 
+- ~Better dependency management~ 
 
-*Both could be done in Groove too, but in kotlin is easier with auto-complete and look better.
+~*Both could be done in Groove too, but in kotlin is easier with auto-complete and look better.~
+
+The library was giving more headache everytime Android Studio, Gradle or another stuff (like compose) come
+So, even that gradle.kts is nice, don't look full ready, will keep and eye on it
 
 ## 🔍 KtLint
 
