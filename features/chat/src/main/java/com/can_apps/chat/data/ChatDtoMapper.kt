@@ -7,13 +7,7 @@ import com.can_apps.chat.core.ChatMessageTailDomain
 import com.can_apps.chat.core.ChatMessageTextDomain
 import com.can_apps.chat.core.ChatMessageTimestampDomain
 import com.can_apps.chat.core.ChatNewDomain
-import com.can_apps.message_data_source.MessageDto
-import com.can_apps.message_data_source.MessageHolderEnumDto
-import com.can_apps.message_data_source.MessageIdDto
-import com.can_apps.message_data_source.MessageTailDto
-import com.can_apps.message_data_source.MessageTextDto
-import com.can_apps.message_data_source.MessageTimestampDto
-import com.can_apps.message_data_source.NewMessageDto
+import com.can_apps.chat.data.db.MessageEntity
 
 internal interface ChatDtoMapper {
 

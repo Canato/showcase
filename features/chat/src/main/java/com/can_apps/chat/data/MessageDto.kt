@@ -1,4 +1,4 @@
-package com.can_apps.message_data_source
+package com.can_apps.chat.data
 
 import java.util.Locale
 

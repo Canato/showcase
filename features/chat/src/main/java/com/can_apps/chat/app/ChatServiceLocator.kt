@@ -10,12 +10,12 @@ import com.can_apps.chat.core.ChatInteractor
 import com.can_apps.chat.data.ChatDtoMapper
 import com.can_apps.chat.data.ChatDtoMapperDefault
 import com.can_apps.chat.data.ChatRepository
+import com.can_apps.chat.data.db.MessageDatabaseHandler
+import com.can_apps.chat.data.db.MessageDatabaseProvider
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryDefault
 import com.can_apps.common.wrappers.CommonTimestampWrapper
 import com.can_apps.common.wrappers.CommonTimestampWrapperDefault
-import com.can_apps.message_data_source.MessageDatabaseDataSource
-import com.can_apps.message_data_source.MessageDatabaseProvider
 
 // open for integration tests
 internal open class ChatServiceLocator(
@@ -24,7 +24,8 @@ internal open class ChatServiceLocator(
 
     companion object {
 
-        private const val SECOND_IN_MILLIS = 2000L // to test 20s tail rule need to increase this number. e.g 120000 (2min)
+        private const val SECOND_IN_MILLIS =
+            2000L // to test 20s tail rule need to increase this number. e.g 120000 (2min)
     }
 
     fun getPresenter(): ChatContract.Presenter =
@@ -40,12 +41,12 @@ internal open class ChatServiceLocator(
 
     private fun getRepository(): ChatContract.Repository =
         ChatRepository(
-            getMessageDataSource(),
-            getDtoMapper()
+            messageDatabaseHandler = getMessageDatabaseHandler(),
+            mapper = getDtoMapper()
         )
 
-    open fun getMessageDataSource(): MessageDatabaseDataSource =
-        MessageDatabaseProvider.getInstance(context).getMessageDatabaseDataSource()
+    open fun getMessageDatabaseHandler(): MessageDatabaseHandler =
+        MessageDatabaseProvider.getInstance(context).getMessageDatabaseHandler()
 
     private fun getDtoMapper(): ChatDtoMapper =
         ChatDtoMapperDefault()

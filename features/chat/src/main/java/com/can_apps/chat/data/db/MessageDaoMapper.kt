@@ -1,4 +1,12 @@
-package com.can_apps.message_data_source
+package com.can_apps.chat.data.db
+
+import com.can_apps.chat.data.MessageDto
+import com.can_apps.chat.data.MessageHolderEnumDto
+import com.can_apps.chat.data.MessageIdDto
+import com.can_apps.chat.data.MessageTailDto
+import com.can_apps.chat.data.MessageTextDto
+import com.can_apps.chat.data.MessageTimestampDto
+import com.can_apps.chat.data.NewMessageDto
 
 internal interface MessageDaoMapper {
 

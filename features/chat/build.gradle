@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion compileVersion
@@ -18,8 +19,6 @@ android {
 dependencies {
     implementation project(':common')
 
-    implementation project(':data_source:message_data_source')
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
     implementation "androidx.core:core-ktx:$coreKtx"
@@ -34,6 +33,10 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation"
+
+    implementation "androidx.room:room-runtime:$room"
+    implementation "androidx.room:room-ktx:$room"
+    kapt "androidx.room:room-compiler:$room"
 
     // test
     testImplementation "junit:junit:$junit"

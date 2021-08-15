@@ -7,8 +7,3 @@ include(
     ":features:properties",
     ":features:chat"
 )
-
-include(
-    ":data_source",
-    ":data_source:message_data_source",
-)

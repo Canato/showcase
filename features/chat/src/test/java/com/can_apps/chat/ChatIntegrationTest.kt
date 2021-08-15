@@ -4,14 +4,14 @@ import com.can_apps.chat.bresenter.ChatMessageIdModel
 import com.can_apps.chat.bresenter.ChatMessageModel
 import com.can_apps.chat.bresenter.ChatMessageTextModel
 import com.can_apps.chat.core.ChatContract
-import com.can_apps.message_data_source.MessageDatabaseDataSource
-import com.can_apps.message_data_source.MessageDto
-import com.can_apps.message_data_source.MessageHolderEnumDto
-import com.can_apps.message_data_source.MessageIdDto
-import com.can_apps.message_data_source.MessageTailDto
-import com.can_apps.message_data_source.MessageTextDto
-import com.can_apps.message_data_source.MessageTimestampDto
-import com.can_apps.message_data_source.NewMessageDto
+import com.can_apps.chat.data.MessageDto
+import com.can_apps.chat.data.MessageHolderEnumDto
+import com.can_apps.chat.data.MessageIdDto
+import com.can_apps.chat.data.MessageTailDto
+import com.can_apps.chat.data.MessageTextDto
+import com.can_apps.chat.data.MessageTimestampDto
+import com.can_apps.chat.data.NewMessageDto
+import com.can_apps.chat.data.db.MessageDatabaseHandler
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -142,7 +142,7 @@ internal class ChatIntegrationTest {
     }
 
     @MockK
-    private lateinit var dataSource: MessageDatabaseDataSource
+    private lateinit var databaseHandler: MessageDatabaseHandler
 
     @MockK
     private lateinit var view: ChatContract.View
@@ -155,7 +155,7 @@ internal class ChatIntegrationTest {
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
 
-        val serviceLocator = MockChatServiceLocator(testDispatcher, debounceWait, dataSource)
+        val serviceLocator = MockChatServiceLocator(testDispatcher, debounceWait, databaseHandler)
 
         presenter = serviceLocator.getPresenter()
 
@@ -166,7 +166,7 @@ internal class ChatIntegrationTest {
     fun `WHEN no wait period, THEN return last one in question`() =
         testDispatcher.runBlockingTest {
             // GIVEN
-            coEvery { dataSource.getLatestValue() } returns null
+            coEvery { databaseHandler.getLatestValue() } returns null
 
             // WHEN
             presenter.onSendMessage(message1)
@@ -176,23 +176,23 @@ internal class ChatIntegrationTest {
             presenter.onSendMessage(message5)
             testDispatcher.advanceTimeBy(debounceWait * 2)
 
-            coEvery { dataSource.add(any()) } returns true
+            coEvery { databaseHandler.add(any()) } returns true
 
             // THEN
             coVerify(exactly = 1) {
-                dataSource.add(newMyMsgDto1)
-                dataSource.add(newMyMsgDto1)
-                dataSource.add(newMyMsgDto1)
-                dataSource.add(newMyMsgDto4)
-                dataSource.add(newMyMsgDto5)
-                dataSource.add(newOtherMsgDto5)
+                databaseHandler.add(newMyMsgDto1)
+                databaseHandler.add(newMyMsgDto1)
+                databaseHandler.add(newMyMsgDto1)
+                databaseHandler.add(newMyMsgDto4)
+                databaseHandler.add(newMyMsgDto5)
+                databaseHandler.add(newOtherMsgDto5)
             }
 
             coVerify(exactly = 0) {
-                dataSource.add(newOtherMsgDto1)
-                dataSource.add(newOtherMsgDto2)
-                dataSource.add(newOtherMsgDto3)
-                dataSource.add(newOtherMsgDto4)
+                databaseHandler.add(newOtherMsgDto1)
+                databaseHandler.add(newOtherMsgDto2)
+                databaseHandler.add(newOtherMsgDto3)
+                databaseHandler.add(newOtherMsgDto4)
             }
         }
 
@@ -200,7 +200,7 @@ internal class ChatIntegrationTest {
     fun `WHEN small wait period, THEN return last one in question`() =
         testDispatcher.runBlockingTest {
             // GIVEN
-            coEvery { dataSource.getLatestValue() } returns null
+            coEvery { databaseHandler.getLatestValue() } returns null
 
             // WHEN
             presenter.onSendMessage(message1)
@@ -216,19 +216,19 @@ internal class ChatIntegrationTest {
 
             // THEN
             coVerify(exactly = 1) {
-                dataSource.add(newMyMsgDto1)
-                dataSource.add(newMyMsgDto2)
-                dataSource.add(newMyMsgDto3)
-                dataSource.add(newMyMsgDto4)
-                dataSource.add(newMyMsgDto5)
-                dataSource.add(newOtherMsgDto5)
+                databaseHandler.add(newMyMsgDto1)
+                databaseHandler.add(newMyMsgDto2)
+                databaseHandler.add(newMyMsgDto3)
+                databaseHandler.add(newMyMsgDto4)
+                databaseHandler.add(newMyMsgDto5)
+                databaseHandler.add(newOtherMsgDto5)
             }
 
             coVerify(exactly = 0) {
-                dataSource.add(newOtherMsgDto1)
-                dataSource.add(newOtherMsgDto2)
-                dataSource.add(newOtherMsgDto3)
-                dataSource.add(newOtherMsgDto4)
+                databaseHandler.add(newOtherMsgDto1)
+                databaseHandler.add(newOtherMsgDto2)
+                databaseHandler.add(newOtherMsgDto3)
+                databaseHandler.add(newOtherMsgDto4)
             }
         }
 
@@ -236,7 +236,7 @@ internal class ChatIntegrationTest {
     fun `WHEN small and more wait period, THEN return some question`() =
         testDispatcher.runBlockingTest {
             // GIVEN
-            coEvery { dataSource.getLatestValue() } returns null
+            coEvery { databaseHandler.getLatestValue() } returns null
 
             // WHEN
             presenter.onSendMessage(message1)
@@ -252,19 +252,19 @@ internal class ChatIntegrationTest {
 
             // THEN
             coVerify(exactly = 1) {
-                dataSource.add(newMyMsgDto1)
-                dataSource.add(newMyMsgDto2)
-                dataSource.add(newMyMsgDto3)
-                dataSource.add(newMyMsgDto4)
-                dataSource.add(newMyMsgDto5)
-                dataSource.add(newOtherMsgDto2)
-                dataSource.add(newOtherMsgDto3)
-                dataSource.add(newOtherMsgDto5)
+                databaseHandler.add(newMyMsgDto1)
+                databaseHandler.add(newMyMsgDto2)
+                databaseHandler.add(newMyMsgDto3)
+                databaseHandler.add(newMyMsgDto4)
+                databaseHandler.add(newMyMsgDto5)
+                databaseHandler.add(newOtherMsgDto2)
+                databaseHandler.add(newOtherMsgDto3)
+                databaseHandler.add(newOtherMsgDto5)
             }
 
             coVerify(exactly = 0) {
-                dataSource.add(newOtherMsgDto1)
-                dataSource.add(newOtherMsgDto4)
+                databaseHandler.add(newOtherMsgDto1)
+                databaseHandler.add(newOtherMsgDto4)
             }
         }
 
@@ -280,8 +280,8 @@ internal class ChatIntegrationTest {
                 emit(otherMsgDto2)
                 emit(otherMsgDto4)
             }
-            coEvery { dataSource.getAll() } returns messagesDto
-            coEvery { dataSource.getLatestValueFlow() } returns databaseFlowChange
+            coEvery { databaseHandler.getAll() } returns messagesDto
+            coEvery { databaseHandler.getLatestValueFlow() } returns databaseFlowChange
 
             // WHEN
             presenter.onViewCreated()
