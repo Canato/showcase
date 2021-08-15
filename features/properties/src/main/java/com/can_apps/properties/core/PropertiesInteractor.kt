@@ -7,7 +7,7 @@ internal class PropertiesInteractor(
 ) : PropertiesContract.Interactor {
 
     override suspend fun getAverage(): PriceDomain? =
-        repository.getPrices().run {
+        repository.getProperties().run {
             if (this.isEmpty()) null
             else PriceDomain(this.map { it.price.value }.averageBigDecimal())
         }

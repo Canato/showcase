@@ -1,11 +1,10 @@
 package com.can_apps.properties
 
-import com.can_apps.average_data_source.PropertiesDataSource
-import com.can_apps.average_data_source.PropertyInfoDto
-import com.can_apps.average_data_source.api.Api
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactoryUnconfined
 import com.can_apps.properties.app.PropertiesServiceLocator
+import com.can_apps.properties.data.PropertiesApi
+import com.can_apps.properties.data.PropertiesDto
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import retrofit2.Retrofit
@@ -19,8 +18,8 @@ internal class MockPropertiesServiceLocator(
     override fun getCoroutine(): CommonCoroutineDispatcherFactory =
         CommonCoroutineDispatcherFactoryUnconfined()
 
-    override fun getDataSource(): PropertiesDataSource =
-        TestPropertiesDataSource(
+    override fun getApi(): PropertiesApi =
+        TestPropertiesApi(
             Retrofit
                 .Builder()
                 .baseUrl(mockServerUrl)
@@ -30,11 +29,11 @@ internal class MockPropertiesServiceLocator(
         )
 }
 
-private class TestPropertiesDataSource(
-    private val api: Api
-) : PropertiesDataSource {
+private class TestPropertiesApi(
+    private val api: PropertiesApi
+) : PropertiesApi {
 
-    override suspend fun getPrices(): Set<PropertyInfoDto> = runBlocking {
-        api.getProperties().properties
+    override suspend fun getProperties(): PropertiesDto = runBlocking {
+        api.getProperties()
     }
 }

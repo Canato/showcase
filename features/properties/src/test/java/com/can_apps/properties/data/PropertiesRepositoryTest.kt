@@ -1,7 +1,5 @@
 package com.can_apps.properties.data
 
-import com.can_apps.average_data_source.PropertiesDataSource
-import com.can_apps.average_data_source.PropertyInfoDto
 import com.can_apps.properties.core.PropertiesDomain
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -17,7 +15,7 @@ import org.junit.Test
 internal class PropertiesRepositoryTest {
 
     @MockK
-    private lateinit var dataSource: PropertiesDataSource
+    private lateinit var api: PropertiesApi
 
     @MockK
     private lateinit var mapper: PropertiesDtoMapper
@@ -34,11 +32,11 @@ internal class PropertiesRepositoryTest {
         val dto = emptySet<PropertyInfoDto>()
         val domain = emptySet<PropertiesDomain>()
 
-        coEvery { dataSource.getPrices() } returns dto
+        coEvery { api.getProperties().properties } returns dto
         every { mapper.toDomain(dto) } returns domain
 
         // WHEN
-        val result = runBlocking { repository.getPrices() }
+        val result = runBlocking { repository.getProperties() }
 
         // THEN
         Assert.assertEquals(domain, result)
@@ -50,11 +48,11 @@ internal class PropertiesRepositoryTest {
         val dto = setOf<PropertyInfoDto>(mockk(), mockk(), mockk())
         val domain = setOf<PropertiesDomain>(mockk(), mockk(), mockk())
 
-        coEvery { dataSource.getPrices() } returns dto
+        coEvery { api.getProperties().properties } returns dto
         every { mapper.toDomain(dto) } returns domain
 
         // WHEN
-        val result = runBlocking { repository.getPrices() }
+        val result = runBlocking { repository.getProperties() }
 
         // THEN
         Assert.assertEquals(domain, result)

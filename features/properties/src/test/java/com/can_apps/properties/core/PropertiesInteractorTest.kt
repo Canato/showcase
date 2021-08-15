@@ -27,7 +27,7 @@ internal class PropertiesInteractorTest {
         val domain = emptySet<PropertiesDomain>()
         val expected = null
 
-        coEvery { repository.getPrices() } returns domain
+        coEvery { repository.getProperties() } returns domain
 
         // WHEN
         val result = runBlocking { interactor.getAverage() }
@@ -47,7 +47,7 @@ internal class PropertiesInteractorTest {
         )
         val expected = PriceDomain(BigDecimal(22.25))
 
-        coEvery { repository.getPrices() } returns domain
+        coEvery { repository.getProperties() } returns domain
 
         // WHEN
         val result = runBlocking { interactor.getAverage() }

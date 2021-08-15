@@ -13,7 +13,6 @@ android {
 dependencies {
 
     implementation project(':common')
-    implementation project(':data_source:properties_data_source')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 

@@ -20,6 +20,6 @@ internal interface PropertiesContract {
     }
 
     interface Repository {
-        suspend fun getPrices(): Set<PropertiesDomain>
+        suspend fun getProperties(): Set<PropertiesDomain>
     }
 }

@@ -1,4 +1,4 @@
-package com.can_apps.average_data_source
+package com.can_apps.properties.data
 
 import com.google.gson.annotations.SerializedName
 
