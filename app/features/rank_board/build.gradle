@@ -8,6 +8,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.can_apps.rank_board'
 }
 
 dependencies {

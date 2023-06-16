@@ -14,5 +14,7 @@ data class PropertyInfoDto(
     val price: PriceDto,
 )
 
-inline class IdDto(val value: Int)
-inline class PriceDto(val value: Float)
+@JvmInline
+value class IdDto(val value: Int)
+@JvmInline
+value class PriceDto(val value: Float)

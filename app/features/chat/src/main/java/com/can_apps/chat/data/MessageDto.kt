@@ -15,10 +15,14 @@ data class MessageDto(
     val hasTail: MessageTailDto
 )
 
-inline class MessageIdDto(val value: Long)
-inline class MessageTextDto(val value: String)
-inline class MessageTimestampDto(val value: Long)
-inline class MessageTailDto(val value: Boolean)
+@JvmInline
+value class MessageIdDto(val value: Long)
+@JvmInline
+value class MessageTextDto(val value: String)
+@JvmInline
+value class MessageTimestampDto(val value: Long)
+@JvmInline
+value class MessageTailDto(val value: Boolean)
 enum class MessageHolderEnumDto(val value: String) {
     MY("my"),
     OTHER("other");
@@ -26,6 +30,6 @@ enum class MessageHolderEnumDto(val value: String) {
     companion object {
 
         fun fromString(string: String): MessageHolderEnumDto? =
-            values().find { string.toLowerCase(Locale.getDefault()) == it.value }
+            values().find { string.lowercase(Locale.getDefault()) == it.value }
     }
 }

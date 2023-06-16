@@ -9,5 +9,7 @@ data class HomeFeatModel(
     val detLink: HomeDestLinkModel
 )
 
-inline class HomeTitleModel(val value: String)
-inline class HomeDestLinkModel(val value: Int)
+@JvmInline
+value class HomeTitleModel(val value: String)
+@JvmInline
+value class HomeDestLinkModel(val value: Int)

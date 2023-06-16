@@ -5,6 +5,7 @@ import com.can_apps.common.coroutines.CommonCoroutineDispatcherFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.asFlow
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+@OptIn(ObsoleteCoroutinesApi::class)
 internal class ChatPresenter(
     private val interactor: ChatContract.Interactor,
     private val dispatcher: CommonCoroutineDispatcherFactory,
@@ -25,6 +27,7 @@ internal class ChatPresenter(
 
     override val coroutineContext: CoroutineContext
         get() = dispatcher.UI + job
+
 
     private val channel = BroadcastChannel<ChatMessageTextModel>(Channel.CONFLATED)
 
@@ -47,7 +50,7 @@ internal class ChatPresenter(
 
     override fun onSendMessage(message: ChatMessageTextModel) {
         if (message.value.isNotBlank()) {
-            channel.offer(message)
+            channel.trySend(message)
             saveMessage(message)
             view?.showTextAnimation(message)
         }

@@ -19,12 +19,12 @@ internal class RankInteractor(
         get() = dispatcher.IO + job
 
     override suspend fun getInitialState(): RankDomain {
-        val profiles = coroutineScope { async(dispatcher.IO) { repository.getProfiles() } }
+        val profiles = repository.getProfiles()
         val dayOfWeek = calendarWrapper.getDayOfWeek()
 
         val resetTime = RankResetTimeDomain(9 - dayOfWeek) // Resets on Mondays
 
-        return if (profiles.await().isEmpty()) RankDomain.Empty
-        else RankDomain.Valid(profiles.await(), resetTime)
+        return if (profiles.isEmpty()) RankDomain.Empty
+        else RankDomain.Valid(profiles, resetTime)
     }
 }

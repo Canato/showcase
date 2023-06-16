@@ -9,7 +9,8 @@ internal data class HomeFeatDomain(
     val destLink: HomeDestLinkDomain
 )
 
-internal inline class HomeDestLinkDomain(val value: Int)
+@JvmInline
+internal value class HomeDestLinkDomain(val value: Int)
 internal enum class HomeEnumDomain {
     RANK,
     CHAT,

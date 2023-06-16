@@ -15,5 +15,7 @@ sealed class RankModel {
     ) : RankModel()
 }
 
-inline class RankXpModel(val value: String)
-inline class RankUsernameModel(val value: String)
+@JvmInline
+value class RankXpModel(val value: String)
+@JvmInline
+value class RankUsernameModel(val value: String)

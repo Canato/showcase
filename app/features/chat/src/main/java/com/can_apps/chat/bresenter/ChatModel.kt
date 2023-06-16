@@ -31,5 +31,7 @@ sealed class ChatMessageModel {
     ) : ChatMessageModel()
 }
 
-inline class ChatMessageIdModel(val value: Long)
-inline class ChatMessageTextModel(val value: String)
+@JvmInline
+value class ChatMessageIdModel(val value: Long)
+@JvmInline
+value class ChatMessageTextModel(val value: String)

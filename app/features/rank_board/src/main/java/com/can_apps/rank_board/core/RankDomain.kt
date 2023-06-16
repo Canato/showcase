@@ -16,7 +16,11 @@ internal data class RankProfileDomain(
     val isCurrentUser: RankCurrentUserDomain
 )
 
-internal inline class RankUsernameDomain(val value: String)
-internal inline class RankXpDomain(val value: Long)
-internal inline class RankCurrentUserDomain(val value: Boolean)
-internal inline class RankResetTimeDomain(val value: Int)
+@JvmInline
+internal value class RankUsernameDomain(val value: String)
+@JvmInline
+internal value class RankXpDomain(val value: Long)
+@JvmInline
+internal value class RankCurrentUserDomain(val value: Boolean)
+@JvmInline
+internal value class RankResetTimeDomain(val value: Int)

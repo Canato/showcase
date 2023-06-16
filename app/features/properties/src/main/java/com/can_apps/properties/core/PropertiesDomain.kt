@@ -7,5 +7,7 @@ internal data class PropertiesDomain(
     val price: PriceDomain,
 )
 
-internal inline class IdDomain(val value: Int)
-internal inline class PriceDomain(val value: BigDecimal)
+@JvmInline
+internal value class IdDomain(val value: Int)
+@JvmInline
+internal value class PriceDomain(val value: BigDecimal)

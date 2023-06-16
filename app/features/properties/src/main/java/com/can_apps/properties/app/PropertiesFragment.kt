@@ -40,7 +40,7 @@ class PropertiesFragment : Fragment(), PropertiesContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            context?.let { TransitionInflater.from(it).inflateTransition(android.R.transition.move) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

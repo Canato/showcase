@@ -1,6 +1,7 @@
 package com.can_apps.rank_board.app
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +45,7 @@ class RankFragment : Fragment(), RankContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            context?.let { TransitionInflater.from(it).inflateTransition(android.R.transition.move) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,7 +68,9 @@ class RankFragment : Fragment(), RankContract.View {
 
     private fun setupAnimations() {
         binding.rankLayout.apply {
-            transitionName = args.transitionNameArg
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                transitionName = args.transitionNameArg
+            }
         }
     }
 

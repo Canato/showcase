@@ -15,10 +15,15 @@ internal data class ChatDomain(
     val hasTail: ChatMessageTailDomain
 )
 
-internal inline class ChatMessageIdDomain(val value: Long)
-internal inline class ChatMessageTextDomain(val value: String)
-internal inline class ChatMessageTimestampDomain(val value: Long)
-internal inline class ChatMessageTailDomain(val value: Boolean)
+@JvmInline
+internal value class ChatMessageIdDomain(val value: Long)
+@JvmInline
+internal value class ChatMessageTextDomain(val value: String)
+@JvmInline
+internal value class ChatMessageTimestampDomain(val value: Long)
+@JvmInline
+internal value class ChatMessageTailDomain(val value: Boolean)
+
 internal enum class ChatMessageHolderEnumDomain(val value: String) {
     MY("my"),
     OTHER("other"),
@@ -27,6 +32,6 @@ internal enum class ChatMessageHolderEnumDomain(val value: String) {
     companion object {
 
         fun fromString(string: String): ChatMessageHolderEnumDomain? =
-            values().find { string.toLowerCase(Locale.getDefault()) == it.value }
+            values().find { string.lowercase(Locale.getDefault()) == it.value }
     }
 }
